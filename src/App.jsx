@@ -101,6 +101,12 @@ const projects = [
     visual: 'kabul',
   },
   {
+    title: 'Kabul Journal',
+    category: 'Editorial Website',
+    description: 'A story-led publishing concept with calm editorial pacing, article collections, and culture-focused presentation.',
+    visual: 'journal',
+  },
+  {
     title: 'Akhtari Family Daycare',
     category: 'Family / Childcare Website',
     description: 'A US-based daycare website direction focused on parent trust, warmth, clarity, and calm digital management.',
@@ -117,6 +123,24 @@ const projects = [
     category: 'Digital Opportunity Platform',
     description: 'A platform concept for Afghan opportunities, access, growth, discovery, and digital visibility.',
     visual: 'forsat',
+  },
+  {
+    title: 'GOLD NGO',
+    category: 'Nonprofit Organization Website',
+    description: 'A civic website direction for Great Organization for Learning and Development, focused on education, health, nutrition, and livelihood work in Afghanistan.',
+    visual: 'gold',
+  },
+  {
+    title: 'Snooker Club System',
+    category: 'Club Management Platform',
+    description: 'A management system concept for bookings, tables, members, payments, staff, reports, and daily club operations.',
+    visual: 'snooker',
+  },
+  {
+    title: 'Dental Clinic Management',
+    category: 'Healthcare Management System',
+    description: 'A clinic operations concept for appointments, patients, treatment plans, billing, reminders, and front-desk workflows.',
+    visual: 'dental',
   },
 ]
 
@@ -477,7 +501,7 @@ function FeaturedWork() {
       title="Project worlds, not static thumbnails."
       intro="Each preview is a designed interface composition: honest, stylized, animated, and ready to evolve into a full case study."
     >
-      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+      <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {projects.map((project, index) => (
           <ProjectCard key={project.title} project={project} index={index} />
         ))}
@@ -495,13 +519,13 @@ function ProjectCard({ project, index }) {
       transition={{ type: 'spring', stiffness: 92, damping: 20, delay: index * 0.04 }}
       whileHover={{ y: -8, scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
-      className="group overflow-hidden rounded-[2.2rem] border border-white/10 bg-[#101621] shadow-[0_24px_80px_rgba(0,0,0,0.26)]"
+      className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#101621] shadow-[0_18px_60px_rgba(0,0,0,0.24)]"
     >
       <ProjectVisual type={project.visual} />
-      <div className="p-6 sm:p-7">
-        <p className="text-sm font-semibold text-[#9bbdff]">{project.category}</p>
-        <h3 className="mt-3 text-3xl font-semibold text-white">{project.title}</h3>
-        <p className="mt-4 leading-7 text-white/58">{project.description}</p>
+      <div className="p-5 sm:p-6">
+        <p className="text-xs font-semibold uppercase text-[#9bbdff]">{project.category}</p>
+        <h3 className="mt-3 text-2xl font-semibold text-white">{project.title}</h3>
+        <p className="mt-3 text-sm leading-6 text-white/58">{project.description}</p>
       </div>
     </motion.article>
   )
@@ -510,13 +534,17 @@ function ProjectCard({ project, index }) {
 function ProjectVisual({ type }) {
   const map = {
     kabul: <KabulTimesVisual />,
+    journal: <JournalVisual />,
     daycare: <DaycareVisual />,
     zhandark: <ZhandarkVisual />,
     forsat: <ForsatVisual />,
+    gold: <GoldVisual />,
+    snooker: <SnookerVisual />,
+    dental: <DentalVisual />,
   }
 
   return (
-    <div className="relative min-h-72 overflow-hidden bg-[radial-gradient(circle_at_18%_12%,rgba(79,140,255,0.28),transparent_32%),radial-gradient(circle_at_86%_16%,rgba(255,43,93,0.18),transparent_28%),linear-gradient(135deg,#111927,#080a0f)] p-4">
+    <div className="relative min-h-60 overflow-hidden bg-[radial-gradient(circle_at_18%_12%,rgba(79,140,255,0.28),transparent_32%),radial-gradient(circle_at_86%_16%,rgba(255,43,93,0.18),transparent_28%),linear-gradient(135deg,#111927,#080a0f)] p-3 sm:p-4">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[length:28px_28px]" />
       <motion.div
         aria-hidden="true"
@@ -676,6 +704,201 @@ function ForsatVisual() {
             </div>
           </motion.div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+function JournalVisual() {
+  return (
+    <div className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,#f4efe8,#dce7f7)] p-4 text-[#121926] shadow-2xl shadow-black/20">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className="text-2xl font-semibold">Kabul Journal</p>
+          <p className="text-xs text-[#5f6877]">Stories, culture, perspective</p>
+        </div>
+        <motion.span
+          animate={{ scale: [1, 1.12, 1] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="h-11 w-11 rounded-full bg-[radial-gradient(circle,#ff375f_0_34%,#315f95_36%_62%,transparent_64%)]"
+        />
+      </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-[0.82fr_1.18fr]">
+        <div className="rounded-[1.25rem] border border-[#c8d2df] bg-white/70 p-3">
+          <div className="h-28 rounded-[1rem] bg-[linear-gradient(135deg,#172235,#6d7c91)]" />
+          <div className="mt-4 space-y-2">
+            <div className="h-3 rounded-full bg-[#121926]/26" />
+            <div className="h-3 w-2/3 rounded-full bg-[#121926]/16" />
+          </div>
+        </div>
+        <div className="space-y-3">
+          {['Feature Essay', 'Photo Story', 'City Notes'].map((item, index) => (
+            <motion.div
+              key={item}
+              animate={{ x: [0, index % 2 ? 5 : -5, 0] }}
+              transition={{ duration: 4.8 + index, repeat: Infinity, ease: 'easeInOut' }}
+              className="rounded-[1.15rem] border border-[#c8d2df] bg-white/58 p-3"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#315f95]">{item}</span>
+                <span className="h-2 w-2 rounded-full bg-[#ff375f]" />
+              </div>
+              <div className="mt-3 h-2 rounded-full bg-[#121926]/18" />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function GoldVisual() {
+  return (
+    <div className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,#09221e,#153e36_48%,#1f4c68)] p-4 text-white shadow-2xl shadow-black/20">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-2xl font-semibold">GOLD</p>
+          <p className="mt-1 text-xs text-white/58">Learning and development</p>
+        </div>
+        <motion.div
+          animate={{ y: [0, -5, 0], rotate: [0, 4, 0] }}
+          transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative h-14 w-14 rounded-2xl border border-white/16 bg-white/10"
+        >
+          <span className="absolute left-1/2 top-3 h-8 w-1 -translate-x-1/2 rounded-full bg-[#b8d94f]" />
+          <span className="absolute bottom-3 left-3 h-5 w-8 rounded-full border border-[#79b7ff]" />
+        </motion.div>
+      </div>
+      <div className="mt-6 grid grid-cols-2 gap-3">
+        {[
+          ['Health', '72%'],
+          ['Education', '58%'],
+          ['Nutrition', '64%'],
+          ['Livelihoods', '49%'],
+        ].map(([label, width], index) => (
+          <motion.div
+            key={label}
+            animate={{ y: [0, index % 2 ? 4 : -4, 0] }}
+            transition={{ duration: 5 + index * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+            className="rounded-[1.2rem] border border-white/10 bg-white/[0.075] p-3"
+          >
+            <span className="text-sm font-semibold">{label}</span>
+            <div className="mt-4 h-2 rounded-full bg-white/12">
+              <motion.div
+                animate={{ width: ['36%', width, '36%'] }}
+                transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
+                className="h-full rounded-full bg-[linear-gradient(90deg,#b8d94f,#79b7ff)]"
+              />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <div className="mt-3 rounded-[1.25rem] border border-white/10 bg-white/[0.06] p-3">
+        <div className="h-3 w-3/4 rounded-full bg-white/28" />
+        <div className="mt-2 h-2 w-1/2 rounded-full bg-white/14" />
+      </div>
+    </div>
+  )
+}
+
+function SnookerVisual() {
+  return (
+    <div className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,#07111e,#0b1a2d)] p-4 text-white shadow-2xl shadow-black/20">
+      <div className="flex items-center justify-between">
+        <p className="text-2xl font-semibold">Club OS</p>
+        <span className="rounded-full bg-[#2fcf6f]/16 px-3 py-2 text-xs font-semibold text-[#85f0ad]">Live tables</span>
+      </div>
+      <div className="mt-5 grid grid-cols-3 gap-2">
+        {['Bookings', 'Members', 'Revenue'].map((item, index) => (
+          <motion.div
+            key={item}
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 4 + index * 0.45, repeat: Infinity, ease: 'easeInOut' }}
+            className="rounded-[1.05rem] border border-white/10 bg-white/[0.065] p-3"
+          >
+            <div className={`h-8 w-8 rounded-xl ${index === 0 ? 'bg-[#4f8cff]' : index === 1 ? 'bg-[#2fcf6f]' : 'bg-[#ffb13b]'}`} />
+            <div className="mt-3 h-2 rounded-full bg-white/28" />
+            <div className="mt-2 h-2 w-1/2 rounded-full bg-white/12" />
+          </motion.div>
+        ))}
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-[1.15fr_0.85fr]">
+        <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.055] p-4">
+          <motion.div
+            animate={{ scaleX: [0.72, 1, 0.72] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="h-24 origin-left rounded-2xl bg-[linear-gradient(135deg,#174d35,#2fcf6f)]"
+          />
+          <div className="mt-3 h-2 rounded-full bg-[#4f8cff]/55" />
+        </div>
+        <div className="space-y-2">
+          {['Table 1', 'Table 2', 'Table 3'].map((item, index) => (
+            <div key={item} className="flex items-center justify-between rounded-2xl bg-white/[0.07] px-3 py-2 text-xs">
+              <span>{item}</span>
+              <span className={index === 2 ? 'text-[#ff6b8b]' : 'text-[#85f0ad]'}>{index === 2 ? 'Booked' : 'Open'}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DentalVisual() {
+  return (
+    <div className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,#edf7ff,#ffffff)] p-4 text-[#102033] shadow-2xl shadow-black/20">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className="text-2xl font-semibold">Dental Clinic</p>
+          <p className="text-xs text-[#627289]">Appointments and care flows</p>
+        </div>
+        <motion.div
+          animate={{ boxShadow: ['0 0 0 rgba(79,140,255,0)', '0 0 32px rgba(79,140,255,0.28)', '0 0 0 rgba(79,140,255,0)'] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e4f0ff]"
+        >
+          <span className="h-8 w-6 rounded-b-2xl rounded-t-xl border-2 border-[#4f8cff] bg-white" />
+        </motion.div>
+      </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-[0.92fr_1.08fr]">
+        <div className="rounded-[1.25rem] border border-[#d5e3f3] bg-white p-3 shadow-lg shadow-[#4f8cff]/10">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#4f8cff]">Today</span>
+          <div className="mt-4 space-y-3">
+            {['10:00', '11:30', '02:15'].map((time, index) => (
+              <motion.div
+                key={time}
+                animate={{ x: [0, index % 2 ? 4 : -4, 0] }}
+                transition={{ duration: 4.4 + index, repeat: Infinity, ease: 'easeInOut' }}
+                className="rounded-2xl bg-[#f2f7fd] p-3"
+              >
+                <div className="flex items-center justify-between text-xs font-semibold">
+                  <span>{time}</span>
+                  <span className="text-[#35a66a]">Confirmed</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-[1.25rem] border border-[#d5e3f3] bg-[#102033] p-4 text-white">
+          <p className="text-sm font-semibold text-[#9bbdff]">Treatment pipeline</p>
+          <div className="mt-5 space-y-3">
+            {['Checkup', 'X-ray', 'Billing'].map((item, index) => (
+              <div key={item}>
+                <div className="mb-2 flex justify-between text-xs text-white/64">
+                  <span>{item}</span>
+                  <span>{58 + index * 14}%</span>
+                </div>
+                <div className="h-2 rounded-full bg-white/12">
+                  <motion.div
+                    animate={{ width: [`${42 + index * 10}%`, `${58 + index * 14}%`, `${42 + index * 10}%`] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                    className="h-full rounded-full bg-[linear-gradient(90deg,#4f8cff,#73e2ff)]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
