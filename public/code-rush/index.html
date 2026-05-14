@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Rush / CodeTap | Naqsh Digital Studio</title>
+    <meta
+      name="description"
+      content="Play Code Rush and CodeTap by Naqsh Digital Studio. Test your coding speed, accuracy, and beginner programming knowledge, then share your score."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://naqsh.dev/code-rush/" />
+    <meta property="og:title" content="Code Rush / CodeTap by Naqsh Digital Studio" />
+    <meta property="og:description" content="Can you beat my coding score? Play the Naqsh mini-game." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://naqsh.dev/code-rush/" />
+    <meta property="og:image" content="https://naqsh.dev/naqsh-social-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Code Rush / CodeTap by Naqsh Digital Studio" />
+    <meta name="twitter:description" content="A fast programming mini-game for students and beginner developers." />
+    <meta name="twitter:image" content="https://naqsh.dev/naqsh-social-preview.png" />
+    <link rel="icon" type="image/jpeg" href="/naqsh-icon.jpeg" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="matrix" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Naqsh Digital Studio home">
+        <img src="/naqsh-icon.jpeg" alt="Naqsh Digital Studio mark" />
+        <span>
+          <strong>Naqsh</strong>
+          <small>Digital Studio</small>
+        </span>
+      </a>
+
+      <div class="top-actions" aria-label="Game settings">
+        <div class="switcher" role="group" aria-label="Language">
+          <button class="chip is-active" type="button" data-lang-button="en">EN</button>
+          <button class="chip" type="button" data-lang-button="fa">دری</button>
+        </div>
+        <div class="switcher" role="group" aria-label="Game mode">
+          <button class="chip is-active" type="button" data-mode-button="rush">Code Rush</button>
+          <button class="chip" type="button" data-mode-button="tap">CodeTap</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">Naqsh Mini Game</p>
+          <h1>
+            <span data-i18n="heroTitleA">Code fast.</span>
+            <span data-i18n="heroTitleB">Think faster.</span>
+          </h1>
+          <p class="hero-text" data-i18n="heroText">
+            A tiny coding challenge built for students, beginner programmers, and anyone who wants to test their developer reflexes.
+          </p>
+        </div>
+
+        <div class="terminal-card" aria-label="Game status">
+          <div class="terminal-bar">
+            <span></span><span></span><span></span>
+            <code>naqsh.dev/code-rush</code>
+          </div>
+          <div class="terminal-body">
+            <p><span>$</span> <span data-i18n="terminalLine1">booting Naqsh challenge...</span></p>
+            <p><span>$</span> <span data-i18n="terminalLine2">mode detected:</span> <strong id="detectedMode">Code Rush</strong></p>
+            <p><span>$</span> <span data-i18n="terminalLine3">best score:</span> <strong id="bestScore">0</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-card" aria-live="polite">
+        <div id="screenStart" class="screen is-active">
+          <div class="screen-grid">
+            <div>
+              <p class="eyebrow" id="modeEyebrow">Code Rush</p>
+              <h2 id="startTitle">Typing speed for code.</h2>
+              <p id="startDescription" class="muted">
+                Type snippets quickly and accurately. Finish as many as you can before the timer hits zero.
+              </p>
+              <button id="startBtn" class="primary-btn" type="button">
+                <span data-i18n="startGame">Start Game</span>
+                <span aria-hidden="true">↵</span>
+              </button>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat">
+                <span data-i18n="bestOnDevice">Best Score on this device</span>
+                <strong id="bestScoreCard">0</strong>
+              </div>
+              <div class="stat">
+                <span data-i18n="levelRange">Levels</span>
+                <strong>Easy → Hard</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="screenRush" class="screen">
+          <div class="hud">
+            <div><span data-i18n="timer">Timer</span><strong id="rushTime">60</strong></div>
+            <div><span data-i18n="accuracy">Accuracy</span><strong id="rushAccuracy">100%</strong></div>
+            <div><span data-i18n="score">Score</span><strong id="rushScore">0</strong></div>
+            <div><span data-i18n="level">Level</span><strong id="rushLevel">Easy</strong></div>
+          </div>
+
+          <div class="progress"><span id="rushProgress"></span></div>
+
+          <div class="typing-layout">
+            <pre id="snippetBox" class="code-box" aria-label="Code snippet"></pre>
+            <textarea
+              id="typingInput"
+              class="typing-input"
+              spellcheck="false"
+              autocomplete="off"
+              autocapitalize="off"
+              data-i18n-placeholder="typingPlaceholder"
+              placeholder="Type the snippet here..."
+            ></textarea>
+          </div>
+
+          <div class="game-actions">
+            <button class="ghost-btn" type="button" data-stop-game data-i18n="finishNow">Finish Now</button>
+          </div>
+        </div>
+
+        <div id="screenTap" class="screen">
+          <div class="hud">
+            <div><span data-i18n="timer">Timer</span><strong id="tapTime">45</strong></div>
+            <div><span data-i18n="correct">Correct</span><strong id="tapCorrect">0</strong></div>
+            <div><span data-i18n="score">Score</span><strong id="tapScore">0</strong></div>
+            <div><span data-i18n="level">Level</span><strong id="tapLevel">Easy</strong></div>
+          </div>
+
+          <div class="progress"><span id="tapProgress"></span></div>
+
+          <article class="question-card">
+            <p id="questionMeta" class="eyebrow">Question 1 / 15</p>
+            <h2 id="questionText">Question text</h2>
+            <div id="answerGrid" class="answers"></div>
+            <p id="answerFeedback" class="feedback"></p>
+          </article>
+
+          <div class="game-actions">
+            <button class="ghost-btn" type="button" data-stop-game data-i18n="finishNow">Finish Now</button>
+          </div>
+        </div>
+
+        <div id="screenResult" class="screen">
+          <div class="result-grid">
+            <div>
+              <p class="eyebrow" id="resultMode">Code Rush</p>
+              <h2 data-i18n="resultTitle">Your result is ready.</h2>
+              <p class="muted" id="resultSummary">You scored 0.</p>
+            </div>
+            <div class="score-orb">
+              <span data-i18n="score">Score</span>
+              <strong id="finalScore">0</strong>
+            </div>
+          </div>
+
+          <div class="share-card">
+            <p class="eyebrow" data-i18n="shareTitle">Challenge your friends</p>
+            <p id="shareText" class="share-text"></p>
+            <div class="share-actions">
+              <a id="facebookShare" class="share-btn" target="_blank" rel="noreferrer">Facebook</a>
+              <a id="whatsappShare" class="share-btn" target="_blank" rel="noreferrer">WhatsApp</a>
+              <button id="copyResult" class="share-btn" type="button" data-i18n="copyResult">Copy result</button>
+              <button id="copyInstagram" class="share-btn" type="button" data-i18n="copyInstagram">Copy Instagram caption</button>
+            </div>
+          </div>
+
+          <div class="game-actions">
+            <button id="playAgain" class="primary-btn" type="button" data-i18n="playAgain">Play Again</button>
+            <button id="backStart" class="ghost-btn" type="button" data-i18n="backToStart">Back to Start</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="future-section">
+        <div>
+          <p class="eyebrow" data-i18n="futureEyebrow">Coming next</p>
+          <h2 data-i18n="futureTitle">More mini-games for developers.</h2>
+        </div>
+        <div class="future-grid">
+          <article>Bug Hunt</article>
+          <article>Guess the Output</article>
+          <article>Terminal Escape</article>
+          <article>CSS Battle</article>
+          <article>Regex Nightmare</article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
