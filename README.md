@@ -1,6 +1,8 @@
 # Naqsh Digital Studio
 
-Premium static landing page for Naqsh Digital Studio, a Kabul-based creative-tech studio serving local and global clients.
+Premium static landing page for Naqsh Digital Studio, a Kabul-born creative-tech studio serving local and global clients.
+
+The current design is a bright, mobile-first studio website with warm ivory backgrounds, refined typography, subtle pattern details, service cards, featured work placeholders, process steps, contact links, and SEO metadata for `naqsh.dev`.
 
 ## Stack
 
@@ -10,6 +12,17 @@ Premium static landing page for Naqsh Digital Studio, a Kabul-based creative-tec
 - Framer Motion
 - Lucide React icons
 - GitHub Pages deployment
+
+## SEO
+
+The site includes:
+
+- Canonical URL for `https://naqsh.dev/`
+- Open Graph and Twitter/X card metadata
+- JSON-LD for Organization, ProfessionalService, and WebSite
+- `robots.txt`
+- `sitemap.xml`
+- 1200x630 social preview image at `public/naqsh-social-preview.png`
 
 ## Local Development
 

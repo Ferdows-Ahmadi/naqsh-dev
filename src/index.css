@@ -16,12 +16,13 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #05070d;
+  background: #fbf7ef;
+  color: #26221e;
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.3);
-  color: #ffffff;
+  background: rgba(201, 169, 90, 0.28);
+  color: #211d19;
 }
 
 a {
@@ -31,4 +32,8 @@ a {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
 }
