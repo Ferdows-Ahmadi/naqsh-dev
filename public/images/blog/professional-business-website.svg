@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Professional business website cover</title>
+  <desc id="desc">Dark cinematic laptop illustration showing a premium business website and trust markers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111822"/>
+      <stop offset=".52" stop-color="#080b12"/>
+      <stop offset="1" stop-color="#10223d"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111f33"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1060" cy="100" r="170" fill="#4f8cff" opacity=".12"/>
+  <circle cx="140" cy="520" r="160" fill="#ff2b5d" opacity=".06"/>
+  <rect x="250" y="110" width="700" height="410" rx="30" fill="#05070c" stroke="#748197" stroke-width="3"/>
+  <rect x="285" y="145" width="630" height="330" rx="10" fill="url(#screen)"/>
+  <rect x="285" y="145" width="630" height="64" rx="10" fill="#0d1724"/>
+  <circle cx="318" cy="177" r="7" fill="#b9d0ff"/>
+  <circle cx="344" cy="177" r="7" fill="#9bbdff"/>
+  <circle cx="370" cy="177" r="7" fill="#7aa7ff"/>
+  <text x="350" y="268" fill="#4f8cff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">BUILDING DIGITAL</text>
+  <text x="350" y="318" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900">EXPERIENCES</text>
+  <text x="350" y="368" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900">THAT GROW</text>
+  <text x="350" y="418" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900">BUSINESSES</text>
+  <rect x="350" y="448" width="115" height="46" rx="8" fill="#1d6dff"/>
+  <text x="376" y="478" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">START</text>
+  <path d="M640 270 805 190l110 285H640z" fill="#16345d"/>
+  <path d="M660 322 780 230l118 245H660z" fill="#254a7a" opacity=".72"/>
+  <rect x="540" y="405" width="370" height="94" rx="12" fill="#f2f6ff"/>
+  <g fill="#0d2b5a" font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="610" y="452" font-size="18" font-weight="800">TRUST</text>
+    <text x="725" y="452" font-size="18" font-weight="800">RESULTS</text>
+    <text x="840" y="452" font-size="18" font-weight="800">MOBILE</text>
+  </g>
+  <g fill="none" stroke="#1d4f9a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M610 425l-22-10-22 10v28c12 14 28 20 44 22 16-2 32-8 44-22v-28z" transform="scale(.55) translate(610 360)"/>
+    <path d="M697 431h18v36h-18zM723 412h18v55h-18zM749 394h18v73h-18z" transform="scale(.7) translate(270 170)"/>
+    <rect x="815" y="422" width="34" height="44" rx="4"/>
+    <path d="M856 462h18"/>
+  </g>
+  <path d="M230 520h740l82 58H148z" fill="#202a37"/>
+  <path d="M315 524h570l48 26H268z" fill="#344050" opacity=".78"/>
+  <g fill="none" stroke="#4f8cff" stroke-width="5" opacity=".75">
+    <rect x="72" y="120" width="150" height="120" rx="14"/>
+    <path d="M98 210l45-50 42 38 24-24"/>
+    <rect x="83" y="278" width="185" height="92" rx="14"/>
+    <path d="M118 326h34m18 0h34m18 0h20"/>
+    <path d="M1000 120h75v130h-75zM1018 142h39M1018 175h39M1018 208h26"/>
+    <circle cx="1035" cy="342" r="52"/>
+    <path d="M1008 342h27l24-31"/>
+  </g>
+  <text x="76" y="520" fill="#dfe9f7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Good design builds trust.</text>
+</svg>

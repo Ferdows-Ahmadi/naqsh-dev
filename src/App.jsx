@@ -215,11 +215,36 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <BlogBubble />
       <GameBubble />
       <AnimatePresence>
         {!hasStorageConsent ? <StorageConsent onAccept={acceptStorage} /> : null}
       </AnimatePresence>
     </div>
+  )
+}
+
+function BlogBubble() {
+  return (
+    <motion.a
+      href="/blog/"
+      aria-label="Read tech insights from Naqsh"
+      title="Read tech insights from Naqsh"
+      initial={{ opacity: 0, y: 18, scale: 0.94 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileHover={{ y: -3, scale: 1.03 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: 'spring', stiffness: 190, damping: 18, delay: 0.04 }}
+      className="group fixed right-4 bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] z-[65] inline-flex items-center gap-3 rounded-full border border-[#7aa7ff]/30 bg-[#0a1020]/90 px-3 py-2 text-white shadow-[0_18px_60px_rgba(79,140,255,0.18)] backdrop-blur-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7aa7ff] sm:right-6 sm:bottom-[5.5rem]"
+    >
+      <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,#9bbdff,#8d7cff)] text-sm font-black text-[#070a12] shadow-[0_0_26px_rgba(122,167,255,0.32)] before:absolute before:inset-0 before:rounded-full before:animate-ping before:bg-[#7aa7ff]/15">
+        ✦
+      </span>
+      <span className="leading-tight">
+        <span className="block text-xs font-semibold text-white/55">Blog</span>
+        <span className="block text-sm font-bold text-white">Latest Insight</span>
+      </span>
+    </motion.a>
   )
 }
 
@@ -466,41 +491,9 @@ function Hero() {
               Explore Our Work
             </MagneticLink>
           </motion.div>
-          <LatestInsightCard />
         </motion.div>
       </div>
     </section>
-  )
-}
-
-function LatestInsightCard() {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 22, filter: 'blur(8px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ type: 'spring', stiffness: 76, damping: 20, delay: 0.52 }}
-      className="mt-7 max-w-xl overflow-hidden rounded-[1.65rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.24)] backdrop-blur-2xl sm:p-5"
-    >
-      <div className="flex items-start gap-4">
-        <div className="mt-1 h-12 w-12 shrink-0 rounded-2xl border border-[#4f8cff]/20 bg-[radial-gradient(circle_at_30%_20%,rgba(79,140,255,0.42),transparent_55%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,31,79,0.08))]" />
-        <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9bbdff]">Latest Insight</p>
-          <h2 className="mt-2 text-xl font-semibold leading-snug text-white sm:text-2xl">
-            Why Every Student Developer Needs a Portfolio Website
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-white/58">
-            A short guide on how a simple personal website can help students show skills, projects, and credibility.
-          </p>
-          <a
-            href="/blog/why-every-student-developer-needs-a-portfolio/"
-            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-4 text-sm font-semibold text-white transition hover:border-[#4f8cff]/45 hover:bg-white/[0.09] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]"
-          >
-            Read Article
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-      </div>
-    </motion.article>
   )
 }
 

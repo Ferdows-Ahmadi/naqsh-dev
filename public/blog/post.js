@@ -8,6 +8,16 @@ function shareText() {
   return `${post.title} - ${window.location.href}`
 }
 
+function heroImageMarkup() {
+  if (!post.image) return `<div class="article-cover visual ${post.gradient || 'blue'}" aria-hidden="true"></div>`
+
+  return `
+    <figure class="article-cover visual ${post.gradient || 'blue'}">
+      <img src="${post.image}" alt="${post.imageAlt || `${post.title} article cover`}" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback')" />
+    </figure>
+  `
+}
+
 function renderNotFound() {
   document.title = 'Post not found | Naqsh Blog'
   article.innerHTML = `
@@ -45,6 +55,7 @@ function renderPost() {
         <h1>${post.title}</h1>
         <p class="subtitle">${post.excerpt}</p>
       </header>
+      ${heroImageMarkup()}
       <div class="article-content">
         ${post.content
           .map(
