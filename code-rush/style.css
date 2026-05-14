@@ -555,6 +555,65 @@ input,
   font-family: "SFMono-Regular", Consolas, monospace;
 }
 
+.storage-consent {
+  position: fixed;
+  inset-inline: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100% - 2rem, 840px);
+  margin-inline: auto;
+  padding: 1rem;
+  border: 1px solid rgba(0, 255, 136, 0.22);
+  border-radius: 22px;
+  background: rgba(5, 14, 12, 0.92);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.42), 0 0 34px rgba(0, 255, 136, 0.08);
+  backdrop-filter: blur(20px);
+}
+
+.storage-consent[hidden] {
+  display: none;
+}
+
+.storage-consent p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.storage-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.storage-actions a,
+.storage-actions button {
+  min-height: 40px;
+  border-radius: 999px;
+  padding: 0 0.95rem;
+  font-weight: 800;
+}
+
+.storage-actions a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--dim);
+}
+
+.storage-actions button {
+  border: 0;
+  background: var(--green);
+  color: #03100b;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0, 255, 136, 0.18);
+}
+
 .share-text {
   color: var(--muted);
   line-height: 1.7;
@@ -664,6 +723,15 @@ body[dir="rtl"] .terminal-bar code {
 
   .future-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .storage-consent {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .storage-actions {
+    justify-content: space-between;
   }
 }
 

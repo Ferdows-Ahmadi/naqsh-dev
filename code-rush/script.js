@@ -61,6 +61,10 @@ const i18n = {
     rewardText: 'Screenshot this result and send it to Naqsh to claim 10% off your portfolio website.',
     claimCode: 'Claim code',
     questionWord: 'Question',
+    storageText:
+      'Naqsh uses local storage to remember your language, game scores, and small preferences. No tracking cookies. No login. Just a smoother experience.',
+    acceptStorage: 'Accept',
+    learnMore: 'Learn more',
   },
   fa: {
     eyebrow: 'بازی کوچک نقش',
@@ -107,98 +111,1586 @@ const i18n = {
     rewardText: 'از این نتیجه اسکرین‌شات بگیر و برای نقش بفرست تا ۱۰٪ تخفیف ساخت وبسایت پورتفولیو دریافت کنی.',
     claimCode: 'کُد دریافت',
     questionWord: 'پرسش',
+    storageText:
+      'نقش از ذخیره‌سازی محلی برای به‌خاطر سپردن زبان، امتیاز بازی و تنظیمات کوچک استفاده می‌کند. کوکی ردیابی و ورود حساب کاربری وجود ندارد؛ فقط برای تجربه بهتر.',
+    acceptStorage: 'قبول دارم',
+    learnMore: 'بیشتر بدانید',
   },
 };
 
-const rushSnippets = [
-  { level: 'easy', title: 'Console', code: 'console.log("Hello, Naqsh!");' },
-  { level: 'easy', title: 'HTML Button', code: '<button class="btn">Start</button>' },
-  { level: 'easy', title: 'CSS Color', code: 'color: #00ff88;' },
-  { level: 'easy', title: 'Python Print', code: 'print("Code Rush")' },
-  { level: 'easy', title: 'Variable', code: 'const score = 100;' },
-  { level: 'easy', title: 'Heading', code: '<h1>Naqsh Digital Studio</h1>' },
-  { level: 'easy', title: 'Link', code: '<a href="/code-rush/">Play</a>' },
-  { level: 'easy', title: 'Boolean', code: 'let isReady = true;' },
-  { level: 'easy', title: 'Terminal List', code: 'ls -la' },
-  { level: 'easy', title: 'CSS Radius', code: 'border-radius: 16px;' },
-  { level: 'medium', title: 'Function', code: 'function add(a, b) {\n  return a + b;\n}' },
-  { level: 'medium', title: 'Array Max', code: 'const scores = [90, 75, 100];\nconst best = Math.max(...scores);' },
-  { level: 'medium', title: 'CSS Grid', code: '.cards {\n  display: grid;\n  gap: 1rem;\n}' },
-  { level: 'medium', title: 'Event', code: 'button.addEventListener("click", startGame);' },
-  { level: 'medium', title: 'Map', code: 'const names = users.map((user) => user.name);' },
-  { level: 'medium', title: 'Template', code: 'const message = `Score: ${score}`;' },
-  { level: 'medium', title: 'Python Function', code: 'def greet(name):\n    return f"Hello, {name}"' },
-  { level: 'medium', title: 'Media Query', code: '@media (max-width: 640px) {\n  body { padding: 1rem; }\n}' },
-  { level: 'medium', title: 'Git Commit', code: 'git commit -m "add code rush"' },
-  { level: 'medium', title: 'Object', code: 'const studio = { name: "Naqsh", city: "Kabul" };' },
-  { level: 'hard', title: 'Async Fetch', code: 'const data = await fetch("/api").then((res) => res.json());' },
-  { level: 'hard', title: 'Terminal Chain', code: 'git add . && git commit -m "launch" && git push' },
-  { level: 'hard', title: 'Python Loop', code: 'for index, item in enumerate(items):\n    print(index, item)' },
-  { level: 'hard', title: 'Reducer', code: 'const total = cart.reduce((sum, item) => sum + item.price, 0);' },
-  { level: 'hard', title: 'Filter', code: 'const active = users.filter((user) => user.status === "active");' },
-  { level: 'hard', title: 'Try Catch', code: 'try {\n  await saveProject(project);\n} catch (error) {\n  console.error(error);\n}' },
-  { level: 'hard', title: 'Regex', code: 'const clean = input.replace(/\\s+/g, " ").trim();' },
-  { level: 'hard', title: 'CSS Clamp', code: 'font-size: clamp(2rem, 8vw, 6rem);' },
-  { level: 'hard', title: 'Local Storage', code: 'localStorage.setItem("bestScore", String(score));' },
-  { level: 'hard', title: 'Promise All', code: 'const [profile, posts] = await Promise.all([getProfile(), getPosts()]);' },
-];
+const rushSnippetGroups = {
+  "easy": [
+    [
+      "Console Hello",
+      "console.log(\"Hello, Naqsh!\");"
+    ],
+    [
+      "HTML Button",
+      "<button class=\"btn\">Start</button>"
+    ],
+    [
+      "CSS Color",
+      "color: #00ff88;"
+    ],
+    [
+      "Python Print",
+      "print(\"Code Rush\")"
+    ],
+    [
+      "JavaScript Variable",
+      "const score = 100;"
+    ],
+    [
+      "HTML Heading",
+      "<h1>Naqsh Digital Studio</h1>"
+    ],
+    [
+      "HTML Link",
+      "<a href=\"/code-rush/\">Play</a>"
+    ],
+    [
+      "Boolean",
+      "let isReady = true;"
+    ],
+    [
+      "Terminal List",
+      "ls -la"
+    ],
+    [
+      "CSS Radius",
+      "border-radius: 16px;"
+    ],
+    [
+      "Image Alt",
+      "<img src=\"logo.png\" alt=\"Naqsh logo\">"
+    ],
+    [
+      "CSS Padding",
+      "padding: 1rem;"
+    ],
+    [
+      "Python Name",
+      "name = \"Ahmad\""
+    ],
+    [
+      "JavaScript Alert",
+      "alert(\"Game on!\");"
+    ],
+    [
+      "HTML Input",
+      "<input type=\"email\" placeholder=\"you@email.com\">"
+    ],
+    [
+      "CSS Font Size",
+      "font-size: 18px;"
+    ],
+    [
+      "Terminal Directory",
+      "pwd"
+    ],
+    [
+      "Git Status",
+      "git status"
+    ],
+    [
+      "Python List",
+      "scores = [10, 20, 30]"
+    ],
+    [
+      "JavaScript Let",
+      "let level = \"easy\";"
+    ],
+    [
+      "HTML Paragraph",
+      "<p>Build with care.</p>"
+    ],
+    [
+      "CSS Border",
+      "border: 1px solid #00ff88;"
+    ],
+    [
+      "Python Comment",
+      "# This is a comment"
+    ],
+    [
+      "JS Comment",
+      "// Keep code readable"
+    ],
+    [
+      "HTML Section",
+      "<section id=\"work\"></section>"
+    ],
+    [
+      "CSS Margin",
+      "margin: 0 auto;"
+    ],
+    [
+      "Terminal Clear",
+      "clear"
+    ],
+    [
+      "Git Add",
+      "git add index.html"
+    ],
+    [
+      "Python Boolean",
+      "is_active = True"
+    ],
+    [
+      "JavaScript Array",
+      "const tags = [\"html\", \"css\", \"js\"];"
+    ],
+    [
+      "HTML List Item",
+      "<li>Code Rush</li>"
+    ],
+    [
+      "CSS Width",
+      "width: 100%;"
+    ],
+    [
+      "Python Math",
+      "total = 7 + 5"
+    ],
+    [
+      "JS String",
+      "const studio = \"Naqsh\";"
+    ],
+    [
+      "HTML Strong",
+      "<strong>Premium</strong>"
+    ],
+    [
+      "CSS Display",
+      "display: block;"
+    ]
+  ],
+  "medium": [
+    [
+      "Function Add",
+      "function add(a, b) {\n  return a + b;\n}"
+    ],
+    [
+      "Array Max",
+      "const scores = [90, 75, 100];\nconst best = Math.max(...scores);"
+    ],
+    [
+      "CSS Grid",
+      ".cards {\n  display: grid;\n  gap: 1rem;\n}"
+    ],
+    [
+      "Click Event",
+      "button.addEventListener(\"click\", startGame);"
+    ],
+    [
+      "Array Map",
+      "const names = users.map((user) => user.name);"
+    ],
+    [
+      "Template Literal",
+      "const message = `Score: ${score}`;"
+    ],
+    [
+      "Python Function",
+      "def greet(name):\n    return f\"Hello, {name}\""
+    ],
+    [
+      "Media Query",
+      "@media (max-width: 640px) {\n  body { padding: 1rem; }\n}"
+    ],
+    [
+      "Git Commit",
+      "git commit -m \"add code rush\""
+    ],
+    [
+      "Object Literal",
+      "const studio = { name: \"Naqsh\", city: \"Kabul\" };"
+    ],
+    [
+      "Query Selector",
+      "const hero = document.querySelector(\".hero\");"
+    ],
+    [
+      "CSS Flex Center",
+      ".center {\n  display: flex;\n  align-items: center;\n}"
+    ],
+    [
+      "Python Loop",
+      "for score in scores:\n    print(score)"
+    ],
+    [
+      "Array Includes",
+      "const hasCss = skills.includes(\"CSS\");"
+    ],
+    [
+      "Git Checkout",
+      "git checkout -b feature/code-rush"
+    ],
+    [
+      "NPM Build",
+      "npm run build"
+    ],
+    [
+      "CSS Variable",
+      ":root {\n  --accent: #00ff88;\n}"
+    ],
+    [
+      "Fetch Then",
+      "fetch(\"/data.json\").then((res) => res.json());"
+    ],
+    [
+      "Python Dict",
+      "profile = {\"name\": \"Naqsh\", \"city\": \"Kabul\"}"
+    ],
+    [
+      "Set Attribute",
+      "link.setAttribute(\"aria-label\", \"Play Code Rush\");"
+    ],
+    [
+      "CSS Hover",
+      ".card:hover {\n  transform: translateY(-4px);\n}"
+    ],
+    [
+      "Filter Active",
+      "const active = users.filter((user) => user.active);"
+    ],
+    [
+      "Reduce Total",
+      "const total = prices.reduce((sum, price) => sum + price, 0);"
+    ],
+    [
+      "Python Input",
+      "username = input(\"Username: \")"
+    ],
+    [
+      "Terminal Make Dir",
+      "mkdir code-rush"
+    ],
+    [
+      "Git Remote",
+      "git remote -v"
+    ],
+    [
+      "CSS Animation",
+      "animation: pulse 2s ease-in-out infinite;"
+    ],
+    [
+      "Form Submit",
+      "form.addEventListener(\"submit\", handleSubmit);"
+    ],
+    [
+      "Destructure",
+      "const { title, category } = project;"
+    ],
+    [
+      "Python Length",
+      "count = len(projects)"
+    ],
+    [
+      "HTML Form",
+      "<form action=\"/contact\" method=\"post\"></form>"
+    ],
+    [
+      "CSS Clamp",
+      "font-size: clamp(2rem, 6vw, 5rem);"
+    ],
+    [
+      "URL Params",
+      "const params = new URLSearchParams(location.search);"
+    ],
+    [
+      "Map Join",
+      "const list = items.map((item) => item.name).join(\", \");"
+    ],
+    [
+      "Python Range",
+      "for number in range(1, 6):\n    print(number)"
+    ],
+    [
+      "Git Pull",
+      "git pull origin main"
+    ]
+  ],
+  "hard": [
+    [
+      "Async Fetch",
+      "const data = await fetch(\"/api\").then((res) => res.json());"
+    ],
+    [
+      "Terminal Chain",
+      "git add . && git commit -m \"launch\" && git push"
+    ],
+    [
+      "Python Enumerate",
+      "for index, item in enumerate(items):\n    print(index, item)"
+    ],
+    [
+      "Reducer",
+      "const total = cart.reduce((sum, item) => sum + item.price, 0);"
+    ],
+    [
+      "Filter Strict",
+      "const active = users.filter((user) => user.status === \"active\");"
+    ],
+    [
+      "Try Catch",
+      "try {\n  await saveProject(project);\n} catch (error) {\n  console.error(error);\n}"
+    ],
+    [
+      "Regex Clean",
+      "const clean = input.replace(/\\s+/g, \" \").trim();"
+    ],
+    [
+      "Local Storage",
+      "localStorage.setItem(\"bestScore\", String(score));"
+    ],
+    [
+      "Promise All",
+      "const [profile, posts] = await Promise.all([getProfile(), getPosts()]);"
+    ],
+    [
+      "CSS Supports",
+      "@supports (backdrop-filter: blur(12px)) {\n  .panel { backdrop-filter: blur(12px); }\n}"
+    ],
+    [
+      "Intersection Observer",
+      "const observer = new IntersectionObserver((entries) => {\n  entries.forEach((entry) => entry.target.classList.toggle(\"visible\", entry.isIntersecting));\n});"
+    ],
+    [
+      "Python List Comprehension",
+      "even_numbers = [n for n in numbers if n % 2 == 0]"
+    ],
+    [
+      "Optional Chaining",
+      "const city = user?.profile?.city ?? \"Kabul\";"
+    ],
+    [
+      "Debounce",
+      "const debounce = (fn, delay) => {\n  let id;\n  return (...args) => {\n    clearTimeout(id);\n    id = setTimeout(() => fn(...args), delay);\n  };\n};"
+    ],
+    [
+      "Git Rebase",
+      "git rebase origin/main"
+    ],
+    [
+      "Python Try Except",
+      "try:\n    value = int(text)\nexcept ValueError:\n    value = 0"
+    ],
+    [
+      "CSS Container",
+      "@container (min-width: 520px) {\n  .tile { grid-template-columns: 1fr 1fr; }\n}"
+    ],
+    [
+      "JSON Parse",
+      "const settings = JSON.parse(localStorage.getItem(\"settings\") || \"{}\");"
+    ],
+    [
+      "Set Timeout",
+      "const timer = setTimeout(() => showResult(score), 600);"
+    ],
+    [
+      "Array Sort",
+      "const sorted = posts.toSorted((a, b) => b.date.localeCompare(a.date));"
+    ],
+    [
+      "Python Sort Key",
+      "projects.sort(key=lambda item: item[\"score\"], reverse=True)"
+    ],
+    [
+      "ARIA Toggle",
+      "menuButton.setAttribute(\"aria-expanded\", String(isOpen));"
+    ],
+    [
+      "CSS Grid Auto",
+      "grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));"
+    ],
+    [
+      "Fetch Error",
+      "if (!response.ok) {\n  throw new Error(\"Request failed\");\n}"
+    ],
+    [
+      "URL Decode",
+      "const slug = decodeURIComponent(location.hash.slice(1));"
+    ],
+    [
+      "Python Any",
+      "has_winner = any(score >= 100 for score in scores)"
+    ],
+    [
+      "Command Find",
+      "find . -name \"*.js\" -maxdepth 3"
+    ],
+    [
+      "Git Log",
+      "git log --oneline --decorate --max-count=5"
+    ],
+    [
+      "CSS Keyframes",
+      "@keyframes glow {\n  from { opacity: .4; }\n  to { opacity: 1; }\n}"
+    ],
+    [
+      "JS Module",
+      "export function formatScore(score) {\n  return score.toLocaleString();\n}"
+    ],
+    [
+      "Python JSON",
+      "data = json.loads(raw_text)"
+    ],
+    [
+      "Event Delegation",
+      "document.addEventListener(\"click\", (event) => {\n  if (event.target.matches(\"[data-action]\")) handleAction(event);\n});"
+    ],
+    [
+      "Abort Controller",
+      "const controller = new AbortController();\nfetch(url, { signal: controller.signal });"
+    ],
+    [
+      "Regex Email",
+      "const isEmail = /^[^@]+@[^@]+\\.[^@]+$/.test(email);"
+    ],
+    [
+      "Python Set",
+      "unique_tags = set(tags)"
+    ],
+    [
+      "Git Diff",
+      "git diff -- public/code-rush/script.js"
+    ]
+  ]
+};
 
-const tapQuestions = [
-  { level: 'easy', en: 'Which HTML tag creates a link?', fa: 'کدام تگ HTML لینک می‌سازد؟', options: ['<a>', '<link-text>', '<url>', '<href>'], answer: '<a>' },
-  { level: 'easy', en: 'Which CSS property changes text color?', fa: 'کدام ویژگی CSS رنگ متن را تغییر می‌دهد؟', options: ['font-color', 'color', 'text-paint', 'background'], answer: 'color' },
-  { level: 'easy', en: 'What does console.log() do?', fa: 'console.log() چه کار می‌کند؟', options: ['Prints to console', 'Deletes a file', 'Creates CSS', 'Starts a server'], answer: 'Prints to console' },
-  { level: 'easy', en: 'Which command shows files in many terminals?', fa: 'کدام دستور در بسیاری ترمینال‌ها فایل‌ها را نشان می‌دهد؟', options: ['show', 'ls', 'open', 'files'], answer: 'ls' },
-  { level: 'easy', en: 'Python uses which keyword to define a function?', fa: 'در Python برای ساختن تابع از کدام کلمه استفاده می‌شود؟', options: ['func', 'define', 'def', 'function'], answer: 'def' },
-  { level: 'easy', en: 'Which tag creates a paragraph?', fa: 'کدام تگ یک پاراگراف می‌سازد؟', options: ['<p>', '<text>', '<para>', '<span>'], answer: '<p>' },
-  { level: 'easy', en: 'Which symbol starts a JavaScript comment?', fa: 'کدام نشانه کامنت JavaScript را شروع می‌کند؟', options: ['//', '<!--', '#', '--'], answer: '//' },
-  { level: 'easy', en: 'Which CSS property changes background color?', fa: 'کدام ویژگی CSS رنگ پس‌زمینه را تغییر می‌دهد؟', options: ['background-color', 'page-color', 'fill-page', 'bg-text'], answer: 'background-color' },
-  { level: 'easy', en: 'Which file often contains website structure?', fa: 'کدام فایل معمولاً ساختار وبسایت را دارد؟', options: ['index.html', 'style.css', 'image.png', 'notes.txt'], answer: 'index.html' },
-  { level: 'easy', en: 'Which value means true or false?', fa: 'کدام نوع مقدار درست یا نادرست است؟', options: ['Boolean', 'String', 'Pixel', 'Folder'], answer: 'Boolean' },
-  { level: 'easy', en: 'Which HTML tag displays an image?', fa: 'کدام تگ HTML تصویر نشان می‌دهد؟', options: ['<img>', '<photo>', '<pic>', '<image-box>'], answer: '<img>' },
-  { level: 'easy', en: 'Which CSS property controls spacing inside a box?', fa: 'کدام ویژگی فاصله داخل یک جعبه را کنترول می‌کند؟', options: ['padding', 'margin', 'gap', 'border'], answer: 'padding' },
-  { level: 'easy', en: 'Which command prints text in Python?', fa: 'کدام دستور در Python متن چاپ می‌کند؟', options: ['print()', 'echo()', 'say()', 'write()'], answer: 'print()' },
-  { level: 'easy', en: 'Which extension is for JavaScript files?', fa: 'پسوند فایل JavaScript کدام است؟', options: ['.js', '.css', '.html', '.jpg'], answer: '.js' },
-  { level: 'easy', en: 'Which tag is the page title in browser tabs?', fa: 'کدام تگ عنوان صفحه را در تب مرورگر نشان می‌دهد؟', options: ['<title>', '<head-title>', '<tab>', '<name>'], answer: '<title>' },
+const tapQuestionGroups = {
+  "easy": [
+    [
+      "Which HTML tag creates a link?",
+      [
+        "<a>",
+        "<link-text>",
+        "<url>",
+        "<href>"
+      ],
+      "<a>"
+    ],
+    [
+      "Which CSS property changes text color?",
+      [
+        "font-color",
+        "color",
+        "text-paint",
+        "background"
+      ],
+      "color"
+    ],
+    [
+      "What does console.log() do?",
+      [
+        "Prints to console",
+        "Deletes a file",
+        "Creates CSS",
+        "Starts a server"
+      ],
+      "Prints to console"
+    ],
+    [
+      "Which command shows files in many terminals?",
+      [
+        "show",
+        "ls",
+        "open",
+        "files"
+      ],
+      "ls"
+    ],
+    [
+      "Python uses which keyword to define a function?",
+      [
+        "func",
+        "define",
+        "def",
+        "function"
+      ],
+      "def"
+    ],
+    [
+      "Which tag creates a paragraph?",
+      [
+        "<p>",
+        "<text>",
+        "<para>",
+        "<span>"
+      ],
+      "<p>"
+    ],
+    [
+      "Which symbol starts a JavaScript comment?",
+      [
+        "//",
+        "<!--",
+        "#",
+        "--"
+      ],
+      "//"
+    ],
+    [
+      "Which CSS property changes background color?",
+      [
+        "background-color",
+        "page-color",
+        "fill-page",
+        "bg-text"
+      ],
+      "background-color"
+    ],
+    [
+      "Which file often contains website structure?",
+      [
+        "index.html",
+        "style.css",
+        "image.png",
+        "notes.txt"
+      ],
+      "index.html"
+    ],
+    [
+      "Which value means true or false?",
+      [
+        "Boolean",
+        "String",
+        "Pixel",
+        "Folder"
+      ],
+      "Boolean"
+    ],
+    [
+      "Which HTML tag displays an image?",
+      [
+        "<img>",
+        "<photo>",
+        "<pic>",
+        "<image-box>"
+      ],
+      "<img>"
+    ],
+    [
+      "Which CSS property controls spacing inside a box?",
+      [
+        "padding",
+        "margin",
+        "gap",
+        "border"
+      ],
+      "padding"
+    ],
+    [
+      "Which command prints text in Python?",
+      [
+        "print()",
+        "echo()",
+        "say()",
+        "write()"
+      ],
+      "print()"
+    ],
+    [
+      "Which extension is for JavaScript files?",
+      [
+        ".js",
+        ".css",
+        ".html",
+        ".jpg"
+      ],
+      ".js"
+    ],
+    [
+      "Which tag is the page title in browser tabs?",
+      [
+        "<title>",
+        "<head-title>",
+        "<tab>",
+        "<name>"
+      ],
+      "<title>"
+    ],
+    [
+      "Which CSS property makes text bold?",
+      [
+        "font-weight",
+        "text-bold",
+        "weight-text",
+        "bold-style"
+      ],
+      "font-weight"
+    ],
+    [
+      "Which HTML tag creates a list item?",
+      [
+        "<li>",
+        "<ul-item>",
+        "<item>",
+        "<list>"
+      ],
+      "<li>"
+    ],
+    [
+      "Which command shows the current folder path?",
+      [
+        "pwd",
+        "whereami",
+        "path",
+        "folder"
+      ],
+      "pwd"
+    ],
+    [
+      "Which Git command stages a file?",
+      [
+        "git add file.js",
+        "git save file.js",
+        "git stage-now",
+        "git upload"
+      ],
+      "git add file.js"
+    ],
+    [
+      "Which CSS unit is pixels?",
+      [
+        "px",
+        "em",
+        "kg",
+        "sec"
+      ],
+      "px"
+    ],
+    [
+      "What is HTML mainly used for?",
+      [
+        "Page structure",
+        "Database backup",
+        "Image editing",
+        "Server hardware"
+      ],
+      "Page structure"
+    ],
+    [
+      "What is CSS mainly used for?",
+      [
+        "Visual styling",
+        "Writing emails",
+        "Making passwords",
+        "Saving commits"
+      ],
+      "Visual styling"
+    ],
+    [
+      "Which JavaScript keyword declares a constant?",
+      [
+        "const",
+        "same",
+        "fixed",
+        "lock"
+      ],
+      "const"
+    ],
+    [
+      "Which Python value means true?",
+      [
+        "True",
+        "true",
+        "YES",
+        "1true"
+      ],
+      "True"
+    ],
+    [
+      "Which tag contains page metadata?",
+      [
+        "<head>",
+        "<meta-box>",
+        "<info>",
+        "<settings>"
+      ],
+      "<head>"
+    ],
+    [
+      "Which tag contains visible page content?",
+      [
+        "<body>",
+        "<screen>",
+        "<view>",
+        "<content-only>"
+      ],
+      "<body>"
+    ],
+    [
+      "Which CSS property changes width?",
+      [
+        "width",
+        "wide",
+        "size-x",
+        "length"
+      ],
+      "width"
+    ],
+    [
+      "Which JavaScript type stores text?",
+      [
+        "String",
+        "Number",
+        "Boolean",
+        "Array-only"
+      ],
+      "String"
+    ],
+    [
+      "Which command clears many terminal screens?",
+      [
+        "clear",
+        "clean",
+        "wipe",
+        "reset-css"
+      ],
+      "clear"
+    ],
+    [
+      "Which Git command shows changed files?",
+      [
+        "git status",
+        "git files",
+        "git changed",
+        "git check-ui"
+      ],
+      "git status"
+    ],
+    [
+      "Which attribute gives an image source?",
+      [
+        "src",
+        "href",
+        "alt",
+        "title"
+      ],
+      "src"
+    ],
+    [
+      "Which attribute describes an image for accessibility?",
+      [
+        "alt",
+        "src",
+        "link",
+        "image-name"
+      ],
+      "alt"
+    ],
+    [
+      "Which CSS property centers text?",
+      [
+        "text-align",
+        "center-text",
+        "align-font",
+        "justify-text"
+      ],
+      "text-align"
+    ],
+    [
+      "Which JavaScript keyword allows reassignment?",
+      [
+        "let",
+        "const",
+        "fixed",
+        "final"
+      ],
+      "let"
+    ],
+    [
+      "Which Python type stores multiple ordered values?",
+      [
+        "list",
+        "color",
+        "pixel",
+        "commit"
+      ],
+      "list"
+    ],
+    [
+      "Which file usually styles a website?",
+      [
+        "style.css",
+        "index.html",
+        "server.log",
+        "photo.jpg"
+      ],
+      "style.css"
+    ]
+  ],
+  "medium": [
+    [
+      "What is the output of: 2 + \"2\" in JavaScript?",
+      [
+        "4",
+        "\"22\"",
+        "NaN",
+        "Error"
+      ],
+      "\"22\""
+    ],
+    [
+      "Which CSS value makes a flex container?",
+      [
+        "display: flex",
+        "flex: true",
+        "position: flex",
+        "layout: flex"
+      ],
+      "display: flex"
+    ],
+    [
+      "Which method adds an item to the end of an array?",
+      [
+        "push()",
+        "pop()",
+        "shift()",
+        "map()"
+      ],
+      "push()"
+    ],
+    [
+      "Which tag is used for the largest heading?",
+      [
+        "<heading>",
+        "<h6>",
+        "<h1>",
+        "<title>"
+      ],
+      "<h1>"
+    ],
+    [
+      "What does git status show?",
+      [
+        "Weather",
+        "Changed files",
+        "CPU speed",
+        "CSS colors"
+      ],
+      "Changed files"
+    ],
+    [
+      "Which array method creates a new transformed array?",
+      [
+        "map()",
+        "push()",
+        "pop()",
+        "join()"
+      ],
+      "map()"
+    ],
+    [
+      "Which CSS property creates space between grid items?",
+      [
+        "gap",
+        "space",
+        "grid-space",
+        "padding-only"
+      ],
+      "gap"
+    ],
+    [
+      "What does === check in JavaScript?",
+      [
+        "Value and type",
+        "Only value",
+        "Only type",
+        "Assignment"
+      ],
+      "Value and type"
+    ],
+    [
+      "Which HTTP method is usually used to request data?",
+      [
+        "GET",
+        "SEND",
+        "PULL",
+        "OPEN"
+      ],
+      "GET"
+    ],
+    [
+      "Which command installs npm packages from package.json?",
+      [
+        "npm install",
+        "npm start",
+        "npm save",
+        "node install"
+      ],
+      "npm install"
+    ],
+    [
+      "Which CSS position keeps an element fixed to the viewport?",
+      [
+        "fixed",
+        "sticky-only",
+        "absolute-screen",
+        "viewport"
+      ],
+      "fixed"
+    ],
+    [
+      "What does JSON stand for?",
+      [
+        "JavaScript Object Notation",
+        "Java Style Object Name",
+        "Joined Syntax Online Node",
+        "Just Simple Object Notes"
+      ],
+      "JavaScript Object Notation"
+    ],
+    [
+      "Which operator spreads array values?",
+      [
+        "...",
+        "***",
+        "=>",
+        "??"
+      ],
+      "..."
+    ],
+    [
+      "Which CSS property controls stacking order?",
+      [
+        "z-index",
+        "stack",
+        "layer",
+        "order-y"
+      ],
+      "z-index"
+    ],
+    [
+      "Which Python type stores key/value pairs?",
+      [
+        "dict",
+        "list",
+        "tuple",
+        "set-only"
+      ],
+      "dict"
+    ],
+    [
+      "What does document.querySelector() return?",
+      [
+        "The first matching element",
+        "All matching files",
+        "A CSS file",
+        "A Git branch"
+      ],
+      "The first matching element"
+    ],
+    [
+      "Which method removes the last array item?",
+      [
+        "pop()",
+        "push()",
+        "map()",
+        "add()"
+      ],
+      "pop()"
+    ],
+    [
+      "Which method joins array items into text?",
+      [
+        "join()",
+        "split()",
+        "merge-css()",
+        "text()"
+      ],
+      "join()"
+    ],
+    [
+      "Which Python function returns item count?",
+      [
+        "len()",
+        "countAll()",
+        "size()",
+        "items()"
+      ],
+      "len()"
+    ],
+    [
+      "Which CSS display value creates a grid?",
+      [
+        "display: grid",
+        "grid: yes",
+        "layout: columns",
+        "position: grid"
+      ],
+      "display: grid"
+    ],
+    [
+      "Which command creates a new folder?",
+      [
+        "mkdir app",
+        "newfolder app",
+        "touch app",
+        "dir app"
+      ],
+      "mkdir app"
+    ],
+    [
+      "Which Git command downloads remote changes?",
+      [
+        "git pull",
+        "git send",
+        "git collect",
+        "git download-only"
+      ],
+      "git pull"
+    ],
+    [
+      "Which HTML element is semantic for navigation?",
+      [
+        "<nav>",
+        "<links>",
+        "<menu-list>",
+        "<route>"
+      ],
+      "<nav>"
+    ],
+    [
+      "Which HTML element is semantic for page footer?",
+      [
+        "<footer>",
+        "<bottom>",
+        "<end>",
+        "<copyright>"
+      ],
+      "<footer>"
+    ],
+    [
+      "Which CSS property rounds corners?",
+      [
+        "border-radius",
+        "corner",
+        "round",
+        "radius-corner"
+      ],
+      "border-radius"
+    ],
+    [
+      "Which JavaScript method converts JSON text to object?",
+      [
+        "JSON.parse()",
+        "JSON.stringify()",
+        "Object.text()",
+        "parse.Object()"
+      ],
+      "JSON.parse()"
+    ],
+    [
+      "Which JavaScript method converts object to JSON text?",
+      [
+        "JSON.stringify()",
+        "JSON.parse()",
+        "Object.toCss()",
+        "text.JSON()"
+      ],
+      "JSON.stringify()"
+    ],
+    [
+      "Which status code usually means Not Found?",
+      [
+        "404",
+        "200",
+        "301",
+        "100"
+      ],
+      "404"
+    ],
+    [
+      "Which status code usually means OK?",
+      [
+        "200",
+        "404",
+        "500",
+        "302"
+      ],
+      "200"
+    ],
+    [
+      "Which JavaScript operator gives a fallback for null or undefined?",
+      [
+        "??",
+        "&&&",
+        "=>",
+        "!!="
+      ],
+      "??"
+    ],
+    [
+      "Which Python keyword starts a conditional?",
+      [
+        "if",
+        "when",
+        "check",
+        "case-only"
+      ],
+      "if"
+    ],
+    [
+      "Which CSS property controls transparency?",
+      [
+        "opacity",
+        "visible",
+        "alpha-only",
+        "clear"
+      ],
+      "opacity"
+    ],
+    [
+      "Which command creates an empty file on many Unix terminals?",
+      [
+        "touch app.js",
+        "makefile app.js",
+        "new app.js",
+        "empty app.js"
+      ],
+      "touch app.js"
+    ],
+    [
+      "Which JavaScript loop runs over array values?",
+      [
+        "for...of",
+        "for...in only",
+        "loop values",
+        "each-value"
+      ],
+      "for...of"
+    ],
+    [
+      "Which CSS pseudo-class styles hover state?",
+      [
+        ":hover",
+        ":click",
+        ":mouse",
+        ":tap"
+      ],
+      ":hover"
+    ],
+    [
+      "Which command runs a Vite development server in many projects?",
+      [
+        "npm run dev",
+        "npm open",
+        "vite build-only",
+        "node css"
+      ],
+      "npm run dev"
+    ]
+  ],
+  "hard": [
+    [
+      "Which JavaScript keyword waits for a Promise?",
+      [
+        "wait",
+        "async",
+        "await",
+        "pause"
+      ],
+      "await"
+    ],
+    [
+      "Which CSS unit is relative to viewport width?",
+      [
+        "rem",
+        "vw",
+        "px",
+        "ms"
+      ],
+      "vw"
+    ],
+    [
+      "What does JSON usually store?",
+      [
+        "Structured data",
+        "Images only",
+        "CSS animations",
+        "Terminal history"
+      ],
+      "Structured data"
+    ],
+    [
+      "Which command creates a new Git branch?",
+      [
+        "git new",
+        "git branch name",
+        "git make branch",
+        "git save"
+      ],
+      "git branch name"
+    ],
+    [
+      "Which method turns JSON text into an object?",
+      [
+        "JSON.parse()",
+        "JSON.text()",
+        "Object.read()",
+        "parse.JSON()"
+      ],
+      "JSON.parse()"
+    ],
+    [
+      "Which JavaScript feature handles errors?",
+      [
+        "try...catch",
+        "if...style",
+        "wait...error",
+        "map...catch"
+      ],
+      "try...catch"
+    ],
+    [
+      "What does localStorage store?",
+      [
+        "Browser-side key/value data",
+        "Server database rows",
+        "Only images",
+        "Git commits"
+      ],
+      "Browser-side key/value data"
+    ],
+    [
+      "Which CSS function gives responsive min/preferred/max values?",
+      [
+        "clamp()",
+        "scale()",
+        "range()",
+        "fit()"
+      ],
+      "clamp()"
+    ],
+    [
+      "Which Promise method runs multiple promises together?",
+      [
+        "Promise.all()",
+        "Promise.group()",
+        "Promise.wait()",
+        "Promise.each()"
+      ],
+      "Promise.all()"
+    ],
+    [
+      "Which regex flag means global search?",
+      [
+        "g",
+        "i",
+        "m",
+        "x"
+      ],
+      "g"
+    ],
+    [
+      "Which command shows Git commit history?",
+      [
+        "git log",
+        "git history",
+        "git commits",
+        "git show-all"
+      ],
+      "git log"
+    ],
+    [
+      "Which array method returns the first matching item?",
+      [
+        "find()",
+        "filter()",
+        "map()",
+        "reduce()"
+      ],
+      "find()"
+    ],
+    [
+      "Which JavaScript value means no value intentionally?",
+      [
+        "null",
+        "NaN",
+        "false",
+        "0"
+      ],
+      "null"
+    ],
+    [
+      "Which command publishes local commits to remote?",
+      [
+        "git push",
+        "git upload",
+        "git send",
+        "git publish-now"
+      ],
+      "git push"
+    ],
+    [
+      "What does Array.filter() return?",
+      [
+        "A new array of matching items",
+        "Only one item",
+        "A CSS file",
+        "A terminal command"
+      ],
+      "A new array of matching items"
+    ],
+    [
+      "What does Array.reduce() commonly do?",
+      [
+        "Combine values into one result",
+        "Reload the page",
+        "Create an image",
+        "Open GitHub"
+      ],
+      "Combine values into one result"
+    ],
+    [
+      "Which value is returned when no element matches querySelector?",
+      [
+        "null",
+        "false",
+        "0",
+        "undefined always"
+      ],
+      "null"
+    ],
+    [
+      "Which API can watch when an element enters the viewport?",
+      [
+        "IntersectionObserver",
+        "ViewportReader",
+        "ScrollWatcherOnly",
+        "ElementTimer"
+      ],
+      "IntersectionObserver"
+    ],
+    [
+      "Which command shows differences before commit?",
+      [
+        "git diff",
+        "git compare",
+        "git changes --visual",
+        "git before"
+      ],
+      "git diff"
+    ],
+    [
+      "Which Git command temporarily stores unfinished work?",
+      [
+        "git stash",
+        "git pause",
+        "git hold",
+        "git temp"
+      ],
+      "git stash"
+    ],
+    [
+      "Which CSS property can blur content behind an element?",
+      [
+        "backdrop-filter",
+        "behind-blur",
+        "background-blur-only",
+        "filter-back"
+      ],
+      "backdrop-filter"
+    ],
+    [
+      "Which HTTP status usually means server error?",
+      [
+        "500",
+        "200",
+        "304",
+        "101"
+      ],
+      "500"
+    ],
+    [
+      "Which JavaScript syntax catches rejected async work?",
+      [
+        "try { await work(); } catch (error) {}",
+        "await catch work()",
+        "if error await",
+        "promise stop"
+      ],
+      "try { await work(); } catch (error) {}"
+    ],
+    [
+      "Which operator reads a nested value safely?",
+      [
+        "?.",
+        "!!",
+        "::",
+        "=>"
+      ],
+      "?."
+    ],
+    [
+      "Which Python expression creates a list from a loop?",
+      [
+        "[x for x in items]",
+        "{x => items}",
+        "list: x in items",
+        "(loop items)"
+      ],
+      "[x for x in items]"
+    ],
+    [
+      "Which Python block handles exceptions?",
+      [
+        "try / except",
+        "catch / then",
+        "error / fix",
+        "if / error"
+      ],
+      "try / except"
+    ],
+    [
+      "Which command searches text in files quickly?",
+      [
+        "rg \"text\"",
+        "look text",
+        "git text",
+        "scan-css"
+      ],
+      "rg \"text\""
+    ],
+    [
+      "Which HTML attribute helps buttons describe icon-only actions?",
+      [
+        "aria-label",
+        "icon-name",
+        "button-text-hidden",
+        "alt-button"
+      ],
+      "aria-label"
+    ],
+    [
+      "Which JavaScript method schedules code later?",
+      [
+        "setTimeout()",
+        "delayNow()",
+        "later()",
+        "sleep()"
+      ],
+      "setTimeout()"
+    ],
+    [
+      "Which JavaScript method repeats code on a timer?",
+      [
+        "setInterval()",
+        "repeatLater()",
+        "loopTime()",
+        "timer.each()"
+      ],
+      "setInterval()"
+    ],
+    [
+      "Which Git command changes to another branch?",
+      [
+        "git checkout branch-name",
+        "git open branch-name",
+        "git move branch-name",
+        "git switch-folder"
+      ],
+      "git checkout branch-name"
+    ],
+    [
+      "Which command prints the Node.js version?",
+      [
+        "node --version",
+        "npm node",
+        "version node",
+        "node show"
+      ],
+      "node --version"
+    ],
+    [
+      "Which CSS rule defines animation steps?",
+      [
+        "@keyframes",
+        "@motion",
+        "@animate",
+        "@frames-only"
+      ],
+      "@keyframes"
+    ],
+    [
+      "Which JavaScript object reads URL query strings?",
+      [
+        "URLSearchParams",
+        "QueryReader",
+        "LocationQueryOnly",
+        "ParamsCSS"
+      ],
+      "URLSearchParams"
+    ],
+    [
+      "Which Python module reads JSON text?",
+      [
+        "json",
+        "html",
+        "css",
+        "git"
+      ],
+      "json"
+    ],
+    [
+      "Which CSS function repeats grid columns responsively?",
+      [
+        "repeat()",
+        "again()",
+        "columns()",
+        "grid-loop()"
+      ],
+      "repeat()"
+    ]
+  ]
+};
 
-  { level: 'medium', en: 'What is the output of: 2 + "2" in JavaScript?', fa: 'خروجی 2 + "2" در JavaScript چیست؟', options: ['4', '"22"', 'NaN', 'Error'], answer: '"22"' },
-  { level: 'medium', en: 'Which CSS value makes a flex container?', fa: 'کدام مقدار CSS یک flex container می‌سازد؟', options: ['display: flex', 'flex: true', 'position: flex', 'layout: flex'], answer: 'display: flex' },
-  { level: 'medium', en: 'Which method adds an item to the end of an array?', fa: 'کدام متد یک آیتم را به آخر آرایه اضافه می‌کند؟', options: ['push()', 'pop()', 'shift()', 'map()'], answer: 'push()' },
-  { level: 'medium', en: 'Which tag is used for the largest heading?', fa: 'برای بزرگ‌ترین سرعنوان از کدام تگ استفاده می‌شود؟', options: ['<heading>', '<h6>', '<h1>', '<title>'], answer: '<h1>' },
-  { level: 'medium', en: 'What does git status show?', fa: 'git status چه چیزی را نشان می‌دهد؟', options: ['Weather', 'Changed files', 'CPU speed', 'CSS colors'], answer: 'Changed files' },
-  { level: 'medium', en: 'Which array method creates a new transformed array?', fa: 'کدام متد آرایه یک آرایه جدید تبدیل‌شده می‌سازد؟', options: ['map()', 'push()', 'pop()', 'join()'], answer: 'map()' },
-  { level: 'medium', en: 'Which CSS property creates space between grid items?', fa: 'کدام ویژگی بین آیتم‌های grid فاصله می‌سازد؟', options: ['gap', 'space', 'grid-space', 'padding-only'], answer: 'gap' },
-  { level: 'medium', en: 'What does === check in JavaScript?', fa: '=== در JavaScript چه چیزی را بررسی می‌کند؟', options: ['Value and type', 'Only value', 'Only type', 'Assignment'], answer: 'Value and type' },
-  { level: 'medium', en: 'Which HTTP method is usually used to request data?', fa: 'برای گرفتن اطلاعات معمولاً از کدام HTTP method استفاده می‌شود؟', options: ['GET', 'SEND', 'PULL', 'OPEN'], answer: 'GET' },
-  { level: 'medium', en: 'Which command installs npm packages from package.json?', fa: 'کدام دستور پکیج‌های npm را از package.json نصب می‌کند؟', options: ['npm install', 'npm start', 'npm save', 'node install'], answer: 'npm install' },
-  { level: 'medium', en: 'Which CSS position keeps an element fixed to the viewport?', fa: 'کدام position عنصر را به صفحه نمایش ثابت نگه می‌دارد؟', options: ['fixed', 'sticky-only', 'absolute-screen', 'viewport'], answer: 'fixed' },
-  { level: 'medium', en: 'What does JSON stand for?', fa: 'JSON مخفف چیست؟', options: ['JavaScript Object Notation', 'Java Style Object Name', 'Joined Syntax Online Node', 'Just Simple Object Notes'], answer: 'JavaScript Object Notation' },
-  { level: 'medium', en: 'Which operator spreads array values?', fa: 'کدام عملگر مقادیر آرایه را spread می‌کند؟', options: ['...', '***', '=>', '??'], answer: '...' },
-  { level: 'medium', en: 'Which CSS property controls stacking order?', fa: 'کدام ویژگی ترتیب روی‌هم‌آمدن عناصر را کنترول می‌کند؟', options: ['z-index', 'stack', 'layer', 'order-y'], answer: 'z-index' },
-  { level: 'medium', en: 'Which Python type stores key/value pairs?', fa: 'کدام نوع Python جفت‌های کلید و مقدار را نگه می‌دارد؟', options: ['dict', 'list', 'tuple', 'set-only'], answer: 'dict' },
+const toDariQuestion = (text) => `\u0633\u0624\u0627\u0644: ${text}`;
 
-  { level: 'hard', en: 'Which JavaScript keyword waits for a Promise?', fa: 'کدام کلمه JavaScript منتظر Promise می‌ماند؟', options: ['wait', 'async', 'await', 'pause'], answer: 'await' },
-  { level: 'hard', en: 'Which CSS unit is relative to viewport width?', fa: 'کدام واحد CSS وابسته به عرض صفحه است؟', options: ['rem', 'vw', 'px', 'ms'], answer: 'vw' },
-  { level: 'hard', en: 'What does JSON usually store?', fa: 'JSON معمولاً چه چیزی را نگهداری می‌کند؟', options: ['Structured data', 'Images only', 'CSS animations', 'Terminal history'], answer: 'Structured data' },
-  { level: 'hard', en: 'Which command creates a new Git branch?', fa: 'کدام دستور یک شاخه جدید Git می‌سازد؟', options: ['git new', 'git branch name', 'git make branch', 'git save'], answer: 'git branch name' },
-  { level: 'hard', en: 'Which method turns JSON text into an object?', fa: 'کدام متد متن JSON را به object تبدیل می‌کند؟', options: ['JSON.parse()', 'JSON.text()', 'Object.read()', 'parse.JSON()'], answer: 'JSON.parse()' },
-  { level: 'hard', en: 'Which JavaScript feature handles errors?', fa: 'کدام ساختار JavaScript خطاها را مدیریت می‌کند؟', options: ['try...catch', 'if...style', 'wait...error', 'map...catch'], answer: 'try...catch' },
-  { level: 'hard', en: 'What does localStorage store?', fa: 'localStorage چه چیزی را ذخیره می‌کند؟', options: ['Browser-side key/value data', 'Server database rows', 'Only images', 'Git commits'], answer: 'Browser-side key/value data' },
-  { level: 'hard', en: 'Which CSS function gives responsive min/preferred/max values?', fa: 'کدام تابع CSS مقدار حداقل/دلخواه/حداکثر می‌دهد؟', options: ['clamp()', 'scale()', 'range()', 'fit()'], answer: 'clamp()' },
-  { level: 'hard', en: 'Which Promise method runs multiple promises together?', fa: 'کدام Promise method چند promise را با هم اجرا می‌کند؟', options: ['Promise.all()', 'Promise.group()', 'Promise.wait()', 'Promise.each()'], answer: 'Promise.all()' },
-  { level: 'hard', en: 'Which regex flag means global search?', fa: 'کدام flag در regex جستجوی سراسری است؟', options: ['g', 'i', 'm', 'x'], answer: 'g' },
-  { level: 'hard', en: 'Which command shows Git commit history?', fa: 'کدام دستور تاریخچه commit های Git را نشان می‌دهد؟', options: ['git log', 'git history', 'git commits', 'git show-all'], answer: 'git log' },
-  { level: 'hard', en: 'Which array method returns the first matching item?', fa: 'کدام متد آرایه اولین آیتم مطابق را برمی‌گرداند؟', options: ['find()', 'filter()', 'map()', 'reduce()'], answer: 'find()' },
-  { level: 'hard', en: 'Which HTML attribute improves image accessibility?', fa: 'کدام ویژگی HTML دسترسی‌پذیری تصویر را بهتر می‌کند؟', options: ['alt', 'src', 'href', 'role-img'], answer: 'alt' },
-  { level: 'hard', en: 'Which JavaScript value means no value intentionally?', fa: 'کدام مقدار JavaScript یعنی عمداً هیچ مقدار ندارد؟', options: ['null', 'NaN', 'false', '0'], answer: 'null' },
-  { level: 'hard', en: 'Which command publishes local commits to remote?', fa: 'کدام دستور commit های محلی را به remote می‌فرستد؟', options: ['git push', 'git upload', 'git send', 'git publish-now'], answer: 'git push' },
-];
+const rushSnippets = Object.entries(rushSnippetGroups).flatMap(([level, snippets]) =>
+  snippets.map(([title, code]) => ({ level, title, code })),
+);
+
+const tapQuestions = Object.entries(tapQuestionGroups).flatMap(([level, questions]) =>
+  questions.map(([en, options, answer]) => ({ level, en, fa: toDariQuestion(en), options, answer })),
+);
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
-let lang = localStorage.getItem('naqshGameLang') || 'en';
+const STORAGE_CONSENT_KEY = 'naqsh-storage-consent';
+let hasStorageConsent = false;
+
+try {
+  hasStorageConsent = localStorage.getItem(STORAGE_CONSENT_KEY) === 'accepted';
+} catch {
+  hasStorageConsent = false;
+}
+
+function readPreference(key, fallback = '') {
+  if (!hasStorageConsent) return fallback;
+  try {
+    return localStorage.getItem(key) || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function savePreference(key, value) {
+  if (!hasStorageConsent) return;
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Storage may be blocked; the game still works for the current session.
+  }
+}
+
+let lang = readPreference('naqshGameLang', 'en');
 let mode = window.matchMedia(DESKTOP_QUERY).matches ? 'rush' : 'tap';
-let difficulty = localStorage.getItem('naqshGameDifficulty') || 'mixed';
+let difficulty = readPreference('naqshGameDifficulty', 'mixed');
 let modeLocked = false;
 let activeTimer = null;
 let rush = null;
@@ -224,12 +1716,12 @@ function bestKey(currentMode = mode) {
 }
 
 function getBest(currentMode = mode) {
-  return Number(localStorage.getItem(bestKey(currentMode)) || 0);
+  return Number(readPreference(bestKey(currentMode), '0') || 0);
 }
 
 function setBest(score, currentMode = mode) {
   const best = Math.max(score, getBest(currentMode));
-  localStorage.setItem(bestKey(currentMode), String(best));
+  savePreference(bestKey(currentMode), String(best));
   return best;
 }
 
@@ -255,6 +1747,12 @@ function showScreen(name) {
   screens[name].classList.add('is-active');
 }
 
+function syncStorageConsent() {
+  const consent = $('#storageConsent');
+  if (!consent) return;
+  consent.hidden = hasStorageConsent;
+}
+
 function applyLanguage() {
   document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
   document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
@@ -274,6 +1772,7 @@ function applyLanguage() {
     button.classList.toggle('is-active', button.dataset.difficultyButton === difficulty);
   });
   updateModeText();
+  syncStorageConsent();
 }
 
 function setMode(nextMode, manual = false) {
@@ -288,7 +1787,7 @@ function setMode(nextMode, manual = false) {
 
 function setDifficulty(nextDifficulty) {
   difficulty = nextDifficulty;
-  localStorage.setItem('naqshGameDifficulty', difficulty);
+  savePreference('naqshGameDifficulty', difficulty);
   $$('[data-difficulty-button]').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.difficultyButton === difficulty);
   });
@@ -499,7 +1998,8 @@ function generateClaimCode() {
 }
 
 function saveClaimCode(code, score, modeName) {
-  const claims = JSON.parse(localStorage.getItem('naqsh-code-rush-claims') || '[]');
+  if (!hasStorageConsent) return;
+  const claims = JSON.parse(readPreference('naqsh-code-rush-claims', '[]') || '[]');
   claims.push({
     code,
     score,
@@ -507,7 +2007,7 @@ function saveClaimCode(code, score, modeName) {
     difficulty,
     date: new Date().toISOString(),
   });
-  localStorage.setItem('naqsh-code-rush-claims', JSON.stringify(claims.slice(-10)));
+  savePreference('naqsh-code-rush-claims', JSON.stringify(claims.slice(-10)));
 }
 
 function showResult(modeName, score, perfect = false) {
@@ -554,11 +2054,23 @@ async function copyText(text) {
   }
 }
 
+function acceptStorageConsent() {
+  hasStorageConsent = true;
+  try {
+    localStorage.setItem(STORAGE_CONSENT_KEY, 'accepted');
+  } catch {
+    hasStorageConsent = false;
+  }
+  savePreference('naqshGameLang', lang);
+  savePreference('naqshGameDifficulty', difficulty);
+  syncStorageConsent();
+}
+
 function bindEvents() {
   $$('[data-lang-button]').forEach((button) => {
     button.addEventListener('click', () => {
       lang = button.dataset.langButton;
-      localStorage.setItem('naqshGameLang', lang);
+      savePreference('naqshGameLang', lang);
       applyLanguage();
     });
   });
@@ -591,6 +2103,7 @@ function bindEvents() {
     $('#copyInstagram').textContent = t('copied');
     setTimeout(applyLanguage, 900);
   });
+  $('#acceptStorage').addEventListener('click', acceptStorageConsent);
 }
 
 window.matchMedia(DESKTOP_QUERY).addEventListener('change', (event) => {
