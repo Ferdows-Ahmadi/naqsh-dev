@@ -1,20 +1,59 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
   BadgeCheck,
   Blocks,
+  Camera,
   Code2,
+  ExternalLink,
   Globe2,
   Layers3,
   LayoutTemplate,
   Mail,
+  Menu,
   MessageCircle,
-  Palette,
   PenTool,
   Smartphone,
   Sparkles,
+  UsersRound,
+  X,
   Zap,
 } from 'lucide-react'
+
+const contactLinks = {
+  instagram: {
+    label: 'Instagram',
+    value: '@naqshdev',
+    href: 'https://www.instagram.com/naqshdev/',
+    icon: Camera,
+  },
+  facebook: {
+    label: 'Facebook',
+    value: 'Naqsh Digital Studio',
+    href: 'https://www.facebook.com/profile.php?id=61589005521585',
+    icon: UsersRound,
+  },
+  whatsapp: {
+    label: 'WhatsApp',
+    value: '+93 749 290 370',
+    href: 'https://wa.me/93749290370',
+    icon: MessageCircle,
+  },
+  email: {
+    label: 'Email',
+    value: 'hello@naqsh.dev',
+    href: 'mailto:hello@naqsh.dev',
+    icon: Mail,
+  },
+}
+
+const socialLinks = [
+  contactLinks.instagram,
+  contactLinks.facebook,
+  contactLinks.whatsapp,
+  contactLinks.email,
+]
 
 const navItems = [
   ['About', '#about'],
@@ -57,11 +96,38 @@ const services = [
 ]
 
 const selectedWork = [
-  ['Kabul Journal', 'Editorial platform for culture, stories, and city reporting.'],
-  ['Media Website Concept', 'A refined publishing experience with strong hierarchy and speed.'],
-  ['Snooker Club Dashboard', 'Operations dashboard for bookings, members, and daily activity.'],
-  ['AI Health Project', 'Product concept for health guidance, triage, and patient support.'],
-  ['Brand Identity Concepts', 'Logo systems and visual directions for ambitious new companies.'],
+  {
+    title: 'Kabul Times News',
+    category: 'News & Media Website',
+    description:
+      'A multilingual news platform designed for publishing articles, categories, breaking updates, and media content.',
+    accent: 'from-cyan-300/26 via-blue-500/14 to-slate-950',
+    preview: 'Editorial grid',
+  },
+  {
+    title: 'Akhtari Family Daycare',
+    category: 'Family / Childcare Website',
+    description:
+      'A warm and trustworthy website concept for a family daycare brand, focused on care, clarity, and parent confidence.',
+    accent: 'from-[#f4d26b]/24 via-cyan-200/10 to-slate-950',
+    preview: 'Care brand system',
+  },
+  {
+    title: 'ZhandarkDaily',
+    category: 'Digital News Brand',
+    description:
+      'A modern Joan of Arc inspired news identity and website concept with bold editorial direction and distinctive branding.',
+    accent: 'from-blue-500/24 via-[#d4af37]/14 to-slate-950',
+    preview: 'Bold news identity',
+  },
+  {
+    title: 'Forsat.af',
+    category: 'Opportunity / Platform Website',
+    description:
+      'A platform concept focused on opportunities, access, growth, and digital visibility for Afghan audiences.',
+    accent: 'from-cyan-300/20 via-emerald-300/10 to-slate-950',
+    preview: 'Platform interface',
+  },
 ]
 
 const strengths = [
@@ -93,10 +159,17 @@ function App() {
 }
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#05070d]/78 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="flex items-center gap-3" aria-label="Naqsh Digital Studio home">
+        <a
+          href="#top"
+          className="flex items-center gap-3"
+          aria-label="Naqsh Digital Studio home"
+          onClick={() => setIsOpen(false)}
+        >
           <img
             src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
             alt=""
@@ -115,11 +188,58 @@ function Header() {
         </nav>
         <a
           href="#contact"
-          className="inline-flex h-10 items-center justify-center rounded-md border border-cyan-300/25 bg-cyan-300/10 px-4 text-sm font-medium text-cyan-100 transition hover:border-cyan-200/60 hover:bg-cyan-300/16"
+          className="hidden h-10 items-center justify-center rounded-md border border-cyan-300/25 bg-cyan-300/10 px-4 text-sm font-medium text-cyan-100 transition hover:border-cyan-200/60 hover:bg-cyan-300/16 md:inline-flex"
         >
           Start
         </a>
+        <button
+          type="button"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-white md:hidden"
+          aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+      {isOpen ? (
+        <div className="border-t border-white/10 bg-[#05070d]/96 px-5 pb-6 pt-4 shadow-2xl shadow-black/40 md:hidden">
+          <nav className="mx-auto grid max-w-7xl gap-1" aria-label="Mobile navigation">
+            {navItems.map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                className="rounded-md px-3 py-3 text-base font-medium text-slate-200 transition hover:bg-white/[0.06] hover:text-cyan-100"
+                onClick={() => setIsOpen(false)}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <div className="mx-auto mt-5 max-w-7xl rounded-lg border border-white/10 bg-white/[0.035] p-4">
+            <p className="text-xs font-medium uppercase text-cyan-200">Contact Naqsh</p>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {socialLinks.map((link) => {
+                const Icon = link.icon
+
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="flex min-h-12 items-center gap-2 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-slate-200 transition hover:border-cyan-300/35 hover:text-cyan-100"
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Icon className="h-4 w-4 text-cyan-200" />
+                    {link.label}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   )
 }
@@ -161,6 +281,24 @@ function Hero() {
             >
               View Services
             </a>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {socialLinks.slice(0, 3).map((link) => {
+              const Icon = link.icon
+
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-white/10 bg-white/[0.035] px-3 text-sm text-slate-300 transition hover:border-cyan-300/35 hover:text-cyan-100"
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                >
+                  <Icon className="h-4 w-4" />
+                  {link.label}
+                </a>
+              )
+            })}
           </div>
         </motion.div>
 
@@ -261,9 +399,9 @@ function SelectedWork() {
     <Section id="work">
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
-          eyebrow="Selected Work"
-          title="Placeholder concepts ready to become real case studies."
-          description="The first portfolio entries can be replaced as projects launch. The layout already supports a premium work archive."
+          eyebrow="Featured Work"
+          title="Real Naqsh projects with room to grow into full case studies."
+          description="These concepts and project directions reflect our current studio work. Visual placeholders are intentionally abstract until final screenshots are ready."
         />
         <a
           href="#contact"
@@ -273,27 +411,63 @@ function SelectedWork() {
           <ArrowRight className="h-4 w-4" />
         </a>
       </div>
-      <div className="mt-12 grid gap-4 lg:grid-cols-5">
-        {selectedWork.map(([title, description], index) => (
-          <motion.article
-            key={title}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, delay: index * 0.05, ease: 'easeOut' }}
-            className="min-h-64 rounded-lg border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.075),rgba(255,255,255,0.025))] p-5 transition hover:-translate-y-1 hover:border-cyan-300/35 lg:[&:nth-child(1)]:col-span-2 lg:[&:nth-child(4)]:col-span-2"
-          >
-            <div className="mb-12 h-1 w-14 rounded-full bg-cyan-300" />
-            <p className="text-xs font-medium uppercase text-slate-500">
-              Concept {String(index + 1).padStart(2, '0')}
-            </p>
-            <h3 className="mt-5 text-2xl font-semibold text-white">{title}</h3>
-            <p className="mt-4 leading-7 text-slate-400">{description}</p>
-          </motion.article>
+      <div className="mt-12 grid gap-5 lg:grid-cols-2">
+        {selectedWork.map((project, index) => (
+          <ProjectCard key={project.title} project={project} index={index} />
         ))}
       </div>
     </Section>
+  )
+}
+
+function ProjectCard({ project, index }) {
+  return (
+    <motion.article
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: 'easeOut' }}
+      className="group overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))] transition hover:-translate-y-1 hover:border-cyan-300/35"
+    >
+      <div className={`relative min-h-64 bg-gradient-to-br ${project.accent} p-5`}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:auto,26px_26px]" />
+        <div className="relative rounded-lg border border-white/[0.12] bg-black/[0.28] p-3 shadow-2xl shadow-black/30">
+          <div className="mb-3 flex gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-300/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#f4d26b]/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-cyan-300/80" />
+          </div>
+          <div className="grid gap-3 md:grid-cols-[0.8fr_1.2fr]">
+            <div className="space-y-3">
+              <div className="h-4 rounded bg-white/18" />
+              <div className="h-4 w-3/4 rounded bg-white/12" />
+              <div className="h-16 rounded bg-white/10" />
+            </div>
+            <div className="grid gap-2">
+              <div className="h-16 rounded-md border border-white/10 bg-white/10" />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-14 rounded-md border border-white/10 bg-white/[0.08]" />
+                <div className="h-14 rounded-md border border-white/10 bg-white/[0.08]" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative mt-5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-200">
+          <span className="rounded-md border border-white/[0.12] bg-black/25 px-3 py-2">
+            {project.preview}
+          </span>
+          <span className="rounded-md border border-white/[0.12] bg-black/25 px-3 py-2">
+            Project visual coming soon
+          </span>
+        </div>
+      </div>
+      <div className="p-6 sm:p-7">
+        <p className="text-xs font-semibold uppercase text-cyan-200">{project.category}</p>
+        <h3 className="mt-4 text-2xl font-semibold text-white sm:text-3xl">{project.title}</h3>
+        <p className="mt-4 leading-7 text-slate-400">{project.description}</p>
+      </div>
+    </motion.article>
   )
 }
 
@@ -351,9 +525,9 @@ function Contact() {
             </p>
           </div>
           <div className="grid gap-3">
-            <ContactLink icon={MessageCircle} label="WhatsApp" value="+93 749 290 370" href="https://wa.me/93749290370" />
-            <ContactLink icon={Palette} label="Instagram" value="@naqshdev" href="https://instagram.com/naqshdev" />
-            <ContactLink icon={Mail} label="Email" value="hello@naqsh.dev" href="mailto:hello@naqsh.dev" />
+            {socialLinks.map((link) => (
+              <ContactLink key={link.label} link={link} />
+            ))}
           </div>
         </div>
       </motion.div>
@@ -361,21 +535,23 @@ function Contact() {
   )
 }
 
-function ContactLink({ icon: Icon, label, value, href }) {
+function ContactLink({ link }) {
+  const Icon = link.icon
+
   return (
     <a
-      href={href}
+      href={link.href}
       className="flex items-center justify-between gap-4 rounded-md border border-white/10 bg-black/25 p-4 transition hover:border-cyan-300/40 hover:bg-black/35"
-      target={href.startsWith('http') ? '_blank' : undefined}
-      rel={href.startsWith('http') ? 'noreferrer' : undefined}
+      target={link.href.startsWith('http') ? '_blank' : undefined}
+      rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
     >
       <span className="flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-md bg-cyan-300/10 text-cyan-200">
           <Icon className="h-5 w-5" />
         </span>
         <span>
-          <span className="block text-xs uppercase text-slate-500">{label}</span>
-          <span className="mt-1 block font-semibold text-white">{value}</span>
+          <span className="block text-xs uppercase text-slate-500">{link.label}</span>
+          <span className="mt-1 block font-semibold text-white">{link.value}</span>
         </span>
       </span>
       <ArrowRight className="h-4 w-4 text-slate-500" />
@@ -410,10 +586,31 @@ function SectionHeading({ eyebrow, title, description }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 px-5 py-8 text-sm text-slate-500 sm:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p>Naqsh Digital Studio</p>
-        <p>Kabul, Afghanistan. Serving local and global clients.</p>
+    <footer className="border-t border-white/10 px-5 py-10 text-sm text-slate-500 sm:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <p className="font-semibold text-white">Naqsh Digital Studio</p>
+          <p className="mt-2">Kabul, Afghanistan. Serving local and global clients.</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {socialLinks.map((link) => {
+            const Icon = link.icon
+
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-white/10 bg-white/[0.035] px-3 text-slate-300 transition hover:border-cyan-300/35 hover:text-cyan-100"
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{link.label}</span>
+                {link.href.startsWith('http') ? <ExternalLink className="h-3.5 w-3.5 text-slate-600" /> : null}
+              </a>
+            )
+          })}
+        </div>
       </div>
     </footer>
   )
