@@ -16,13 +16,13 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #fbf7ef;
-  color: #26221e;
+  background: #fff8f0;
+  color: #172333;
 }
 
 ::selection {
-  background: rgba(201, 169, 90, 0.28);
-  color: #211d19;
+  background: rgba(216, 63, 82, 0.2);
+  color: #172333;
 }
 
 a {
