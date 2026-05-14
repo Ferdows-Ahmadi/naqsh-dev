@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Static website versus WordPress cover</title>
+  <desc id="desc">Dark premium comparison illustration with static website and WordPress browser panels.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071016"/>
+      <stop offset=".5" stop-color="#0a1020"/>
+      <stop offset="1" stop-color="#11274a"/>
+    </linearGradient>
+    <linearGradient id="static" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111b27"/>
+      <stop offset="1" stop-color="#05080d"/>
+    </linearGradient>
+    <linearGradient id="wp" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f8ff"/>
+      <stop offset="1" stop-color="#9db4d6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M601 0 520 630" stroke="#00ff88" stroke-width="5" opacity=".72"/>
+  <path d="M600 0 680 630" stroke="#4f8cff" stroke-width="4" opacity=".46"/>
+  <rect x="88" y="118" width="385" height="360" rx="26" fill="url(#static)" stroke="#3b4c63" stroke-width="2"/>
+  <rect x="88" y="118" width="385" height="54" rx="26" fill="#172233"/>
+  <circle cx="116" cy="145" r="8" fill="#ff685b"/>
+  <circle cx="142" cy="145" r="8" fill="#ffdb61"/>
+  <circle cx="168" cy="145" r="8" fill="#5de18d"/>
+  <rect x="125" y="210" width="170" height="105" rx="10" fill="#1d2b3d" stroke="#35475f"/>
+  <path d="M145 292 203 238l54 52 28-25 54 50H145z" fill="#56677f"/>
+  <rect x="318" y="220" width="118" height="11" rx="6" fill="#6b7e99"/>
+  <rect x="318" y="258" width="92" height="11" rx="6" fill="#56677f"/>
+  <rect x="125" y="355" width="285" height="12" rx="6" fill="#344457"/>
+  <rect x="125" y="388" width="238" height="12" rx="6" fill="#344457"/>
+  <rect x="125" y="421" width="185" height="12" rx="6" fill="#344457"/>
+  <rect x="654" y="118" width="420" height="360" rx="26" fill="url(#wp)" stroke="#9fb4d2" stroke-width="2"/>
+  <rect x="654" y="118" width="420" height="54" rx="26" fill="#1d3150"/>
+  <circle cx="684" cy="145" r="8" fill="#dbe7ff"/>
+  <circle cx="710" cy="145" r="8" fill="#c8d7ef"/>
+  <circle cx="736" cy="145" r="8" fill="#b6c6df"/>
+  <circle cx="770" cy="265" r="72" fill="#244e8f"/>
+  <text x="720" y="290" fill="#ffffff" font-family="Georgia, serif" font-size="90" font-weight="700">W</text>
+  <rect x="880" y="215" width="138" height="12" rx="6" fill="#2c4770"/>
+  <rect x="880" y="253" width="108" height="12" rx="6" fill="#52698b"/>
+  <rect x="880" y="291" width="190" height="12" rx="6" fill="#8da0bb"/>
+  <rect x="703" y="370" width="230" height="70" rx="12" fill="#d8e2f0" opacity=".62"/>
+  <rect x="955" y="370" width="94" height="70" rx="12" fill="#1f5aa1"/>
+  <circle cx="594" cy="315" r="72" fill="#071016" stroke="#3d8fff" stroke-width="2"/>
+  <text x="552" y="337" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="900">VS</text>
+  <rect x="96" y="392" width="250" height="156" rx="22" fill="#0d1724" stroke="#29394c"/>
+  <text x="137" y="435" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Fast</text>
+  <text x="137" y="480" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Secure</text>
+  <text x="137" y="525" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Simple</text>
+  <path d="M116 428h14m-7-7v14M115 473h16v16h-16zM116 515l10 10 22-25" fill="none" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="914" y="392" width="250" height="156" rx="22" fill="#10203a" stroke="#28466a"/>
+  <text x="958" y="435" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Flexible CMS</text>
+  <text x="958" y="480" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Themes</text>
+  <text x="958" y="525" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Plugins</text>
+</svg>

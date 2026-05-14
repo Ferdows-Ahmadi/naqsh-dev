@@ -1,8 +1,12 @@
 // Naqsh static blog data.
 // To add a future post:
 // 1. Add a new object to BLOG_POSTS with a unique slug.
-// 2. Add the article content in the `content` array below.
-// 3. Create `public/blog/<slug>/index.html` by copying one existing post folder's index.html.
+// 2. Add a cover image to `public/images/blog/` and set `image` below, for example:
+//    image: '/images/blog/my-article-cover.jpg'
+//    Recommended size: 1200x630 or similar landscape ratio, optimized for web.
+//    Dark/cinematic technology visuals work best with the current Naqsh style.
+// 3. Add the article content in the `content` array below.
+// 4. Create `public/blog/<slug>/index.html` by copying one existing post folder's index.html.
 // The post page reads the slug from the URL and loads the matching object from this file.
 window.NAQSH_BLOG_POSTS = [
   {
@@ -15,6 +19,8 @@ window.NAQSH_BLOG_POSTS = [
     readTime: '5 min read',
     featured: true,
     gradient: 'blue',
+    image: '/images/blog/student-portfolio.svg',
+    imageAlt: 'Dark cinematic desk with a laptop showing code and web portfolio planning icons',
     content: [
       {
         heading: 'A portfolio turns practice into proof',
@@ -48,6 +54,8 @@ window.NAQSH_BLOG_POSTS = [
     readTime: '6 min read',
     featured: false,
     gradient: 'green',
+    image: '/images/blog/static-vs-wordpress.svg',
+    imageAlt: 'Static website and WordPress comparison with modern browser windows',
     content: [
       {
         heading: 'The right choice depends on how often content changes',
@@ -81,6 +89,8 @@ window.NAQSH_BLOG_POSTS = [
     readTime: '5 min read',
     featured: false,
     gradient: 'red',
+    image: '/images/blog/professional-business-website.svg',
+    imageAlt: 'Premium business website mockup on a laptop with trust and responsive design markers',
     content: [
       {
         heading: 'Clarity beats decoration',
