@@ -297,8 +297,8 @@ function Hero() {
   const pointerY = useMotionValue(0)
   const springX = useSpring(pointerX, { stiffness: 70, damping: 24, mass: 0.4 })
   const springY = useSpring(pointerY, { stiffness: 70, damping: 24, mass: 0.4 })
-  const textX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [-10, 10])
-  const textY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [-7, 7])
+  const textX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [-8, 8])
+  const textY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [-5, 5])
   const visualX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [22, -22])
   const visualY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [18, -18])
   const deepX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [-34, 34])
@@ -324,8 +324,18 @@ function Hero() {
       onPointerLeave={resetPointer}
     >
       <CinematicField deepX={deepX} deepY={deepY} visualX={visualX} visualY={visualY} />
-      <div className="relative mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-[0.96fr_1.04fr]">
-        <motion.div style={{ x: textX, y: textY }} className="relative z-10 min-w-0">
+      <motion.div
+        aria-hidden="true"
+        style={{ x: visualX, y: visualY }}
+        className="absolute left-[8%] top-[22%] h-36 w-36 rounded-full border border-white/[0.08] bg-white/[0.025] blur-[0.2px] sm:h-48 sm:w-48 lg:left-[58%] lg:top-[20%]"
+      />
+      <motion.div
+        aria-hidden="true"
+        style={{ x: deepX, y: deepY }}
+        className="absolute bottom-[14%] right-[8%] hidden h-56 w-56 rounded-[5rem] border border-[#4f8cff]/12 bg-[#4f8cff]/[0.025] lg:block"
+      />
+      <div className="relative mx-auto flex min-h-[calc(100svh-6rem)] w-full max-w-7xl items-center">
+        <motion.div style={{ x: textX, y: textY }} className="relative z-10 min-w-0 max-w-7xl">
           <motion.p
             initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -334,19 +344,23 @@ function Hero() {
           >
             Naqsh Digital Studio
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 42, filter: 'blur(14px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 62, damping: 18, delay: 0.18 }}
-            className="mt-6 max-w-5xl text-[clamp(2.75rem,13vw,5.8rem)] font-semibold leading-[0.96] text-white sm:mt-7 sm:text-6xl lg:text-8xl"
-          >
-            Designing digital experiences with movement, identity, and soul.
-          </motion.h1>
+          <h1 className="mt-6 max-w-[78rem] text-[clamp(3.2rem,15vw,7.6rem)] font-semibold leading-[0.88] text-white sm:mt-8 lg:text-[clamp(6.2rem,8.7vw,9.5rem)]">
+            <HeroLine delay={0.16}>Designing</HeroLine>
+            <HeroLine delay={0.24}>digital</HeroLine>
+            <HeroLine delay={0.32}>
+              <span className="text-white/92">experiences</span>
+            </HeroLine>
+            <HeroLine delay={0.4}>
+              <span className="bg-[linear-gradient(90deg,#ffffff,#9bbdff_52%,#ff6b8b)] bg-clip-text text-transparent">
+                with soul.
+              </span>
+            </HeroLine>
+          </h1>
           <motion.p
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 72, damping: 20, delay: 0.32 }}
-            className="mt-6 max-w-2xl text-base leading-7 text-white/68 sm:mt-7 sm:text-xl sm:leading-8"
+            className="mt-7 max-w-3xl text-base leading-7 text-white/68 sm:mt-9 sm:text-xl sm:leading-8"
           >
             Kabul-born creative-tech studio crafting immersive websites, brands, interfaces,
             and digital products for ambitious businesses and modern ideas.
@@ -355,7 +369,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 80, damping: 18, delay: 0.42 }}
-            className="mt-8 grid gap-3 sm:mt-9 sm:flex"
+            className="mt-8 grid gap-3 sm:mt-10 sm:flex"
           >
             <MagneticLink
               href="#contact"
@@ -372,165 +386,21 @@ function Hero() {
             </MagneticLink>
           </motion.div>
         </motion.div>
-
-        <motion.div
-          style={{ x: visualX, y: visualY }}
-          initial={{ opacity: 0, y: 36, scale: 0.96, filter: 'blur(12px)' }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-          transition={{ type: 'spring', stiffness: 58, damping: 18, delay: 0.22 }}
-          className="relative mx-auto w-full max-w-[25rem] sm:max-w-[560px] lg:max-w-none"
-        >
-          <HeroSystem deepX={deepX} deepY={deepY} />
-        </motion.div>
       </div>
     </section>
   )
 }
 
-function HeroSystem({ deepX, deepY }) {
+function HeroLine({ children, delay }) {
   return (
-    <div className="group relative h-[360px] max-h-[72svh] w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.13),rgba(255,255,255,0.035))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.38)] backdrop-blur-xl sm:aspect-square sm:h-auto sm:min-h-[520px] sm:rounded-[2.4rem] sm:p-4 lg:aspect-[0.9] lg:min-h-[600px]">
-      <motion.div
-        aria-hidden="true"
-        style={{ x: deepX, y: deepY }}
-        className="absolute -right-16 top-12 h-48 w-48 rounded-full bg-[#4f8cff]/20 blur-3xl sm:-right-20 sm:top-20 sm:h-80 sm:w-80"
-      />
-      <motion.div
-        aria-hidden="true"
-        style={{ x: deepX, y: deepY }}
-        className="absolute -left-12 bottom-0 h-56 w-56 rounded-full bg-[#ff2b5d]/12 blur-3xl sm:h-80 sm:w-80"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.036)_1px,transparent_1px)] bg-[length:30px_30px]" />
-
-      <div className="relative h-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0b111c]/76 shadow-inner shadow-white/5 sm:rounded-[1.75rem]">
-        <motion.div
-          aria-hidden="true"
-          style={{ x: deepX, y: deepY }}
-          className="absolute left-[9%] right-[9%] top-[10%] h-[66%] rounded-[1.7rem] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(79,140,255,0.045))] shadow-[0_30px_100px_rgba(0,0,0,0.28)] sm:rounded-[2.1rem]"
-        />
-        <motion.div
-          aria-hidden="true"
-          style={{ x: deepX, y: deepY }}
-          className="absolute left-[14%] right-[2%] top-[17%] h-[62%] rounded-[1.7rem] border border-white/[0.07] bg-[linear-gradient(135deg,rgba(255,43,93,0.08),rgba(255,255,255,0.04))] sm:rounded-[2.1rem]"
-        />
-
-        <motion.div
-          animate={{ y: [0, -6, 0], rotate: [-0.35, 0.15, -0.35] }}
-          whileHover={{ y: -8, rotate: -0.25 }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute inset-x-3 top-5 z-30 overflow-hidden rounded-[1.45rem] border border-white/12 bg-[#f5f7fb] text-[#101928] shadow-[0_34px_110px_rgba(0,0,0,0.42)] sm:inset-x-7 sm:top-9 sm:rounded-[2rem]"
-        >
-          <div className="flex h-10 items-center justify-between border-b border-[#d6deea] bg-white/90 px-3 sm:h-12 sm:px-4">
-            <BrowserDots />
-            <div className="hidden min-w-0 flex-1 items-center justify-center gap-2 px-4 sm:flex">
-              {['Kabul Times', 'ZhandarkDaily', 'Forsat.af'].map((item, index) => (
-                <span
-                  key={item}
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${index === 0 ? 'bg-[#15253a] text-white' : 'bg-[#eaf1fb] text-[#667386]'}`}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-            <span className="rounded-full bg-[#eaf1fb] px-3 py-1 text-[10px] font-semibold text-[#556479] sm:text-xs">Live preview</span>
-          </div>
-
-          <div className="p-3 sm:p-4">
-            <div className="rounded-[1.25rem] bg-[#15253a] p-3 text-white sm:rounded-[1.6rem] sm:p-4">
-              <div className="flex items-center justify-between gap-3">
-                <span className="rounded-xl bg-[#ff2b5d] px-3 py-2 text-lg font-bold sm:text-2xl">K</span>
-                <div className="flex flex-1 justify-end gap-2">
-                  {['Politics', 'World', 'Dari'].map((item) => (
-                    <span key={item} className="rounded-full bg-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-white/72">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-3 grid gap-3 sm:mt-4 sm:grid-cols-[1.12fr_0.88fr]">
-                <div className="min-h-36 rounded-[1.1rem] bg-[linear-gradient(135deg,#466f98,#08111f)] p-4 sm:min-h-56 sm:rounded-[1.4rem]">
-                  <span className="inline-flex rounded-full bg-[#ff2b5d] px-3 py-1 text-[10px] font-semibold uppercase">Breaking</span>
-                  <div className="mt-14 space-y-2 sm:mt-28">
-                    <div className="h-4 w-[92%] rounded-full bg-white/88" />
-                    <div className="h-3 w-[78%] rounded-full bg-white/52" />
-                    <div className="h-2.5 w-[62%] rounded-full bg-white/30" />
-                  </div>
-                </div>
-
-                <div className="hidden grid-rows-2 gap-3 sm:grid">
-                  <div className="rounded-[1.25rem] bg-[#f7f4ef] p-3 text-[#101928]">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-xl font-semibold leading-none">zhandark</p>
-                        <p className="mt-1 text-xs text-[#6c614f]">Editorial layer</p>
-                      </div>
-                      <span className="h-10 w-10 rounded-xl bg-[linear-gradient(135deg,#1d2c42,#d0a14f)]" />
-                    </div>
-                    <div className="mt-4 grid grid-cols-2 gap-2">
-                      <div className="h-14 rounded-xl bg-[#315f95]/18" />
-                      <div className="h-14 rounded-xl bg-[#c49a4b]/22" />
-                    </div>
-                  </div>
-
-                  <div className="rounded-[1.25rem] bg-[#0f1726] p-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold">Forsat.af</span>
-                      <span className="rounded-full bg-[#4f8cff]/18 px-2.5 py-1 text-[10px] text-[#b9d0ff]">Access</span>
-                    </div>
-                    <div className="mt-4 grid gap-2">
-                      {['Opportunity', 'Growth'].map((item) => (
-                        <div key={item} className="rounded-xl border border-white/10 bg-white/[0.07] p-2">
-                          <div className="h-2 w-3/4 rounded-full bg-white/28" />
-                          <div className="mt-2 h-1.5 w-1/2 rounded-full bg-[#4f8cff]/70" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-3 grid grid-cols-3 gap-2 sm:hidden">
-              {['Editorial', 'News', 'Opportunity'].map((item) => (
-                <div key={item} className="rounded-2xl border border-[#dce4ee] bg-white px-3 py-3 text-center text-[10px] font-semibold text-[#536073]">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          aria-hidden="true"
-          animate={{ y: [0, -4, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-5 right-5 z-40 h-14 w-14 rounded-[1.25rem] border border-white/10 bg-white p-2 shadow-[0_18px_60px_rgba(79,140,255,0.18)] sm:bottom-7 sm:right-8 sm:h-16 sm:w-16 sm:rounded-[1.45rem]"
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
-            alt=""
-            className="h-full w-full rounded-[1rem] object-cover sm:rounded-[1.2rem]"
-            loading="eager"
-          />
-        </motion.div>
-
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 z-20 h-24 bg-[linear-gradient(0deg,rgba(8,10,15,0.52),transparent)]"
-        />
-      </div>
-    </div>
-  )
-}
-
-function BrowserDots() {
-  return (
-    <span className="flex items-center gap-1.5" aria-hidden="true">
-      <span className="h-2.5 w-2.5 rounded-full bg-[#ff2b5d]" />
-      <span className="h-2.5 w-2.5 rounded-full bg-[#f5bd4f]" />
-      <span className="h-2.5 w-2.5 rounded-full bg-[#35c779]" />
-    </span>
+    <motion.span
+      initial={{ opacity: 0, y: 42, filter: 'blur(14px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'spring', stiffness: 62, damping: 18, delay }}
+      className="block"
+    >
+      {children}
+    </motion.span>
   )
 }
 
