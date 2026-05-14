@@ -389,88 +389,157 @@ function Hero() {
 
 function HeroSystem({ deepX, deepY }) {
   return (
-    <div className="relative h-[360px] max-h-[72svh] w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.15),rgba(255,255,255,0.035))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.38)] backdrop-blur-xl sm:aspect-square sm:h-auto sm:min-h-[520px] sm:rounded-[2.4rem] sm:p-4 lg:aspect-[0.9] lg:min-h-[600px]">
+    <div className="group relative h-[360px] max-h-[72svh] w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.14),rgba(255,255,255,0.035))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.38)] backdrop-blur-xl sm:aspect-square sm:h-auto sm:min-h-[520px] sm:rounded-[2.4rem] sm:p-4 lg:aspect-[0.9] lg:min-h-[600px]">
       <motion.div
         aria-hidden="true"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-[5rem] border border-[#4f8cff]/24 sm:h-[82%] sm:w-[82%] sm:rounded-[7rem]"
-      />
-      <motion.div
-        aria-hidden="true"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 54, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-[10%] top-[12%] h-[54%] w-[54%] rounded-[4rem] border border-[#ff2b5d]/18 sm:left-[12%] sm:h-[58%] sm:w-[58%] sm:rounded-[5rem]"
+        style={{ x: deepX, y: deepY }}
+        className="absolute -right-12 top-10 h-44 w-44 rounded-full bg-[#4f8cff]/22 blur-3xl sm:-right-16 sm:top-24 sm:h-72 sm:w-72"
       />
       <motion.div
         aria-hidden="true"
         style={{ x: deepX, y: deepY }}
-        className="absolute -right-12 top-12 h-40 w-40 rounded-full bg-[#4f8cff]/24 blur-3xl sm:-right-10 sm:top-20 sm:h-56 sm:w-56"
+        className="absolute -left-10 bottom-0 h-52 w-52 rounded-full bg-[#ff2b5d]/13 blur-3xl sm:h-72 sm:w-72"
       />
-      <motion.div
-        aria-hidden="true"
-        style={{ x: deepX, y: deepY }}
-        className="absolute bottom-4 left-0 h-44 w-44 rounded-full bg-[#ff2b5d]/14 blur-3xl sm:bottom-10 sm:left-4 sm:h-64 sm:w-64"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[length:32px_32px]" />
-      <motion.div
-        aria-hidden="true"
-        animate={{ x: ['-35%', '42%', '-35%'] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute inset-y-0 w-2/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)]"
-      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.036)_1px,transparent_1px)] bg-[length:30px_30px]" />
 
-      <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0e1420]/72 p-4 sm:rounded-[1.75rem] sm:p-5">
-        <div className="flex items-start justify-between gap-4">
-          <motion.div
-            whileHover={{ y: -4, rotate: -1 }}
-            className="max-w-[10rem] rounded-[1.35rem] border border-white/10 bg-white/[0.07] p-3 shadow-2xl shadow-black/20 backdrop-blur-xl sm:max-w-48 sm:rounded-[1.5rem] sm:p-4"
-          >
-            <p className="text-xs font-semibold uppercase text-[#9bbdff]">Motion system</p>
-            <p className="mt-3 text-xl font-semibold leading-tight sm:text-3xl">Pattern becomes interface.</p>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -10, 0], rotate: [0, 3, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="h-20 w-20 rounded-[1.5rem] border border-white/10 bg-white p-2.5 shadow-[0_20px_60px_rgba(79,140,255,0.18)] sm:h-24 sm:w-24 sm:rounded-[1.8rem] sm:p-3"
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
-              alt="Animated Naqsh Digital Studio brand mark"
-              className="h-full w-full rounded-[1.25rem] object-cover"
-              loading="eager"
-            />
-          </motion.div>
-        </div>
-
-        <div className="grid gap-3">
-          <div className="grid grid-cols-3 gap-3">
-            {['Identity', 'Motion', 'Build'].map((label, index) => (
-              <motion.div
-                key={label}
-                animate={{ y: [0, index % 2 ? -6 : 6, 0] }}
-                transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}
-                className="rounded-2xl border border-white/10 bg-white/[0.07] px-2 py-3 text-center text-xs font-semibold text-white/76 backdrop-blur-xl sm:px-3 sm:py-5 sm:text-sm"
-              >
-                {label}
-              </motion.div>
-            ))}
+      <div className="relative h-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0b111c]/76 shadow-inner shadow-white/5 sm:rounded-[1.75rem]">
+        <motion.div
+          initial={{ opacity: 0, y: 18, scale: 0.96, rotate: -1 }}
+          animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+          whileHover={{ y: -5, rotate: -0.6 }}
+          transition={{ type: 'spring', stiffness: 92, damping: 19, delay: 0.22 }}
+          className="absolute left-4 right-4 top-8 z-20 overflow-hidden rounded-[1.35rem] border border-white/12 bg-[#f4f8fc] text-[#101928] shadow-[0_28px_90px_rgba(0,0,0,0.36)] sm:left-8 sm:right-10 sm:top-12 sm:rounded-[1.8rem]"
+        >
+          <div className="flex h-9 items-center justify-between border-b border-[#d6deea] bg-white/88 px-3 sm:h-11 sm:px-4">
+            <BrowserDots />
+            <span className="rounded-full bg-[#eaf1fb] px-3 py-1 text-[10px] font-semibold text-[#556479] sm:text-xs">
+              Kabul Times News
+            </span>
           </div>
-          <div className="rounded-[1.4rem] border border-white/10 bg-black/20 p-3 sm:p-4">
-            <div className="flex h-14 items-end gap-1.5 sm:h-20 sm:gap-2">
-              {[48, 72, 56, 88, 62, 80, 50].map((height, index) => (
-                <motion.span
-                  key={index}
-                  animate={{ height: [`${height - 16}%`, `${height}%`, `${height - 8}%`] }}
-                  transition={{ duration: 3.6 + index * 0.25, repeat: Infinity, ease: 'easeInOut' }}
-                  className="flex-1 rounded-t-xl bg-[linear-gradient(180deg,#78a8ff,#315eff)]"
-                />
+          <div className="grid gap-3 p-3 sm:grid-cols-[0.82fr_1.18fr] sm:p-4">
+            <div className="hidden space-y-2 sm:block">
+              {[0, 1, 2].map((item) => (
+                <motion.div
+                  key={item}
+                  animate={{ x: [0, item % 2 ? 3 : -3, 0] }}
+                  transition={{ duration: 4.8 + item, repeat: Infinity, ease: 'easeInOut' }}
+                  className="flex gap-2 rounded-2xl border border-[#dce4ee] bg-white p-2"
+                >
+                  <span className="h-10 w-12 rounded-xl bg-[linear-gradient(135deg,#dce8f7,#9db8d7)]" />
+                  <span className="flex flex-1 flex-col justify-center gap-1.5">
+                    <span className="h-2 rounded-full bg-[#12243a]/20" />
+                    <span className="h-2 w-2/3 rounded-full bg-[#12243a]/12" />
+                  </span>
+                </motion.div>
               ))}
             </div>
+            <div className="min-h-40 rounded-[1.2rem] bg-[linear-gradient(135deg,#27486e,#091320)] p-4 text-white sm:min-h-56 sm:rounded-[1.5rem]">
+              <span className="inline-flex rounded-full bg-[#ff2b5d] px-3 py-1 text-[10px] font-semibold uppercase">
+                Breaking
+              </span>
+              <div className="mt-16 space-y-2 sm:mt-28">
+                <motion.div
+                  animate={{ width: ['76%', '100%', '76%'] }}
+                  transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
+                  className="h-4 rounded-full bg-white/88"
+                />
+                <div className="h-3 w-4/5 rounded-full bg-white/48" />
+                <div className="h-2.5 w-3/5 rounded-full bg-white/28" />
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: -18, y: 20, rotate: -4 }}
+          animate={{ opacity: 1, x: 0, y: [0, -8, 0], rotate: [-2.4, -1.4, -2.4] }}
+          whileHover={{ y: -12, rotate: -1 }}
+          transition={{ duration: 6.4, repeat: Infinity, ease: 'easeInOut', delay: 0.45 }}
+          className="absolute bottom-6 left-3 z-30 w-[52%] overflow-hidden rounded-[1.25rem] border border-white/12 bg-[#f7f4ef] p-3 text-[#101928] shadow-[0_22px_70px_rgba(0,0,0,0.32)] sm:bottom-10 sm:left-6 sm:w-[45%] sm:rounded-[1.55rem] sm:p-4"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-lg font-semibold leading-none sm:text-2xl">zhandark</p>
+              <p className="mt-1 text-[10px] text-[#6c614f] sm:text-xs">Editorial identity</p>
+            </div>
+            <span className="h-9 w-9 rounded-xl bg-[linear-gradient(135deg,#1d2c42,#d0a14f)] sm:h-11 sm:w-11" />
+          </div>
+          <div className="mt-4 grid grid-cols-[1.15fr_0.85fr] gap-2">
+            <div className="h-20 rounded-2xl bg-[linear-gradient(135deg,#142238,#315f95)] p-2 sm:h-28">
+              <span className="rounded-full bg-[#c49a4b] px-2 py-1 text-[9px] font-semibold text-white">Top Story</span>
+            </div>
+            <div className="grid gap-2">
+              <div className="rounded-xl bg-[#ebe3d5] p-2">
+                <div className="h-6 rounded-lg bg-[#315f95]/24 sm:h-9" />
+              </div>
+              <div className="rounded-xl bg-[#ebe3d5] p-2">
+                <div className="h-6 rounded-lg bg-[#c49a4b]/26 sm:h-9" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 18, y: 18, rotate: 4 }}
+          animate={{ opacity: 1, x: 0, y: [0, 9, 0], rotate: [3, 2, 3] }}
+          whileHover={{ y: -4, rotate: 1.2 }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+          className="absolute bottom-5 right-3 z-40 w-[38%] overflow-hidden rounded-[1.4rem] border border-white/12 bg-[#101826] p-3 text-white shadow-[0_24px_80px_rgba(0,0,0,0.36)] sm:bottom-8 sm:right-7 sm:w-[32%] sm:rounded-[1.7rem] sm:p-4"
+        >
+          <div className="mx-auto h-1 w-8 rounded-full bg-white/20" />
+          <p className="mt-4 text-base font-semibold sm:text-xl">Forsat.af</p>
+          <p className="mt-1 text-[10px] text-white/48 sm:text-xs">Opportunity platform</p>
+          <div className="mt-4 space-y-2">
+            {['Jobs', 'Programs', 'Grants'].map((item, index) => (
+              <div key={item} className="rounded-xl border border-white/10 bg-white/[0.06] p-2">
+                <div className="flex items-center justify-between text-[10px] text-white/64">
+                  <span>{item}</span>
+                  <span className="h-2 w-2 rounded-full bg-[#4f8cff]" />
+                </div>
+                <div className="mt-2 h-1.5 rounded-full bg-white/12">
+                  <motion.div
+                    animate={{ width: [`${34 + index * 12}%`, `${66 + index * 8}%`, `${34 + index * 12}%`] }}
+                    transition={{ duration: 4.8 + index, repeat: Infinity, ease: 'easeInOut' }}
+                    className="h-full rounded-full bg-[linear-gradient(90deg,#4f8cff,#73e2ff)]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.25 }}
+          className="absolute right-5 top-5 z-50 h-16 w-16 rounded-[1.35rem] border border-white/10 bg-white p-2 shadow-[0_18px_60px_rgba(79,140,255,0.18)] sm:right-8 sm:top-8 sm:h-20 sm:w-20 sm:rounded-[1.6rem]"
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
+            alt="Naqsh Digital Studio brand mark floating over project previews"
+            className="h-full w-full rounded-[1rem] object-cover sm:rounded-[1.2rem]"
+            loading="eager"
+          />
+        </motion.div>
+
+        <motion.div
+          aria-hidden="true"
+          animate={{ x: ['-55%', '80%', '-55%'], opacity: [0.08, 0.2, 0.08] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-y-0 z-10 w-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)]"
+        />
       </div>
     </div>
+  )
+}
+
+function BrowserDots() {
+  return (
+    <span className="flex items-center gap-1.5" aria-hidden="true">
+      <span className="h-2.5 w-2.5 rounded-full bg-[#ff2b5d]" />
+      <span className="h-2.5 w-2.5 rounded-full bg-[#f5bd4f]" />
+      <span className="h-2.5 w-2.5 rounded-full bg-[#35c779]" />
+    </span>
   )
 }
 
