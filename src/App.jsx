@@ -529,7 +529,7 @@ function FeaturedWork() {
             className="group relative inline-flex min-h-14 items-center justify-center gap-3 overflow-hidden rounded-full border border-white/12 bg-white/[0.09] px-6 py-4 text-sm font-semibold text-white shadow-[0_18px_58px_rgba(0,0,0,0.32)] outline-none backdrop-blur-xl transition focus-visible:ring-2 focus-visible:ring-[#9bbdff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080a0f] sm:px-7"
           >
             <span className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(79,140,255,0.42),transparent_44%),linear-gradient(90deg,rgba(255,43,93,0.12),rgba(255,255,255,0.07),rgba(79,140,255,0.12))] opacity-70 transition group-hover:opacity-100" />
-            <span className="relative">{isExpanded ? 'Show fewer projects' : `Show ${remainingProjects} more projects`}</span>
+            <span className="relative">{isExpanded ? 'Show fewer projects' : 'Show more projects'}</span>
             <motion.span
               animate={{ rotate: isExpanded ? -90 : 90 }}
               transition={{ type: 'spring', stiffness: 360, damping: 24 }}
