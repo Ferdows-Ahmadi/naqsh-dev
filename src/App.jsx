@@ -61,7 +61,6 @@ const founders = [
 const navItems = [
   ['Services', '#services'],
   ['Work', '#work'],
-  ['Code Rush', '/code-rush/'],
   ['Why', '#why'],
   ['Process', '#process'],
   ['Contact', '#contact'],
@@ -173,30 +172,8 @@ const fadeUp = {
 }
 
 const storageConsentKey = 'naqsh-storage-consent'
-const gameBannerKey = 'naqsh-code-rush-banner-closed'
-
-const siteCopy = {
-  en: {
-    play: 'Play',
-    codeRush: 'Code Rush',
-    bubbleLabel: 'Play Code Rush. Test your coding speed.',
-    bubbleTip: 'Test your coding speed',
-    storageText:
-      'Naqsh uses local storage to remember your language, game scores, and small preferences. No tracking cookies. No login. Just a smoother experience.',
-    accept: 'Accept',
-    learnMore: 'Learn more',
-  },
-  fa: {
-    play: 'بازی',
-    codeRush: 'کُد راش',
-    bubbleLabel: 'کُد راش را بازی کن. سرعت کدنویسی‌ات را امتحان کن.',
-    bubbleTip: 'سرعت کدنویسی‌ات را امتحان کن',
-    storageText:
-      'نقش از ذخیره‌سازی محلی برای به‌خاطر سپردن زبان، امتیاز بازی و تنظیمات کوچک استفاده می‌کند. کوکی ردیابی و ورود حساب کاربری وجود ندارد؛ فقط برای تجربه بهتر.',
-    accept: 'قبول دارم',
-    learnMore: 'بیشتر بدانید',
-  },
-}
+const storageConsentText =
+  'Naqsh uses local storage to remember small preferences like game scores and dismissed banners. No tracking cookies, no login.'
 
 function readStoredValue(key, fallback = '') {
   try {
@@ -214,23 +191,10 @@ function writeStoredValue(key, value) {
   }
 }
 
-function getInitialSiteLang() {
-  return readStoredValue('naqshGameLang', 'en') === 'fa' ? 'fa' : 'en'
-}
-
 function App() {
-  const [siteLang] = useState(getInitialSiteLang)
   const [hasStorageConsent, setHasStorageConsent] = useState(
     () => readStoredValue(storageConsentKey) === 'accepted',
   )
-  const [showGameBanner, setShowGameBanner] = useState(
-    () => readStoredValue(gameBannerKey) !== 'true',
-  )
-
-  const closeGameBanner = () => {
-    if (hasStorageConsent) writeStoredValue(gameBannerKey, 'true')
-    setShowGameBanner(false)
-  }
 
   const acceptStorage = () => {
     writeStoredValue(storageConsentKey, 'accepted')
@@ -241,10 +205,8 @@ function App() {
     <div className="min-h-screen overflow-hidden bg-[#080a0f] text-white">
       <CursorAura />
       <Header />
-      <AnimatePresence>{showGameBanner ? <GameBanner onClose={closeGameBanner} /> : null}</AnimatePresence>
       <main>
         <Hero />
-        <CodeRushPromo />
         <Services />
         <FeaturedWork />
         <WhyNaqsh />
@@ -252,104 +214,56 @@ function App() {
         <Contact />
       </main>
       <Footer />
-      <GameBubble lang={siteLang} />
+      <GameBubble />
       <AnimatePresence>
-        {!hasStorageConsent ? <StorageConsent lang={siteLang} onAccept={acceptStorage} /> : null}
+        {!hasStorageConsent ? <StorageConsent onAccept={acceptStorage} /> : null}
       </AnimatePresence>
     </div>
   )
 }
 
-function GameBubble({ lang }) {
-  const copy = siteCopy[lang] || siteCopy.en
-  const isDari = lang === 'fa'
-
+function GameBubble() {
   return (
     <motion.a
       href="/code-rush/"
-      aria-label={copy.bubbleLabel}
-      title={copy.bubbleTip}
+      aria-label="Play Code Rush"
+      title="Test your coding speed"
       initial={{ opacity: 0, y: 18, scale: 0.94 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       whileHover={{ y: -3, scale: 1.03 }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: 'spring', stiffness: 190, damping: 18 }}
-      dir={isDari ? 'rtl' : 'ltr'}
-      className={`group fixed bottom-[calc(env(safe-area-inset-bottom)+5.6rem)] z-[65] inline-flex items-center gap-3 rounded-full border border-[#00ff88]/30 bg-[#06120f]/90 px-3 py-2 text-white shadow-[0_18px_60px_rgba(0,255,136,0.18)] backdrop-blur-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88] sm:bottom-6 ${
-        isDari ? 'left-4 sm:left-6' : 'right-4 sm:right-6'
-      }`}
+      className="group fixed right-4 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-[65] inline-flex items-center gap-3 rounded-full border border-[#00ff88]/30 bg-[#06120f]/90 px-3 py-2 text-white shadow-[0_18px_60px_rgba(0,255,136,0.18)] backdrop-blur-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88] sm:right-6 sm:bottom-6"
     >
       <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#00ff88] font-mono text-sm font-black text-[#04100b] shadow-[0_0_26px_rgba(0,255,136,0.36)] before:absolute before:inset-0 before:rounded-full before:animate-ping before:bg-[#00ff88]/25">
         &gt;_
       </span>
       <span className="leading-tight">
-        <span className="block text-xs font-semibold text-white/55">{copy.play}</span>
-        <span className="block text-sm font-bold text-white">{copy.codeRush}</span>
+        <span className="block text-xs font-semibold text-white/55">Play</span>
+        <span className="block text-sm font-bold text-white">Code Rush</span>
       </span>
     </motion.a>
   )
 }
 
-function StorageConsent({ lang, onAccept }) {
-  const copy = siteCopy[lang] || siteCopy.en
-
+function StorageConsent({ onAccept }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -14, filter: 'blur(8px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       exit={{ opacity: 0, y: -14, filter: 'blur(8px)' }}
       transition={{ type: 'spring', stiffness: 170, damping: 22 }}
-      dir={lang === 'fa' ? 'rtl' : 'ltr'}
       className="fixed inset-x-3 top-24 z-[80] mx-auto max-w-2xl rounded-[1.35rem] border border-white/10 bg-[#0b1017]/92 p-4 shadow-[0_22px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-5"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-6 text-white/68">{copy.storageText}</p>
-        <div className="flex shrink-0 items-center gap-2">
-          <a href="/privacy.html" className="rounded-full px-3 py-2 text-sm font-semibold text-white/58 transition hover:text-white">
-            {copy.learnMore}
-          </a>
-          <button
-            type="button"
-            onClick={onAccept}
-            className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#080a0f] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88]"
-          >
-            {copy.accept}
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-function GameBanner({ onClose }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, y: -16, filter: 'blur(8px)' }}
-      transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-      className="fixed inset-x-3 bottom-4 z-[70] mx-auto max-w-xl rounded-[1.4rem] border border-[#00ff88]/25 bg-[#07120f]/92 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl sm:bottom-6"
-    >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold text-[#00ff88]">New: Play Naqsh Code Rush</p>
-          <p className="mt-1 text-sm text-white/56">Test your coding speed and challenge your friends.</p>
-        </div>
-        <div className="flex gap-2">
-          <a
-            href="/code-rush/"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#00ff88] px-4 text-sm font-bold text-[#04100b]"
-          >
-            Play Now
-          </a>
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-4 text-sm font-semibold text-white/70"
-          >
-            Later
-          </button>
-        </div>
+        <p className="text-sm leading-6 text-white/68">{storageConsentText}</p>
+        <button
+          type="button"
+          onClick={onAccept}
+          className="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#080a0f] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88]"
+        >
+          Accept
+        </button>
       </div>
     </motion.div>
   )
@@ -567,40 +481,6 @@ function HeroLine({ children, delay }) {
     >
       {children}
     </motion.span>
-  )
-}
-
-function CodeRushPromo() {
-  return (
-    <section className="relative overflow-hidden bg-[#080a0f] px-5 py-12 sm:px-7 lg:px-10">
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.28 }}
-        transition={{ type: 'spring', stiffness: 82, damping: 20 }}
-        className="relative mx-auto grid max-w-7xl gap-6 overflow-hidden rounded-[2rem] border border-[#00ff88]/18 bg-[linear-gradient(135deg,rgba(0,255,136,0.12),rgba(79,140,255,0.08),rgba(255,43,93,0.055))] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-7 lg:grid-cols-[1fr_auto] lg:items-center"
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,255,136,0.05)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[length:32px_32px]" />
-        <div className="relative">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#00ff88]">Code Rush</p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-5xl">Play Code Rush</h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-white/62">
-            Test your coding speed and challenge your friends.
-          </p>
-          <p className="mt-3 max-w-2xl text-base leading-8 text-white/48" dir="rtl" lang="fa">
-            کُد راش را بازی کن. سرعت و دقت کدنویسی‌ات را امتحان کن و دوستانت را به چالش بکش.
-          </p>
-        </div>
-        <a
-          href="/code-rush/"
-          className="relative inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#00ff88] px-7 text-base font-bold text-[#04100b] shadow-[0_18px_60px_rgba(0,255,136,0.22)] transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88]"
-        >
-          Play Code Rush
-          <ArrowRight className="h-5 w-5" />
-        </a>
-      </motion.div>
-    </section>
   )
 }
 
