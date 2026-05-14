@@ -53,6 +53,11 @@ const contact = {
 
 const contactLinks = [contact.whatsapp, contact.instagram, contact.facebook, contact.email]
 
+const founders = [
+  ['Ahmad Ferdows Ahmadi', 'ferdowsahmadi@naqsh.dev'],
+  ['Ahmad Rishad Haidari', 'rishadhaidari@naqsh.dev'],
+]
+
 const navItems = [
   ['Services', '#services'],
   ['Work', '#work'],
@@ -314,18 +319,18 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen overflow-hidden px-5 pb-16 pt-28 sm:px-7 lg:px-10"
+      className="relative min-h-[100svh] overflow-hidden px-4 pb-14 pt-24 sm:px-7 sm:pt-28 lg:px-10"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
     >
       <CinematicField deepX={deepX} deepY={deepY} visualX={visualX} visualY={visualY} />
-      <div className="relative mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 lg:grid-cols-[0.96fr_1.04fr]">
-        <motion.div style={{ x: textX, y: textY }} className="relative z-10">
+      <div className="relative mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-[0.96fr_1.04fr]">
+        <motion.div style={{ x: textX, y: textY }} className="relative z-10 min-w-0">
           <motion.p
             initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ type: 'spring', stiffness: 80, damping: 18, delay: 0.08 }}
-            className="inline-flex rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm font-semibold text-[#9bbdff] shadow-lg shadow-black/20 backdrop-blur-xl"
+            className="inline-flex max-w-full rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-semibold text-[#9bbdff] shadow-lg shadow-black/20 backdrop-blur-xl sm:text-sm"
           >
             Naqsh Digital Studio
           </motion.p>
@@ -333,7 +338,7 @@ function Hero() {
             initial={{ opacity: 0, y: 42, filter: 'blur(14px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ type: 'spring', stiffness: 62, damping: 18, delay: 0.18 }}
-            className="mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] text-white sm:text-6xl lg:text-8xl"
+            className="mt-6 max-w-5xl text-[clamp(2.75rem,13vw,5.8rem)] font-semibold leading-[0.96] text-white sm:mt-7 sm:text-6xl lg:text-8xl"
           >
             Designing digital experiences with movement, identity, and soul.
           </motion.h1>
@@ -341,7 +346,7 @@ function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 72, damping: 20, delay: 0.32 }}
-            className="mt-7 max-w-2xl text-lg leading-8 text-white/66 sm:text-xl"
+            className="mt-6 max-w-2xl text-base leading-7 text-white/68 sm:mt-7 sm:text-xl sm:leading-8"
           >
             Kabul-born creative-tech studio crafting immersive websites, brands, interfaces,
             and digital products for ambitious businesses and modern ideas.
@@ -350,18 +355,18 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 80, damping: 18, delay: 0.42 }}
-            className="mt-9 grid gap-3 sm:flex"
+            className="mt-8 grid gap-3 sm:mt-9 sm:flex"
           >
             <MagneticLink
               href="#contact"
-              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-semibold text-[#080a0f] shadow-[0_24px_70px_rgba(79,140,255,0.24)] transition hover:bg-[#eef4ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]"
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-semibold text-[#080a0f] shadow-[0_24px_70px_rgba(79,140,255,0.24)] transition hover:bg-[#eef4ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff] sm:w-auto"
             >
               Start a Project
               <ArrowRight className="h-5 w-5" />
             </MagneticLink>
             <MagneticLink
               href="#work"
-              className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/14 bg-white/[0.055] px-7 text-base font-semibold text-white shadow-lg shadow-black/20 backdrop-blur-xl transition hover:border-white/28 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]"
+              className="inline-flex min-h-14 w-full items-center justify-center rounded-full border border-white/14 bg-white/[0.055] px-7 text-base font-semibold text-white shadow-lg shadow-black/20 backdrop-blur-xl transition hover:border-white/28 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff] sm:w-auto"
             >
               Explore Our Work
             </MagneticLink>
@@ -373,7 +378,7 @@ function Hero() {
           initial={{ opacity: 0, y: 36, scale: 0.96, filter: 'blur(12px)' }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{ type: 'spring', stiffness: 58, damping: 18, delay: 0.22 }}
-          className="relative mx-auto w-full max-w-[560px] lg:max-w-none"
+          className="relative mx-auto w-full max-w-[25rem] sm:max-w-[560px] lg:max-w-none"
         >
           <HeroSystem deepX={deepX} deepY={deepY} />
         </motion.div>
@@ -384,28 +389,28 @@ function Hero() {
 
 function HeroSystem({ deepX, deepY }) {
   return (
-    <div className="relative aspect-[0.82] min-h-[520px] overflow-hidden rounded-[2.4rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] p-4 shadow-[0_30px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl sm:aspect-square">
+    <div className="relative h-[360px] max-h-[72svh] w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.15),rgba(255,255,255,0.035))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.38)] backdrop-blur-xl sm:aspect-square sm:h-auto sm:min-h-[520px] sm:rounded-[2.4rem] sm:p-4 lg:aspect-[0.9] lg:min-h-[600px]">
       <motion.div
         aria-hidden="true"
         animate={{ rotate: 360 }}
         transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-1/2 top-1/2 h-[82%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-[7rem] border border-[#4f8cff]/24"
+        className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-[5rem] border border-[#4f8cff]/24 sm:h-[82%] sm:w-[82%] sm:rounded-[7rem]"
       />
       <motion.div
         aria-hidden="true"
         animate={{ rotate: -360 }}
         transition={{ duration: 54, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-[12%] top-[12%] h-[58%] w-[58%] rounded-[5rem] border border-[#ff2b5d]/18"
+        className="absolute left-[10%] top-[12%] h-[54%] w-[54%] rounded-[4rem] border border-[#ff2b5d]/18 sm:left-[12%] sm:h-[58%] sm:w-[58%] sm:rounded-[5rem]"
       />
       <motion.div
         aria-hidden="true"
         style={{ x: deepX, y: deepY }}
-        className="absolute -right-10 top-20 h-56 w-56 rounded-full bg-[#4f8cff]/24 blur-3xl"
+        className="absolute -right-12 top-12 h-40 w-40 rounded-full bg-[#4f8cff]/24 blur-3xl sm:-right-10 sm:top-20 sm:h-56 sm:w-56"
       />
       <motion.div
         aria-hidden="true"
         style={{ x: deepX, y: deepY }}
-        className="absolute bottom-10 left-4 h-64 w-64 rounded-full bg-[#ff2b5d]/14 blur-3xl"
+        className="absolute bottom-4 left-0 h-44 w-44 rounded-full bg-[#ff2b5d]/14 blur-3xl sm:bottom-10 sm:left-4 sm:h-64 sm:w-64"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[length:32px_32px]" />
       <motion.div
@@ -415,19 +420,19 @@ function HeroSystem({ deepX, deepY }) {
         className="absolute inset-y-0 w-2/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)]"
       />
 
-      <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0e1420]/72 p-5">
+      <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0e1420]/72 p-4 sm:rounded-[1.75rem] sm:p-5">
         <div className="flex items-start justify-between gap-4">
           <motion.div
             whileHover={{ y: -4, rotate: -1 }}
-            className="max-w-48 rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-4 shadow-2xl shadow-black/20 backdrop-blur-xl"
+            className="max-w-[10rem] rounded-[1.35rem] border border-white/10 bg-white/[0.07] p-3 shadow-2xl shadow-black/20 backdrop-blur-xl sm:max-w-48 sm:rounded-[1.5rem] sm:p-4"
           >
             <p className="text-xs font-semibold uppercase text-[#9bbdff]">Motion system</p>
-            <p className="mt-3 text-3xl font-semibold leading-tight">Pattern becomes interface.</p>
+            <p className="mt-3 text-xl font-semibold leading-tight sm:text-3xl">Pattern becomes interface.</p>
           </motion.div>
           <motion.div
             animate={{ y: [0, -10, 0], rotate: [0, 3, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="h-24 w-24 rounded-[1.8rem] border border-white/10 bg-white p-3 shadow-[0_20px_60px_rgba(79,140,255,0.18)]"
+            className="h-20 w-20 rounded-[1.5rem] border border-white/10 bg-white p-2.5 shadow-[0_20px_60px_rgba(79,140,255,0.18)] sm:h-24 sm:w-24 sm:rounded-[1.8rem] sm:p-3"
           >
             <img
               src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
@@ -445,14 +450,14 @@ function HeroSystem({ deepX, deepY }) {
                 key={label}
                 animate={{ y: [0, index % 2 ? -6 : 6, 0] }}
                 transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}
-                className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-5 text-center text-sm font-semibold text-white/76 backdrop-blur-xl"
+                className="rounded-2xl border border-white/10 bg-white/[0.07] px-2 py-3 text-center text-xs font-semibold text-white/76 backdrop-blur-xl sm:px-3 sm:py-5 sm:text-sm"
               >
                 {label}
               </motion.div>
             ))}
           </div>
-          <div className="rounded-[1.4rem] border border-white/10 bg-black/20 p-4">
-            <div className="flex h-20 items-end gap-2">
+          <div className="rounded-[1.4rem] border border-white/10 bg-black/20 p-3 sm:p-4">
+            <div className="flex h-14 items-end gap-1.5 sm:h-20 sm:gap-2">
               {[48, 72, 56, 88, 62, 80, 50].map((height, index) => (
                 <motion.span
                   key={index}
@@ -479,13 +484,14 @@ function Services() {
     >
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
-          <KineticCard key={service.title} index={index} className="group min-h-72 rounded-[2rem] border border-white/10 bg-white/[0.055] p-6 shadow-2xl shadow-black/10 backdrop-blur-xl">
-            <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(79,140,255,0.28),rgba(255,43,93,0.14))] text-[#b9d0ff]">
+          <KineticCard key={service.title} index={index} className="group relative min-h-64 overflow-hidden rounded-[2rem] border border-white/[0.09] bg-white/[0.035] p-6 shadow-[0_18px_70px_rgba(0,0,0,0.14)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(79,140,255,0.14),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_58%)] opacity-70 transition group-hover:opacity-100" />
+            <div className="relative mb-8 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(79,140,255,0.2),rgba(255,43,93,0.1))] text-[#b9d0ff] shadow-lg shadow-[#4f8cff]/10">
               <service.icon className="h-6 w-6" />
             </div>
-            <h3 className="text-2xl font-semibold">{service.title}</h3>
-            <p className="mt-4 leading-7 text-white/58">{service.description}</p>
-            <div className="mt-8 h-px bg-[linear-gradient(90deg,#4f8cff,transparent)] opacity-0 transition group-hover:opacity-100" />
+            <h3 className="relative text-2xl font-semibold">{service.title}</h3>
+            <p className="relative mt-4 leading-7 text-white/62">{service.description}</p>
+            <div className="relative mt-8 h-px bg-[linear-gradient(90deg,rgba(79,140,255,0.78),transparent)] opacity-0 transition group-hover:opacity-100" />
           </KineticCard>
         ))}
       </div>
@@ -950,10 +956,11 @@ function WhyNaqsh() {
     >
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {why.map(([title, description], index) => (
-          <KineticCard key={title} index={index} className="rounded-[2rem] border border-white/10 bg-white/[0.055] p-6 shadow-2xl shadow-black/10 backdrop-blur-xl">
-            <BadgeCheck className="h-6 w-6 text-[#ff6b8b]" />
-            <h3 className="mt-6 text-xl font-semibold">{title}</h3>
-            <p className="mt-3 leading-7 text-white/56">{description}</p>
+          <KineticCard key={title} index={index} className="group relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-white/[0.032] p-6 shadow-[0_18px_70px_rgba(0,0,0,0.14)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(255,43,93,0.11),transparent_32%),radial-gradient(circle_at_90%_80%,rgba(79,140,255,0.1),transparent_34%)] opacity-70 transition group-hover:opacity-100" />
+            <BadgeCheck className="relative h-6 w-6 text-[#ff6b8b]" />
+            <h3 className="relative mt-6 text-xl font-semibold">{title}</h3>
+            <p className="relative mt-3 leading-7 text-white/62">{description}</p>
           </KineticCard>
         ))}
       </div>
@@ -1027,19 +1034,76 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#080a0f] px-5 py-10 sm:px-7 lg:px-10">
-      <div className="mx-auto grid max-w-7xl gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
-        <div>
-          <p className="text-xl font-semibold">Naqsh Digital Studio</p>
-          <p className="mt-2 max-w-2xl leading-7 text-white/48">
-            Kabul-born creative-tech studio for immersive websites, brands, interfaces,
-            and multilingual digital products.
-          </p>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#080a0f] px-5 py-14 sm:px-7 lg:px-10 lg:py-18">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(79,140,255,0.16),transparent_34%),radial-gradient(circle_at_84%_0%,rgba(255,43,93,0.1),transparent_28%),linear-gradient(180deg,#0d111a,#080a0f)]" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: ['-18%', '18%', '-18%'], opacity: [0.16, 0.34, 0.16] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-0 top-0 h-px w-full bg-[linear-gradient(90deg,transparent,#4f8cff,#ff2b5d,transparent)]"
+      />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1fr_0.86fr] lg:items-start">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.34 }}
+            transition={{ type: 'spring', stiffness: 82, damping: 20 }}
+          >
+            <p className="text-2xl font-semibold">Naqsh Digital Studio</p>
+            <p className="mt-4 max-w-2xl text-lg leading-8 text-white/58">
+              Kabul-born creative-tech studio crafting immersive websites, brands,
+              interfaces, and multilingual digital experiences.
+            </p>
+            <p className="mt-7 max-w-xl text-sm font-semibold uppercase tracking-[0.22em] text-[#9bbdff]">
+              Designing digital experiences from Kabul to the world.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.34 }}
+            transition={{ type: 'spring', stiffness: 82, damping: 20, delay: 0.06 }}
+            className="rounded-[2rem] border border-white/[0.09] bg-white/[0.04] p-5 shadow-[0_20px_80px_rgba(0,0,0,0.18)] backdrop-blur-2xl sm:p-6"
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/44">Designed & Developed By</p>
+            <div className="mt-5 grid gap-3">
+              {founders.map(([name, email]) => (
+                <motion.a
+                  key={email}
+                  href={`mailto:${email}`}
+                  className="group flex min-h-16 items-center justify-between gap-4 rounded-[1.35rem] border border-white/10 bg-white/[0.045] px-4 transition hover:border-[#4f8cff]/34 hover:bg-white/[0.075] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                >
+                  <span>
+                    <span className="block font-semibold text-white">{name}</span>
+                    <span className="mt-1 block text-sm text-white/52">{email}</span>
+                  </span>
+                  <Mail className="h-5 w-5 text-[#9bbdff] transition group-hover:translate-x-1" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
         </div>
-        <div className="grid gap-2 sm:flex">
-          {contactLinks.map((link) => (
-            <ContactLink key={link.label} link={link} compact />
-          ))}
+
+        <div className="flex flex-col gap-5 pt-8 text-sm text-white/44 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Naqsh Digital Studio. All rights reserved.</p>
+          <nav className="flex flex-wrap gap-4" aria-label="Footer links">
+            <a href="#contact" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
+              Contact
+            </a>
+            <a href="mailto:hello@naqsh.dev" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
+              Privacy
+            </a>
+            <a href="mailto:hello@naqsh.dev" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
+              Terms
+            </a>
+          </nav>
         </div>
       </div>
     </footer>
