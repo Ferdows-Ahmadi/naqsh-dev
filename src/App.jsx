@@ -61,6 +61,7 @@ const founders = [
 const navItems = [
   ['Services', '#services'],
   ['Work', '#work'],
+  ['Code Rush', '/code-rush/'],
   ['Why', '#why'],
   ['Process', '#process'],
   ['Contact', '#contact'],
@@ -172,12 +173,23 @@ const fadeUp = {
 }
 
 function App() {
+  const [showGameBanner, setShowGameBanner] = useState(
+    () => localStorage.getItem('naqsh-code-rush-banner-closed') !== 'true',
+  )
+
+  const closeGameBanner = () => {
+    localStorage.setItem('naqsh-code-rush-banner-closed', 'true')
+    setShowGameBanner(false)
+  }
+
   return (
     <div className="min-h-screen overflow-hidden bg-[#080a0f] text-white">
       <CursorAura />
       <Header />
+      <AnimatePresence>{showGameBanner ? <GameBanner onClose={closeGameBanner} /> : null}</AnimatePresence>
       <main>
         <Hero />
+        <CodeRushPromo />
         <Services />
         <FeaturedWork />
         <WhyNaqsh />
@@ -186,6 +198,40 @@ function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+function GameBanner({ onClose }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, y: -16, filter: 'blur(8px)' }}
+      transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+      className="fixed inset-x-3 bottom-4 z-[70] mx-auto max-w-xl rounded-[1.4rem] border border-[#00ff88]/25 bg-[#07120f]/92 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl sm:bottom-6"
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-sm font-semibold text-[#00ff88]">New: Play Naqsh Code Rush</p>
+          <p className="mt-1 text-sm text-white/56">Test your coding speed and challenge your friends.</p>
+        </div>
+        <div className="flex gap-2">
+          <a
+            href="/code-rush/"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#00ff88] px-4 text-sm font-bold text-[#04100b]"
+          >
+            Play Now
+          </a>
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-4 text-sm font-semibold text-white/70"
+          >
+            Later
+          </button>
+        </div>
+      </div>
+    </motion.div>
   )
 }
 
@@ -401,6 +447,40 @@ function HeroLine({ children, delay }) {
     >
       {children}
     </motion.span>
+  )
+}
+
+function CodeRushPromo() {
+  return (
+    <section className="relative overflow-hidden bg-[#080a0f] px-5 py-12 sm:px-7 lg:px-10">
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.28 }}
+        transition={{ type: 'spring', stiffness: 82, damping: 20 }}
+        className="relative mx-auto grid max-w-7xl gap-6 overflow-hidden rounded-[2rem] border border-[#00ff88]/18 bg-[linear-gradient(135deg,rgba(0,255,136,0.12),rgba(79,140,255,0.08),rgba(255,43,93,0.055))] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-7 lg:grid-cols-[1fr_auto] lg:items-center"
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,255,136,0.05)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[length:32px_32px]" />
+        <div className="relative">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#00ff88]">Code Rush</p>
+          <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-5xl">Play Code Rush</h2>
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-white/62">
+            Test your coding speed and challenge your friends.
+          </p>
+          <p className="mt-3 max-w-2xl text-base leading-8 text-white/48" dir="rtl" lang="fa">
+            کُد راش را بازی کن. سرعت و دقت کدنویسی‌ات را امتحان کن و دوستانت را به چالش بکش.
+          </p>
+        </div>
+        <a
+          href="/code-rush/"
+          className="relative inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#00ff88] px-7 text-base font-bold text-[#04100b] shadow-[0_18px_60px_rgba(0,255,136,0.22)] transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88]"
+        >
+          Play Code Rush
+          <ArrowRight className="h-5 w-5" />
+        </a>
+      </motion.div>
+    </section>
   )
 }
 

@@ -20,6 +20,9 @@
     <meta name="twitter:description" content="A fast programming mini-game for students and beginner developers." />
     <meta name="twitter:image" content="https://naqsh.dev/naqsh-social-preview.png" />
     <link rel="icon" type="image/jpeg" href="/naqsh-icon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@500;700;800;900&family=Vazirmatn:wght@500;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -66,9 +69,9 @@
             <code>naqsh.dev/code-rush</code>
           </div>
           <div class="terminal-body">
-            <p><span>$</span> <span data-i18n="terminalLine1">booting Naqsh challenge...</span></p>
-            <p><span>$</span> <span data-i18n="terminalLine2">mode detected:</span> <strong id="detectedMode">Code Rush</strong></p>
-            <p><span>$</span> <span data-i18n="terminalLine3">best score:</span> <strong id="bestScore">0</strong></p>
+            <p class="terminal-line"><span>$</span> <span data-i18n="terminalLine1">booting Naqsh challenge...</span></p>
+            <p class="terminal-line"><span>$</span> <span data-i18n="terminalLine2">mode detected:</span> <strong id="detectedMode">Code Rush</strong></p>
+            <p class="terminal-line"><span>$</span> <span data-i18n="terminalLine3">best score:</span> <strong id="bestScore">0</strong></p>
           </div>
         </div>
       </section>
@@ -82,9 +85,18 @@
               <p id="startDescription" class="muted">
                 Type snippets quickly and accurately. Finish as many as you can before the timer hits zero.
               </p>
+              <div class="difficulty-picker" aria-label="Difficulty">
+                <p data-i18n="selectDifficulty">Choose difficulty</p>
+                <div class="switcher difficulty-switcher" role="group" aria-label="Difficulty options">
+                  <button class="chip" type="button" data-difficulty-button="easy">Easy</button>
+                  <button class="chip" type="button" data-difficulty-button="medium">Medium</button>
+                  <button class="chip" type="button" data-difficulty-button="hard">Hard</button>
+                  <button class="chip is-active" type="button" data-difficulty-button="mixed">Mixed</button>
+                </div>
+              </div>
               <button id="startBtn" class="primary-btn" type="button">
                 <span data-i18n="startGame">Start Game</span>
-                <span aria-hidden="true">↵</span>
+                <span aria-hidden="true">-&gt;</span>
               </button>
             </div>
 
@@ -94,8 +106,8 @@
                 <strong id="bestScoreCard">0</strong>
               </div>
               <div class="stat">
-                <span data-i18n="levelRange">Levels</span>
-                <strong>Easy → Hard</strong>
+                <span data-i18n="levelRange">Difficulty</span>
+                <strong id="selectedDifficulty">Mixed</strong>
               </div>
             </div>
           </div>
@@ -107,15 +119,16 @@
             <div><span data-i18n="accuracy">Accuracy</span><strong id="rushAccuracy">100%</strong></div>
             <div><span data-i18n="score">Score</span><strong id="rushScore">0</strong></div>
             <div><span data-i18n="level">Level</span><strong id="rushLevel">Easy</strong></div>
+            <div><span data-i18n="difficulty">Difficulty</span><strong id="rushDifficulty">Mixed</strong></div>
           </div>
 
           <div class="progress"><span id="rushProgress"></span></div>
 
           <div class="typing-layout">
-            <pre id="snippetBox" class="code-box" aria-label="Code snippet"></pre>
+            <pre id="snippetBox" class="code-box snippet code-text" aria-label="Code snippet"></pre>
             <textarea
               id="typingInput"
-              class="typing-input"
+              class="typing-input code-text"
               spellcheck="false"
               autocomplete="off"
               autocapitalize="off"
@@ -135,6 +148,7 @@
             <div><span data-i18n="correct">Correct</span><strong id="tapCorrect">0</strong></div>
             <div><span data-i18n="score">Score</span><strong id="tapScore">0</strong></div>
             <div><span data-i18n="level">Level</span><strong id="tapLevel">Easy</strong></div>
+            <div><span data-i18n="difficulty">Difficulty</span><strong id="tapDifficulty">Mixed</strong></div>
           </div>
 
           <div class="progress"><span id="tapProgress"></span></div>
@@ -172,6 +186,15 @@
               <a id="whatsappShare" class="share-btn" target="_blank" rel="noreferrer">WhatsApp</a>
               <button id="copyResult" class="share-btn" type="button" data-i18n="copyResult">Copy result</button>
               <button id="copyInstagram" class="share-btn" type="button" data-i18n="copyInstagram">Copy Instagram caption</button>
+            </div>
+          </div>
+
+          <div id="rewardCard" class="reward-card" hidden>
+            <p class="eyebrow" id="rewardTitle">Perfect Score Reward Unlocked!</p>
+            <p id="rewardText">Screenshot this result and send it to Naqsh to claim 10% off your portfolio website.</p>
+            <div class="claim-box">
+              <span id="claimCodeLabel">Claim code</span>
+              <strong id="claimCode" class="code-text">NQ-0000000000</strong>
             </div>
           </div>
 
