@@ -1,5 +1,11 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
 import {
   ArrowRight,
   BadgeCheck,
@@ -149,6 +155,7 @@ const fadeUp = {
 function App() {
   return (
     <div className="min-h-screen bg-[#fff8f0] text-[#172333]">
+      <CursorGlow />
       <Header />
       <main>
         <Hero />
@@ -169,23 +176,31 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#eadcc9]/80 bg-[#fff8f0]/92 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-7 lg:px-10">
-        <a
+        <motion.a
           href="#top"
           className="group flex items-center gap-3 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f6fa8]"
           aria-label="Naqsh Digital Studio home"
           onClick={() => setIsOpen(false)}
+          whileTap={{ scale: 0.96 }}
         >
-          <img
-            src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
-            alt="Naqsh Digital Studio blue and red pattern mark"
-            className="h-11 w-11 rounded-2xl object-cover shadow-sm ring-1 ring-[#dfcfba]"
-            loading="eager"
-          />
+          <span className="relative">
+            <img
+              src={`${import.meta.env.BASE_URL}naqsh-icon.jpeg`}
+              alt="Naqsh Digital Studio blue and red pattern mark"
+              className="h-11 w-11 rounded-2xl object-cover shadow-sm ring-1 ring-[#dfcfba]"
+              loading="eager"
+            />
+            <motion.span
+              className="absolute left-1.5 top-1.5 h-3.5 w-3.5 rounded-full bg-[#ff1745] shadow-[0_0_18px_rgba(255,23,69,0.55)]"
+              animate={{ scale: [1, 1.25, 1], opacity: [0.82, 1, 0.82] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </span>
           <span className="leading-tight">
             <span className="block text-lg font-semibold text-[#172333]">Naqsh</span>
             <span className="block text-xs font-medium uppercase text-[#7b6a5b]">Digital Studio</span>
           </span>
-        </a>
+        </motion.a>
 
         <nav className="hidden items-center gap-7 text-sm font-medium text-[#645849] md:flex" aria-label="Main navigation">
           {navItems.map(([label, href]) => (
@@ -200,12 +215,12 @@ function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a
+          <MagneticLink
             href="#contact"
             className="inline-flex h-11 items-center justify-center rounded-full bg-[#17324b] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#234a6d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f6fa8]"
           >
             Start a Project
-          </a>
+          </MagneticLink>
         </div>
 
         <button
@@ -254,47 +269,113 @@ function Header() {
 }
 
 function Hero() {
+  const reduceMotion = useReducedMotion()
+  const pointerX = useMotionValue(0)
+  const pointerY = useMotionValue(0)
+  const springX = useSpring(pointerX, { stiffness: 80, damping: 22, mass: 0.4 })
+  const springY = useSpring(pointerY, { stiffness: 80, damping: 22, mass: 0.4 })
+  const textX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [-12, 12])
+  const textY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [-8, 8])
+  const visualX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [20, -20])
+  const visualY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [16, -16])
+  const deepX = useTransform(springX, [-1, 1], reduceMotion ? [0, 0] : [-28, 28])
+  const deepY = useTransform(springY, [-1, 1], reduceMotion ? [0, 0] : [-22, 22])
+
+  const handlePointerMove = (event) => {
+    if (event.pointerType !== 'mouse') return
+
+    const bounds = event.currentTarget.getBoundingClientRect()
+    pointerX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 2)
+    pointerY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 2)
+  }
+
+  const resetPointer = () => {
+    pointerX.set(0)
+    pointerY.set(0)
+  }
+
   return (
-    <section id="top" className="relative overflow-hidden px-5 pb-20 pt-10 sm:px-7 lg:px-10 lg:pb-28 lg:pt-20">
+    <section
+      id="top"
+      className="relative overflow-hidden px-5 pb-20 pt-10 sm:px-7 lg:px-10 lg:pb-28 lg:pt-20"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+    >
       <PatternField />
+      <motion.div
+        aria-hidden="true"
+        style={{ x: deepX, y: deepY }}
+        className="pointer-events-none absolute left-[8%] top-28 h-56 w-56 rounded-[4rem] bg-[#c84d5b]/10 blur-3xl"
+      />
+      <motion.div
+        aria-hidden="true"
+        style={{ x: visualX, y: visualY }}
+        className="pointer-events-none absolute bottom-20 right-[12%] h-72 w-72 rounded-full bg-[#2f6fa8]/12 blur-3xl"
+      />
       <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          transition={{ type: 'spring', stiffness: 72, damping: 18 }}
+          style={{ x: textX, y: textY }}
         >
-          <p className="inline-flex rounded-full border border-[#e4d4bf] bg-white/76 px-4 py-2 text-sm font-semibold text-[#c84d5b] shadow-sm">
+          <motion.p
+            initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ type: 'spring', stiffness: 80, damping: 18, delay: 0.05 }}
+            className="inline-flex rounded-full border border-[#e4d4bf] bg-white/76 px-4 py-2 text-sm font-semibold text-[#c84d5b] shadow-sm"
+          >
             Kabul-born studio, building for global audiences
-          </p>
-          <h1 className="mt-7 max-w-4xl text-5xl font-semibold leading-[1.03] text-[#172333] sm:text-6xl lg:text-7xl">
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 28, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ type: 'spring', stiffness: 64, damping: 18, delay: 0.12 }}
+            className="mt-7 max-w-4xl text-5xl font-semibold leading-[1.03] text-[#172333] sm:text-6xl lg:text-7xl"
+          >
             Designing digital identities with soul and precision.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#645849] sm:text-xl">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 70, damping: 20, delay: 0.22 }}
+            className="mt-6 max-w-2xl text-lg leading-8 text-[#645849] sm:text-xl"
+          >
             Naqsh Digital Studio is a Kabul-born creative-tech studio building websites,
             brands, interfaces, and digital experiences for ambitious people and businesses.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-2">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 70, damping: 18, delay: 0.3 }}
+            className="mt-7 flex flex-wrap gap-2"
+          >
             {['News platforms', 'Nonprofit websites', 'Dashboards', 'Daycare systems'].map((item) => (
-              <span key={item} className="rounded-full border border-[#e4d4bf] bg-white/72 px-3 py-2 text-sm font-semibold text-[#5c6978] shadow-sm">
+              <motion.span
+                key={item}
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="rounded-full border border-[#e4d4bf] bg-white/72 px-3 py-2 text-sm font-semibold text-[#5c6978] shadow-sm"
+              >
                 {item}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
           <div className="mt-9 grid gap-3 sm:flex">
-            <a
+            <MagneticLink
               href="#contact"
               className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#17324b] px-7 text-base font-semibold text-white shadow-lg shadow-[#17324b]/18 transition hover:bg-[#234a6d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f6fa8]"
             >
               Start a Project
               <ArrowRight className="h-5 w-5" />
-            </a>
-            <a
+            </MagneticLink>
+            <MagneticLink
               href="#services"
               className="inline-flex min-h-14 items-center justify-center rounded-full border border-[#d8c8b3] bg-white/80 px-7 text-base font-semibold text-[#172333] shadow-sm transition hover:border-[#c84d5b]/40 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f6fa8]"
             >
               Explore Services
-            </a>
+            </MagneticLink>
           </div>
         </motion.div>
 
@@ -303,11 +384,22 @@ function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.12, ease: 'easeOut' }}
           className="relative mx-auto w-full max-w-[520px] lg:max-w-none"
+          style={{ x: visualX, y: visualY }}
           aria-label="Abstract pattern composition inspired by naqsh design"
         >
           <div className="absolute inset-8 rounded-[3rem] bg-[#2f6fa8]/16 blur-3xl" />
           <div className="relative overflow-hidden rounded-[2.25rem] border border-[#e0d1bd] bg-white p-4 shadow-2xl shadow-[#234a6d]/14">
             <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(135deg,#fff4e6,#ffffff_44%,#e8f1f8)] p-5">
+              <motion.div
+                aria-hidden="true"
+                style={{ x: deepX, y: deepY }}
+                className="absolute -right-10 top-8 h-40 w-40 rounded-[3rem] bg-[#c84d5b]/14 blur-2xl"
+              />
+              <motion.div
+                aria-hidden="true"
+                style={{ x: textX, y: textY }}
+                className="absolute bottom-12 left-8 h-48 w-48 rounded-full bg-[#bf9550]/16 blur-2xl"
+              />
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 34, repeat: Infinity, ease: 'linear' }}
@@ -319,6 +411,12 @@ function Hero() {
                 className="absolute left-[18%] top-[12%] h-44 w-44 rounded-[3.5rem] border border-[#2f6fa8]/45"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(47,111,168,0.08)_1px,transparent_1px),linear-gradient(0deg,rgba(47,111,168,0.08)_1px,transparent_1px)] bg-[length:28px_28px]" />
+              <motion.div
+                aria-hidden="true"
+                animate={{ x: ['-22%', '22%', '-22%'] }}
+                transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute inset-y-0 w-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.52),transparent)]"
+              />
               <div className="relative flex h-full min-h-[380px] flex-col justify-between">
                 <div className="flex justify-between gap-3">
                   <div className="rounded-3xl border border-[#e0d1bd] bg-white/82 p-4 shadow-sm backdrop-blur">
@@ -410,10 +508,13 @@ function ProjectVisual({ type }) {
   return (
     <div className="relative min-h-64 overflow-hidden bg-[linear-gradient(135deg,#fff,#f4e7d6_48%,#e8f1f8)] p-4">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(47,111,168,0.08)_1px,transparent_1px),linear-gradient(0deg,rgba(47,111,168,0.08)_1px,transparent_1px)] bg-[length:24px_24px]" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: ['-18%', '24%', '-18%'], opacity: [0.35, 0.75, 0.35] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute inset-y-0 left-0 w-2/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.58),transparent)]"
+      />
       <div className="relative">{visualMap[type]}</div>
-      <p className="relative mt-4 rounded-full bg-white/78 px-4 py-2 text-center text-sm font-semibold text-[#7b6a5b] shadow-sm">
-        Project visual coming soon
-      </p>
     </div>
   )
 }
@@ -437,19 +538,28 @@ function NewsVisual() {
       <div className="grid gap-3 p-4 sm:grid-cols-[0.72fr_1.28fr]">
         <div className="space-y-2">
           {[1, 2, 3].map((item) => (
-            <div key={item} className="flex gap-2 rounded-xl border border-[#edf0f3] p-2">
+            <motion.div
+              key={item}
+              animate={{ x: [0, item % 2 ? 3 : -3, 0] }}
+              transition={{ duration: 4 + item, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex gap-2 rounded-xl border border-[#edf0f3] p-2"
+            >
               <div className="h-10 w-12 rounded-lg bg-[#2f6fa8]/16" />
               <div className="flex-1 space-y-1.5">
                 <div className="h-2 rounded-full bg-[#17324b]/22" />
                 <div className="h-2 w-2/3 rounded-full bg-[#17324b]/12" />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="rounded-2xl bg-[linear-gradient(135deg,#315b7c,#15283a)] p-4 text-white">
           <span className="rounded-full bg-[#d83f52] px-3 py-1 text-xs font-semibold">Breaking</span>
           <div className="mt-16 space-y-2">
-            <div className="h-4 rounded-full bg-white/85" />
+            <motion.div
+              animate={{ width: ['82%', '100%', '82%'] }}
+              transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+              className="h-4 rounded-full bg-white/85"
+            />
             <div className="h-4 w-4/5 rounded-full bg-white/68" />
             <div className="h-3 w-2/3 rounded-full bg-white/38" />
           </div>
@@ -463,13 +573,21 @@ function EditorialVisual() {
   return (
     <div className="rounded-[1.5rem] border border-[#eadcc9] bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
-        <div className="h-10 w-36 rounded-full bg-[#17324b]" />
+        <motion.div
+          animate={{ width: ['8rem', '9.5rem', '8rem'] }}
+          transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="h-10 rounded-full bg-[#17324b]"
+        />
         <div className="rounded-full bg-[#bf9550] px-3 py-2 text-xs font-semibold text-white">Subscribe</div>
       </div>
       <div className="mt-4 grid gap-3 sm:grid-cols-[1.3fr_0.7fr]">
         <div className="min-h-36 rounded-2xl bg-[linear-gradient(135deg,#1c3550,#2f6fa8)] p-4 text-white">
           <span className="rounded-full bg-[#bf9550] px-3 py-1 text-xs font-semibold">Top story</span>
-          <div className="mt-16 h-4 rounded-full bg-white/82" />
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+            className="mt-16 h-4 rounded-full bg-white/82"
+          />
           <div className="mt-2 h-3 w-3/4 rounded-full bg-white/52" />
         </div>
         <div className="grid gap-3">
@@ -501,17 +619,27 @@ function DashboardVisual() {
           ['Members', '248', '#6d55d8'],
           ['Revenue', 'AFN', '#d83f52'],
         ].map(([label, value, color]) => (
-          <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3">
+          <motion.div
+            key={label}
+            whileHover={{ y: -3, scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3"
+          >
             <div className="h-8 w-8 rounded-xl" style={{ backgroundColor: color }} />
             <p className="mt-3 text-xs text-white/58">{label}</p>
             <p className="text-xl font-semibold">{value}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
         <div className="flex h-24 items-end gap-2">
           {[34, 58, 42, 76, 52, 66].map((height, index) => (
-            <span key={index} className="flex-1 rounded-t-xl bg-[#2f6fa8]" style={{ height: `${height}%` }} />
+            <motion.span
+              key={index}
+              animate={{ height: [`${height - 10}%`, `${height}%`, `${height - 4}%`] }}
+              transition={{ duration: 3.8 + index * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex-1 rounded-t-xl bg-[#2f6fa8]"
+            />
           ))}
         </div>
       </div>
@@ -528,12 +656,26 @@ function HealthVisual() {
       </div>
       <div className="grid gap-3 sm:grid-cols-[1fr_0.8fr]">
         <div className="relative min-h-40 rounded-2xl bg-[radial-gradient(circle_at_44%_46%,rgba(45,180,126,0.55),transparent_12%),radial-gradient(circle_at_64%_42%,rgba(45,180,126,0.45),transparent_14%),linear-gradient(135deg,#2a323d,#eef2f4)]">
-          <div className="absolute left-[28%] top-[18%] h-28 w-16 rounded-full bg-[#3d5fe8]/48 blur-sm" />
-          <div className="absolute right-[25%] top-[18%] h-28 w-16 rounded-full bg-[#3d5fe8]/48 blur-sm" />
+          <motion.div
+            animate={{ opacity: [0.35, 0.62, 0.35], scale: [1, 1.05, 1] }}
+            transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute left-[28%] top-[18%] h-28 w-16 rounded-full bg-[#3d5fe8]/48 blur-sm"
+          />
+          <motion.div
+            animate={{ opacity: [0.42, 0.7, 0.42], scale: [1, 1.04, 1] }}
+            transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute right-[25%] top-[18%] h-28 w-16 rounded-full bg-[#3d5fe8]/48 blur-sm"
+          />
         </div>
         <div className="rounded-2xl border border-[#edf0f3] bg-[#fbfcfd] p-4">
           <p className="text-sm font-semibold text-[#172333]">Model output</p>
-          <div className="mt-4 h-3 rounded-full bg-[#f04b55]" />
+          <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#f4d4d8]">
+            <motion.div
+              animate={{ width: ['70%', '87%', '70%'] }}
+              transition={{ duration: 4.4, repeat: Infinity, ease: 'easeInOut' }}
+              className="h-full rounded-full bg-[#f04b55]"
+            />
+          </div>
           <div className="mt-4 space-y-2">
             <div className="h-2 rounded-full bg-[#172333]/20" />
             <div className="h-2 w-4/5 rounded-full bg-[#172333]/14" />
@@ -558,13 +700,21 @@ function GoldVisual() {
         </div>
       </div>
       <div className="relative min-h-44 bg-[linear-gradient(135deg,#c9d7cf,#edf5f2)] p-4">
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-[#10221f]/16" />
+        <motion.div
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-x-0 bottom-0 h-20 bg-[#10221f]/16"
+        />
         <p className="relative mt-16 max-w-48 text-2xl font-semibold text-[#10221f]">Committed to serve</p>
         <div className="relative mt-4 flex gap-2">
           {['Health', 'Education', 'Nutrition'].map((item) => (
-            <span key={item} className="rounded-full bg-white/78 px-3 py-1 text-xs font-semibold text-[#365246]">
+            <motion.span
+              key={item}
+              whileHover={{ y: -2 }}
+              className="rounded-full bg-white/78 px-3 py-1 text-xs font-semibold text-[#365246]"
+            >
               {item}
-            </span>
+            </motion.span>
           ))}
         </div>
       </div>
@@ -577,14 +727,23 @@ function DaycareVisual() {
     <div className="rounded-[1.5rem] border border-[#d9e1e8] bg-[#f7fbff] p-5 shadow-sm">
       <div className="mx-auto max-w-sm rounded-[1.5rem] border border-[#dbe5f0] bg-white p-5 shadow-sm">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#dbe5f0] bg-[#f5f7ff]">
-          <div className="h-8 w-8 rounded-full bg-[#6472d9]/22" />
+          <motion.div
+            animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+            className="h-8 w-8 rounded-full bg-[#6472d9]/22"
+          />
         </div>
         <p className="mt-5 text-center text-xl font-semibold text-[#172333]">Daycare Manager</p>
         <p className="text-center text-sm text-[#5c6978]">US family daycare center</p>
         <div className="mt-5 space-y-3">
           <div className="h-11 rounded-xl border border-[#dbe5f0] bg-white" />
           <div className="h-11 rounded-xl border-2 border-[#172333] bg-white" />
-          <div className="h-12 rounded-xl bg-[#6371df]" />
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            animate={{ boxShadow: ['0 10px 24px rgba(99,113,223,0.2)', '0 16px 34px rgba(99,113,223,0.32)', '0 10px 24px rgba(99,113,223,0.2)'] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="h-12 rounded-xl bg-[#6371df]"
+          />
         </div>
       </div>
     </div>
@@ -686,7 +845,15 @@ function Section({ id, eyebrow, title, intro, children, tone = 'ivory' }) {
   const toneClass = tone === 'stone' ? 'bg-[#f5eadb]' : 'bg-[#fff8f0]'
 
   return (
-    <section id={id} className={`${toneClass} px-5 py-20 sm:px-7 lg:px-10 lg:py-28`}>
+    <section id={id} className={`relative overflow-hidden ${toneClass} px-5 py-20 sm:px-7 lg:px-10 lg:py-28`}>
+      <motion.div
+        aria-hidden="true"
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ type: 'spring', stiffness: 90, damping: 24 }}
+        className="absolute left-5 right-5 top-0 h-px origin-left bg-[linear-gradient(90deg,transparent,#2f6fa8,#c84d5b,transparent)] sm:left-7 sm:right-7 lg:left-10 lg:right-10"
+      />
       <div className="mx-auto max-w-7xl">
         <SectionHeading eyebrow={eyebrow} title={title} intro={intro} />
         {children}
@@ -718,8 +885,10 @@ function MotionArticle({ children, className, index = 0 }) {
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
+      whileHover={{ y: -6, scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.52, delay: index * 0.035, ease: 'easeOut' }}
+      transition={{ type: 'spring', stiffness: 150, damping: 20, delay: index * 0.025 }}
       className={className}
     >
       {children}
@@ -732,7 +901,7 @@ function SocialLink({ link, compact = false, inverse = false, onClick }) {
   const external = link.href.startsWith('http')
 
   return (
-    <a
+    <motion.a
       href={link.href}
       className={`group flex min-h-14 items-center justify-between gap-4 rounded-2xl px-4 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2f6fa8] ${
         inverse
@@ -743,6 +912,9 @@ function SocialLink({ link, compact = false, inverse = false, onClick }) {
       rel={external ? 'noreferrer' : undefined}
       onClick={onClick}
       aria-label={`${link.label}: ${link.value}`}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
     >
       <span className="flex items-center gap-3">
         <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${inverse ? 'bg-white/10 text-[#f0d193]' : 'bg-[#e8f1f8] text-[#2f6fa8]'}`}>
@@ -754,7 +926,7 @@ function SocialLink({ link, compact = false, inverse = false, onClick }) {
         </span>
       </span>
       {!compact ? <ArrowRight className="h-4 w-4 opacity-55 transition group-hover:translate-x-1" /> : null}
-    </a>
+    </motion.a>
   )
 }
 
@@ -765,6 +937,79 @@ function PatternField() {
       <div className="absolute right-[-6rem] top-44 h-72 w-72 rounded-full bg-[#2f6fa8]/18 blur-3xl" />
       <div className="absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_center,rgba(47,111,143,0.07)_1px,transparent_1px)] bg-[length:30px_30px] opacity-60" />
     </div>
+  )
+}
+
+function MagneticLink({ href, className, children }) {
+  const reduceMotion = useReducedMotion()
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const springX = useSpring(x, { stiffness: 240, damping: 18, mass: 0.35 })
+  const springY = useSpring(y, { stiffness: 240, damping: 18, mass: 0.35 })
+
+  const handleMove = (event) => {
+    if (reduceMotion || event.pointerType !== 'mouse') return
+
+    const bounds = event.currentTarget.getBoundingClientRect()
+    x.set((event.clientX - bounds.left - bounds.width / 2) * 0.12)
+    y.set((event.clientY - bounds.top - bounds.height / 2) * 0.16)
+  }
+
+  const reset = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <motion.a
+      href={href}
+      className={className}
+      style={{ x: springX, y: springY }}
+      onPointerMove={handleMove}
+      onPointerLeave={reset}
+      whileHover={{ scale: 1.025 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+    >
+      {children}
+    </motion.a>
+  )
+}
+
+function CursorGlow() {
+  const [enabled, setEnabled] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : false,
+  )
+  const x = useMotionValue(-200)
+  const y = useMotionValue(-200)
+  const springX = useSpring(x, { stiffness: 90, damping: 22, mass: 0.3 })
+  const springY = useSpring(y, { stiffness: 90, damping: 22, mass: 0.3 })
+
+  useEffect(() => {
+    const pointerQuery = window.matchMedia('(pointer: fine)')
+    const handlePointerChange = (event) => setEnabled(event.matches)
+
+    const move = (event) => {
+      x.set(event.clientX - 150)
+      y.set(event.clientY - 150)
+    }
+
+    pointerQuery.addEventListener('change', handlePointerChange)
+    window.addEventListener('pointermove', move)
+    return () => {
+      pointerQuery.removeEventListener('change', handlePointerChange)
+      window.removeEventListener('pointermove', move)
+    }
+  }, [x, y])
+
+  if (!enabled) return null
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(47,111,168,0.18),rgba(200,77,91,0.1)_38%,transparent_68%)] mix-blend-multiply blur-xl md:block"
+      style={{ x: springX, y: springY }}
+    />
   )
 }
 
