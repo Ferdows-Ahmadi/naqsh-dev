@@ -61,6 +61,7 @@ const founders = [
 const navItems = [
   ['Services', '#services'],
   ['Work', '#work'],
+  ['Blog', '/blog/'],
   ['Why', '#why'],
   ['Process', '#process'],
   ['Contact', '#contact'],
@@ -465,9 +466,41 @@ function Hero() {
               Explore Our Work
             </MagneticLink>
           </motion.div>
+          <LatestInsightCard />
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function LatestInsightCard() {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 22, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'spring', stiffness: 76, damping: 20, delay: 0.52 }}
+      className="mt-7 max-w-xl overflow-hidden rounded-[1.65rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.24)] backdrop-blur-2xl sm:p-5"
+    >
+      <div className="flex items-start gap-4">
+        <div className="mt-1 h-12 w-12 shrink-0 rounded-2xl border border-[#4f8cff]/20 bg-[radial-gradient(circle_at_30%_20%,rgba(79,140,255,0.42),transparent_55%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,31,79,0.08))]" />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9bbdff]">Latest Insight</p>
+          <h2 className="mt-2 text-xl font-semibold leading-snug text-white sm:text-2xl">
+            Why Every Student Developer Needs a Portfolio Website
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-white/58">
+            A short guide on how a simple personal website can help students show skills, projects, and credibility.
+          </p>
+          <a
+            href="/blog/why-every-student-developer-needs-a-portfolio/"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-4 text-sm font-semibold text-white transition hover:border-[#4f8cff]/45 hover:bg-white/[0.09] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]"
+          >
+            Read Article
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </motion.article>
   )
 }
 
