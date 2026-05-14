@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+  AnimatePresence,
   motion,
   useMotionValue,
   useReducedMotion,
@@ -493,6 +494,10 @@ function Services() {
 }
 
 function FeaturedWork() {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const visibleProjects = isExpanded ? projects : projects.slice(0, 3)
+  const remainingProjects = projects.length - 3
+
   return (
     <MotionSection
       id="work"
@@ -502,10 +507,39 @@ function FeaturedWork() {
       intro="Each preview is a designed interface composition: honest, stylized, animated, and ready to evolve into a full case study."
     >
       <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
-        ))}
+        <AnimatePresence initial={false}>
+          {visibleProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </AnimatePresence>
       </div>
+      {remainingProjects > 0 && (
+        <div className="relative mt-8 flex justify-center">
+          {!isExpanded && (
+            <div className="pointer-events-none absolute -top-20 h-20 w-full bg-[linear-gradient(180deg,transparent,rgba(8,10,15,0.82))]" />
+          )}
+          <motion.button
+            type="button"
+            aria-expanded={isExpanded}
+            aria-controls="work"
+            onClick={() => setIsExpanded((current) => !current)}
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 360, damping: 22 }}
+            className="group relative inline-flex min-h-14 items-center justify-center gap-3 overflow-hidden rounded-full border border-white/12 bg-white/[0.09] px-6 py-4 text-sm font-semibold text-white shadow-[0_18px_58px_rgba(0,0,0,0.32)] outline-none backdrop-blur-xl transition focus-visible:ring-2 focus-visible:ring-[#9bbdff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080a0f] sm:px-7"
+          >
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(79,140,255,0.42),transparent_44%),linear-gradient(90deg,rgba(255,43,93,0.12),rgba(255,255,255,0.07),rgba(79,140,255,0.12))] opacity-70 transition group-hover:opacity-100" />
+            <span className="relative">{isExpanded ? 'Show fewer projects' : `Show ${remainingProjects} more projects`}</span>
+            <motion.span
+              animate={{ rotate: isExpanded ? -90 : 90 }}
+              transition={{ type: 'spring', stiffness: 360, damping: 24 }}
+              className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </motion.span>
+          </motion.button>
+        </div>
+      )}
     </MotionSection>
   )
 }
@@ -513,8 +547,10 @@ function FeaturedWork() {
 function ProjectCard({ project, index }) {
   return (
     <motion.article
+      layout
       initial={{ opacity: 0, y: 36, filter: 'blur(12px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ type: 'spring', stiffness: 92, damping: 20, delay: index * 0.04 }}
       whileHover={{ y: -8, scale: 1.01 }}
