@@ -1056,9 +1056,6 @@ function Footer() {
               Kabul-born creative-tech studio crafting immersive websites, brands,
               interfaces, and multilingual digital experiences.
             </p>
-            <p className="mt-7 max-w-xl text-sm font-semibold uppercase tracking-[0.22em] text-[#9bbdff]">
-              Designing digital experiences from Kabul to the world.
-            </p>
           </motion.div>
 
           <motion.div
@@ -1092,15 +1089,15 @@ function Footer() {
         </div>
 
         <div className="flex flex-col gap-5 pt-8 text-sm text-white/44 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Naqsh Digital Studio. All rights reserved.</p>
+          <p>&copy; 2026 Naqsh Digital Studio. All rights reserved.</p>
           <nav className="flex flex-wrap gap-4" aria-label="Footer links">
             <a href="#contact" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
               Contact
             </a>
-            <a href="mailto:hello@naqsh.dev" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
+            <a href="/privacy.html" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
               Privacy
             </a>
-            <a href="mailto:hello@naqsh.dev" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
+            <a href="/terms.html" className="transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4f8cff]">
               Terms
             </a>
           </nav>
