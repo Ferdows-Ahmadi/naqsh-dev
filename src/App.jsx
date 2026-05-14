@@ -172,14 +172,69 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
 }
 
+const storageConsentKey = 'naqsh-storage-consent'
+const gameBannerKey = 'naqsh-code-rush-banner-closed'
+
+const siteCopy = {
+  en: {
+    play: 'Play',
+    codeRush: 'Code Rush',
+    bubbleLabel: 'Play Code Rush. Test your coding speed.',
+    bubbleTip: 'Test your coding speed',
+    storageText:
+      'Naqsh uses local storage to remember your language, game scores, and small preferences. No tracking cookies. No login. Just a smoother experience.',
+    accept: 'Accept',
+    learnMore: 'Learn more',
+  },
+  fa: {
+    play: 'بازی',
+    codeRush: 'کُد راش',
+    bubbleLabel: 'کُد راش را بازی کن. سرعت کدنویسی‌ات را امتحان کن.',
+    bubbleTip: 'سرعت کدنویسی‌ات را امتحان کن',
+    storageText:
+      'نقش از ذخیره‌سازی محلی برای به‌خاطر سپردن زبان، امتیاز بازی و تنظیمات کوچک استفاده می‌کند. کوکی ردیابی و ورود حساب کاربری وجود ندارد؛ فقط برای تجربه بهتر.',
+    accept: 'قبول دارم',
+    learnMore: 'بیشتر بدانید',
+  },
+}
+
+function readStoredValue(key, fallback = '') {
+  try {
+    return localStorage.getItem(key) ?? fallback
+  } catch {
+    return fallback
+  }
+}
+
+function writeStoredValue(key, value) {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    // Storage can be unavailable in strict browser modes; the UI still works for the session.
+  }
+}
+
+function getInitialSiteLang() {
+  return readStoredValue('naqshGameLang', 'en') === 'fa' ? 'fa' : 'en'
+}
+
 function App() {
+  const [siteLang] = useState(getInitialSiteLang)
+  const [hasStorageConsent, setHasStorageConsent] = useState(
+    () => readStoredValue(storageConsentKey) === 'accepted',
+  )
   const [showGameBanner, setShowGameBanner] = useState(
-    () => localStorage.getItem('naqsh-code-rush-banner-closed') !== 'true',
+    () => readStoredValue(gameBannerKey) !== 'true',
   )
 
   const closeGameBanner = () => {
-    localStorage.setItem('naqsh-code-rush-banner-closed', 'true')
+    if (hasStorageConsent) writeStoredValue(gameBannerKey, 'true')
     setShowGameBanner(false)
+  }
+
+  const acceptStorage = () => {
+    writeStoredValue(storageConsentKey, 'accepted')
+    setHasStorageConsent(true)
   }
 
   return (
@@ -197,7 +252,72 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <GameBubble lang={siteLang} />
+      <AnimatePresence>
+        {!hasStorageConsent ? <StorageConsent lang={siteLang} onAccept={acceptStorage} /> : null}
+      </AnimatePresence>
     </div>
+  )
+}
+
+function GameBubble({ lang }) {
+  const copy = siteCopy[lang] || siteCopy.en
+  const isDari = lang === 'fa'
+
+  return (
+    <motion.a
+      href="/code-rush/"
+      aria-label={copy.bubbleLabel}
+      title={copy.bubbleTip}
+      initial={{ opacity: 0, y: 18, scale: 0.94 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileHover={{ y: -3, scale: 1.03 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: 'spring', stiffness: 190, damping: 18 }}
+      dir={isDari ? 'rtl' : 'ltr'}
+      className={`group fixed bottom-[calc(env(safe-area-inset-bottom)+5.6rem)] z-[65] inline-flex items-center gap-3 rounded-full border border-[#00ff88]/30 bg-[#06120f]/90 px-3 py-2 text-white shadow-[0_18px_60px_rgba(0,255,136,0.18)] backdrop-blur-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88] sm:bottom-6 ${
+        isDari ? 'left-4 sm:left-6' : 'right-4 sm:right-6'
+      }`}
+    >
+      <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#00ff88] font-mono text-sm font-black text-[#04100b] shadow-[0_0_26px_rgba(0,255,136,0.36)] before:absolute before:inset-0 before:rounded-full before:animate-ping before:bg-[#00ff88]/25">
+        &gt;_
+      </span>
+      <span className="leading-tight">
+        <span className="block text-xs font-semibold text-white/55">{copy.play}</span>
+        <span className="block text-sm font-bold text-white">{copy.codeRush}</span>
+      </span>
+    </motion.a>
+  )
+}
+
+function StorageConsent({ lang, onAccept }) {
+  const copy = siteCopy[lang] || siteCopy.en
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -14, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, y: -14, filter: 'blur(8px)' }}
+      transition={{ type: 'spring', stiffness: 170, damping: 22 }}
+      dir={lang === 'fa' ? 'rtl' : 'ltr'}
+      className="fixed inset-x-3 top-24 z-[80] mx-auto max-w-2xl rounded-[1.35rem] border border-white/10 bg-[#0b1017]/92 p-4 shadow-[0_22px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-5"
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm leading-6 text-white/68">{copy.storageText}</p>
+        <div className="flex shrink-0 items-center gap-2">
+          <a href="/privacy.html" className="rounded-full px-3 py-2 text-sm font-semibold text-white/58 transition hover:text-white">
+            {copy.learnMore}
+          </a>
+          <button
+            type="button"
+            onClick={onAccept}
+            className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#080a0f] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ff88]"
+          >
+            {copy.accept}
+          </button>
+        </div>
+      </div>
+    </motion.div>
   )
 }
 
