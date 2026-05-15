@@ -9,7 +9,6 @@ import {
 } from 'framer-motion'
 import {
   ArrowRight,
-  BadgeCheck,
   Camera,
   ChevronRight,
   Code2,
@@ -62,7 +61,6 @@ const navItems = [
   ['Services', '#services'],
   ['Work', '#work'],
   ['Blog', '/blog/'],
-  ['Why', '#why'],
   ['Process', '#process'],
   ['Contact', '#contact'],
 ]
@@ -100,64 +98,23 @@ const services = [
   },
 ]
 
-const projects = [
-  {
-    title: 'Kabul Times News',
-    category: 'News & Media Platform',
-    description: 'A multilingual publishing system with breaking news rhythm, editorial structure, and media-forward layouts.',
-    visual: 'kabul',
-  },
+const showcaseProjects = [
   {
     title: 'Kabul Journal',
-    category: 'Editorial Website',
-    description: 'A story-led publishing concept with calm editorial pacing, article collections, and culture-focused presentation.',
+    category: 'Independent multilingual digital news platform',
+    description: 'Editorial structure, multilingual publishing, and fast article discovery shaped for Afghan and global readers.',
     visual: 'journal',
+    stats: ['Dari / Pashto / English', 'Responsive newsroom UI', 'SEO-ready architecture', 'Fast article loading', 'Editorial structure'],
+    accent: '#4f8cff',
   },
   {
-    title: 'Akhtari Family Daycare',
-    category: 'Family / Childcare Website',
-    description: 'A US-based daycare website direction focused on parent trust, warmth, clarity, and calm digital management.',
+    title: 'Akhtari Care',
+    category: 'Modern parent-focused healthcare experience',
+    description: 'A calm US-based daycare and care experience focused on trust, clarity, accessibility, and mobile-first parent flows.',
     visual: 'daycare',
+    stats: ['Mobile-first', 'Simplified UX', 'Accessible flows', 'Lightweight interface', 'Modern design system'],
+    accent: '#ff4f7b',
   },
-  {
-    title: 'ZhandarkDaily',
-    category: 'Editorial / News Brand',
-    description: 'A bold editorial identity with Joan of Arc inspired presence, premium news hierarchy, and distinctive brand energy.',
-    visual: 'zhandark',
-  },
-  {
-    title: 'Forsat.af',
-    category: 'Digital Opportunity Platform',
-    description: 'A platform concept for Afghan opportunities, access, growth, discovery, and digital visibility.',
-    visual: 'forsat',
-  },
-  {
-    title: 'GOLD NGO',
-    category: 'Nonprofit Organization Website',
-    description: 'A civic website direction for Great Organization for Learning and Development, focused on education, health, nutrition, and livelihood work in Afghanistan.',
-    visual: 'gold',
-  },
-  {
-    title: 'Snooker Club System',
-    category: 'Club Management Platform',
-    description: 'A management system concept for bookings, tables, members, payments, staff, reports, and daily club operations.',
-    visual: 'snooker',
-  },
-  {
-    title: 'Dental Clinic Management',
-    category: 'Healthcare Management System',
-    description: 'A clinic operations concept for appointments, patients, treatment plans, billing, reminders, and front-desk workflows.',
-    visual: 'dental',
-  },
-]
-
-const why = [
-  ['Movement', 'Motion is used to guide attention, create depth, and make the experience feel crafted.'],
-  ['Design quality', 'Every surface, transition, and composition is treated as part of the brand story.'],
-  ['Mobile-first thinking', 'The experience starts from the phone, with thumb-friendly controls and tactile feedback.'],
-  ['Modern web craftsmanship', 'Clean React, static performance, accessibility, and maintainable component patterns.'],
-  ['Multilingual support', 'Structures that can support English, Dari, and Pashto digital experiences.'],
-  ['Speed and polish', 'Fast loading with lightweight visuals, optimized assets, and purposeful animation.'],
 ]
 
 const process = [
@@ -209,8 +166,7 @@ function App() {
       <main>
         <Hero />
         <Services />
-        <FeaturedWork />
-        <WhyNaqsh />
+        <InteractiveShowcase />
         <Process />
         <Contact />
       </main>
@@ -535,75 +491,87 @@ function Services() {
   )
 }
 
-function FeaturedWork() {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const visibleProjects = isExpanded ? projects : projects.slice(0, 3)
-  const remainingProjects = projects.length - 3
-
+function InteractiveShowcase() {
   return (
-    <MotionSection
+    <section
       id="work"
-      tone="deep"
-      eyebrow="Featured Work"
-      title="Project worlds, not static thumbnails."
-      intro="Each preview is a designed interface composition: honest, stylized, animated, and ready to evolve into a full case study."
+      className="relative overflow-hidden bg-[#0d111a] px-0 py-20 sm:py-24 lg:py-28"
+      aria-labelledby="showcase-title"
     >
-      <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <AnimatePresence initial={false}>
-          {visibleProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </AnimatePresence>
+      <motion.div
+        aria-hidden="true"
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ type: 'spring', stiffness: 92, damping: 22 }}
+        className="absolute left-5 right-5 top-0 h-px origin-left bg-[linear-gradient(90deg,transparent,#4f8cff,#ff2b5d,transparent)] sm:left-7 sm:right-7 lg:left-10 lg:right-10"
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(79,140,255,0.18),transparent_32%),radial-gradient(circle_at_86%_14%,rgba(255,43,93,0.13),transparent_28%),linear-gradient(180deg,#0d111a,#080a0f)]" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: ['-10%', '12%', '-10%'], opacity: [0.16, 0.34, 0.16] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-0 top-28 h-80 w-[75vw] rounded-full bg-[radial-gradient(circle,rgba(79,140,255,0.22),transparent_62%)] blur-3xl"
+      />
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-7 lg:px-10">
+        <SectionHeading
+          titleId="showcase-title"
+          eyebrow="Selected Work"
+          title="Interfaces designed to move."
+          intro="Two real product directions, shown through the capabilities they need: publishing speed, mobile clarity, multilingual reach, and polished interaction."
+        />
       </div>
-      {remainingProjects > 0 && (
-        <div className="relative mt-8 flex justify-center">
-          {!isExpanded && (
-            <div className="pointer-events-none absolute -top-20 h-20 w-full bg-[linear-gradient(180deg,transparent,rgba(8,10,15,0.82))]" />
-          )}
-          <motion.button
-            type="button"
-            aria-expanded={isExpanded}
-            aria-controls="work"
-            onClick={() => setIsExpanded((current) => !current)}
-            whileHover={{ y: -3, scale: 1.03 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 360, damping: 22 }}
-            className="group relative inline-flex min-h-14 items-center justify-center gap-3 overflow-hidden rounded-full border border-white/12 bg-white/[0.09] px-6 py-4 text-sm font-semibold text-white shadow-[0_18px_58px_rgba(0,0,0,0.32)] outline-none backdrop-blur-xl transition focus-visible:ring-2 focus-visible:ring-[#9bbdff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080a0f] sm:px-7"
-          >
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(79,140,255,0.42),transparent_44%),linear-gradient(90deg,rgba(255,43,93,0.12),rgba(255,255,255,0.07),rgba(79,140,255,0.12))] opacity-70 transition group-hover:opacity-100" />
-            <span className="relative">{isExpanded ? 'Show fewer projects' : 'Show more projects'}</span>
-            <motion.span
-              animate={{ rotate: isExpanded ? -90 : 90 }}
-              transition={{ type: 'spring', stiffness: 360, damping: 24 }}
-              className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </motion.span>
-          </motion.button>
-        </div>
-      )}
-    </MotionSection>
+
+      <div
+        className="relative mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-7 [scrollbar-width:none] sm:px-7 lg:mt-14 lg:gap-8 lg:px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] [&::-webkit-scrollbar]:hidden"
+        aria-label="Swipe through selected Naqsh projects"
+      >
+        {showcaseProjects.map((project, index) => (
+          <ProjectCard key={project.title} project={project} index={index} />
+        ))}
+      </div>
+    </section>
   )
 }
 
 function ProjectCard({ project, index }) {
   return (
     <motion.article
-      layout
-      initial={{ opacity: 0, y: 36, filter: 'blur(12px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ type: 'spring', stiffness: 92, damping: 20, delay: index * 0.04 }}
-      whileHover={{ y: -8, scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#101621] shadow-[0_18px_60px_rgba(0,0,0,0.24)]"
+      initial={{ opacity: 0, y: 42, rotateX: 5, filter: 'blur(14px)' }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.28 }}
+      transition={{ type: 'spring', stiffness: 78, damping: 20, delay: index * 0.08 }}
+      whileHover={{ y: -10, scale: 1.012 }}
+      whileTap={{ scale: 0.985 }}
+      className="group relative w-[84vw] max-w-[58rem] flex-none snap-center overflow-hidden rounded-[2rem] border border-white/[0.12] bg-white/[0.055] shadow-[0_28px_100px_rgba(0,0,0,0.36)] backdrop-blur-2xl sm:w-[76vw] lg:w-[min(68vw,54rem)]"
     >
-      <ProjectVisual type={project.visual} />
-      <div className="p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase text-[#9bbdff]">{project.category}</p>
-        <h3 className="mt-3 text-2xl font-semibold text-white">{project.title}</h3>
-        <p className="mt-3 text-sm leading-6 text-white/58">{project.description}</p>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-80 transition duration-500 group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(circle at ${index ? '78% 18%' : '20% 14%'}, ${project.accent}33, transparent 34%), linear-gradient(135deg, rgba(255,255,255,0.1), transparent 62%)`,
+        }}
+      />
+      <div className="relative grid gap-5 p-4 sm:p-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:p-6">
+        <div className="min-h-[18rem] overflow-hidden rounded-[1.55rem] border border-white/10 bg-[#080a0f]/50 shadow-2xl shadow-black/30">
+          <ProjectVisual type={project.visual} />
+        </div>
+        <div className="flex min-h-full flex-col justify-between rounded-[1.55rem] border border-white/[0.09] bg-[#080a0f]/42 p-5 backdrop-blur-xl sm:p-6">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9bbdff]">{project.category}</p>
+            <h3 className="mt-4 text-4xl font-semibold leading-none text-white sm:text-5xl">{project.title}</h3>
+            <p className="mt-5 text-base leading-7 text-white/62">{project.description}</p>
+          </div>
+          <div className="mt-7 flex flex-wrap gap-2">
+            {project.stats.map((fact) => (
+              <span
+                key={fact}
+                className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-2 text-xs font-semibold text-white/72"
+              >
+                {fact}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </motion.article>
   )
@@ -982,53 +950,115 @@ function DentalVisual() {
   )
 }
 
-function WhyNaqsh() {
+function Process() {
   return (
-    <MotionSection
-      id="why"
-      eyebrow="Why Naqsh"
-      title="A studio language built from motion, taste, and precision."
-      intro="We use movement to create hierarchy, not noise. Every interaction should feel useful, memorable, and alive."
-    >
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {why.map(([title, description], index) => (
-          <KineticCard key={title} index={index} className="group relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-white/[0.032] p-6 shadow-[0_18px_70px_rgba(0,0,0,0.14)] backdrop-blur-2xl">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(255,43,93,0.11),transparent_32%),radial-gradient(circle_at_90%_80%,rgba(79,140,255,0.1),transparent_34%)] opacity-70 transition group-hover:opacity-100" />
-            <BadgeCheck className="relative h-6 w-6 text-[#ff6b8b]" />
-            <h3 className="relative mt-6 text-xl font-semibold">{title}</h3>
-            <p className="relative mt-3 leading-7 text-white/62">{description}</p>
-          </KineticCard>
-        ))}
+    <section id="process" className="relative overflow-hidden bg-[#080a0f] px-5 py-20 sm:px-7 lg:px-10 lg:py-28">
+      <motion.div
+        aria-hidden="true"
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ type: 'spring', stiffness: 92, damping: 22 }}
+        className="absolute left-5 right-5 top-0 h-px origin-left bg-[linear-gradient(90deg,transparent,#4f8cff,#ff2b5d,transparent)] sm:left-7 sm:right-7 lg:left-10 lg:right-10"
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(255,43,93,0.1),transparent_28%),radial-gradient(circle_at_82%_22%,rgba(79,140,255,0.14),transparent_32%)]" />
+      <div className="relative mx-auto max-w-7xl">
+        <SectionHeading
+          eyebrow="Process"
+          title="An idea becomes a living interface."
+          intro="The path is compact and deliberate: discover the signal, design the feeling, build the system, then launch with polish."
+        />
+
+        <div className="relative mt-12 overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.04] p-4 shadow-[0_30px_110px_rgba(0,0,0,0.34)] backdrop-blur-2xl sm:p-6 lg:p-8">
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[length:34px_34px]" />
+          <motion.div
+            aria-hidden="true"
+            animate={{ x: ['-35%', '35%', '-35%'] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute left-0 top-1/2 h-px w-full bg-[linear-gradient(90deg,transparent,rgba(79,140,255,0.85),rgba(255,43,93,0.65),transparent)]"
+          />
+          <div className="relative grid gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+            <div className="min-h-[22rem] rounded-[1.8rem] border border-white/[0.09] bg-[#090d15]/70 p-5 shadow-2xl shadow-black/25">
+              <ProcessVisual />
+            </div>
+            <div className="grid gap-3">
+              {process.map(([title, description], index) => (
+                <motion.article
+                  key={title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.32 }}
+                  whileHover={{ x: 6, scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 20, delay: index * 0.04 }}
+                  className="group relative overflow-hidden rounded-[1.4rem] border border-white/[0.09] bg-white/[0.055] p-4 backdrop-blur-xl sm:p-5"
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(79,140,255,0.18),transparent_36%),linear-gradient(90deg,rgba(255,255,255,0.05),transparent)] opacity-60 transition group-hover:opacity-100" />
+                  <div className="relative flex gap-4">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#4f8cff]/18 text-sm font-bold text-[#b9d0ff]">
+                      0{index + 1}
+                    </span>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white">{title}</h3>
+                      <p className="mt-2 leading-7 text-white/58">{description}</p>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </MotionSection>
+    </section>
   )
 }
 
-function Process() {
+function ProcessVisual() {
   return (
-    <MotionSection
-      id="process"
-      tone="deep"
-      eyebrow="Process"
-      title="Four movements from idea to launch."
-      intro="The workflow is direct, but the output is layered: strategy, design, build, and launch moving in rhythm."
-    >
-      <div className="mt-10 grid gap-4 lg:grid-cols-4">
-        {process.map(([title, description], index) => (
-          <KineticCard key={title} index={index} className="relative min-h-72 rounded-[2rem] border border-white/10 bg-[#101621] p-6 shadow-2xl shadow-black/20">
-            <motion.span
-              animate={{ boxShadow: ['0 0 0 rgba(79,140,255,0)', '0 0 34px rgba(79,140,255,0.34)', '0 0 0 rgba(79,140,255,0)'] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#4f8cff] text-sm font-bold text-white"
-            >
-              {index + 1}
-            </motion.span>
-            <h3 className="mt-10 text-2xl font-semibold">{title}</h3>
-            <p className="mt-4 leading-7 text-white/56">{description}</p>
-          </KineticCard>
-        ))}
+    <div className="relative h-full min-h-[19rem] overflow-hidden rounded-[1.35rem]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_20%,rgba(79,140,255,0.28),transparent_34%),radial-gradient(circle_at_72%_18%,rgba(255,43,93,0.2),transparent_30%),linear-gradient(145deg,#101827,#080b11)]" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ rotate: [0, 2, 0], y: [0, -8, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-6 top-6 h-32 w-48 rounded-[1.5rem] border border-white/12 bg-white/[0.07] p-4 shadow-2xl shadow-black/25 backdrop-blur-xl"
+      >
+        <div className="mb-5 flex gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff4f7b]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ffd166]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#4f8cff]" />
+        </div>
+        <div className="space-y-2">
+          <div className="h-2.5 w-4/5 rounded-full bg-white/34" />
+          <div className="h-2.5 w-2/3 rounded-full bg-white/18" />
+          <div className="h-2.5 w-1/2 rounded-full bg-[#4f8cff]/50" />
+        </div>
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        animate={{ y: [0, 10, 0], rotate: [0, -2, 0] }}
+        transition={{ duration: 7.8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-8 right-5 h-48 w-32 rounded-[2rem] border border-white/14 bg-[#eaf1ff] p-3 text-[#0d1420] shadow-[0_24px_80px_rgba(79,140,255,0.2)]"
+      >
+        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-[#0d1420]/24" />
+        <div className="h-20 rounded-[1.3rem] bg-[linear-gradient(135deg,#4f8cff,#ff4f7b)]" />
+        <div className="mt-4 space-y-2">
+          <div className="h-2 rounded-full bg-[#0d1420]/22" />
+          <div className="h-2 w-2/3 rounded-full bg-[#0d1420]/14" />
+        </div>
+        <div className="mt-5 h-9 rounded-full bg-[#0d1420]" />
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        animate={{ scaleX: [0.35, 1, 0.35] }}
+        transition={{ duration: 5.6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-8 left-7 h-2 w-40 origin-left rounded-full bg-[linear-gradient(90deg,#4f8cff,#ff4f7b)]"
+      />
+      <div className="absolute bottom-16 left-7 max-w-[13rem] text-sm font-semibold leading-6 text-white/74">
+        Strategy becomes structure. Structure becomes motion.
       </div>
-    </MotionSection>
+    </div>
   )
 }
 
@@ -1165,7 +1195,7 @@ function MotionSection({ id, eyebrow, title, intro, children, tone = 'base' }) {
   )
 }
 
-function SectionHeading({ eyebrow, title, intro }) {
+function SectionHeading({ eyebrow, title, intro, titleId }) {
   return (
     <motion.div
       variants={fadeUp}
@@ -1176,7 +1206,7 @@ function SectionHeading({ eyebrow, title, intro }) {
       className="max-w-4xl"
     >
       <p className="text-sm font-semibold uppercase text-[#9bbdff]">{eyebrow}</p>
-      <h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-6xl">{title}</h2>
+      <h2 id={titleId} className="mt-4 text-4xl font-semibold leading-tight sm:text-6xl">{title}</h2>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-white/58">{intro}</p>
     </motion.div>
   )
