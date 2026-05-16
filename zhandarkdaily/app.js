@@ -15,20 +15,40 @@ const scenes = {
   sports: 'url(./images/afghan-culture.jpg) center / cover no-repeat',
 }
 
-const logoMap = {
+const brandMap = {
   fa: {
-    src: "./images/logo-fa.png",
-    alt: "روزنامه ژاندارک - زن، زندگی، آزادی",
+    kicker: "روزنامه",
+    title: "ژاندارک",
+    fullTitle: "روزنامه ژاندارک",
+    slogan: "زن | زندگی | آزادی",
+    label: "روزنامه ژاندارک - زن، زندگی، آزادی",
   },
   en: {
-    src: "./images/logo-en.png",
-    alt: "Newspaper Zhandark - Woman, Life, Freedom",
+    kicker: "NEWSPAPER",
+    title: "ZHANDARK",
+    fullTitle: "NEWSPAPER ZHANDARK",
+    slogan: "WOMAN | LIFE | FREEDOM",
+    label: "Newspaper Zhandark - Woman, Life, Freedom",
   },
   fr: {
-    src: "./images/logo-fr.png",
-    alt: "Journal Zhandark - Femme, Vie, Liberté",
+    kicker: "JOURNAL",
+    title: "ZHANDARK",
+    fullTitle: "JOURNAL ZHANDARK",
+    slogan: "FEMME | VIE | LIBERTÉ",
+    label: "Journal Zhandark - Femme, Vie, Liberté",
   },
 }
+
+const profileImages = [
+  "./images/profile-1.jpg",
+  "./images/profile-2.jpg",
+  "./images/profile-3.jpg",
+  "./images/profile-4.jpg",
+  "./images/profile-5.jpg",
+  "./images/profile-6.jpg",
+  "./images/profile-7.jpg",
+  "./images/profile-8.jpg",
+]
 
 const translations = {
   fa: {
@@ -505,9 +525,14 @@ const translations = {
 }
 
 let activeLang = "fa"
+let activeHeroIndex = 0
+let heroTimer = null
+let heroTouchStartX = 0
+let heroTouchStartY = 0
 
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => Array.from(document.querySelectorAll(selector))
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 function initials(name) {
   return name
@@ -526,14 +551,14 @@ function renderText() {
   document.documentElement.lang = t.lang
   document.documentElement.dir = t.dir
 
-  const selectedLogo = logoMap[activeLang]
-  ;["brandLogo", "footerLogo"].forEach((id) => {
-    const logo = document.getElementById(id)
-    if (logo) {
-      logo.src = selectedLogo.src
-      logo.alt = selectedLogo.alt
-    }
-  })
+  const brand = brandMap[activeLang]
+  const brandLockup = $(".brand-lockup")
+  if (brandLockup) brandLockup.setAttribute("aria-label", brand.label)
+  $("#brandKicker").textContent = brand.kicker
+  $("#brandTitle").textContent = brand.title
+  $("#brandSlogan").textContent = brand.slogan
+  $("#footerBrandTitle").textContent = brand.fullTitle
+  $("#footerBrandSlogan").textContent = brand.slogan
 
   $$("[data-i18n]").forEach((node) => {
     const key = node.dataset.i18n
@@ -555,10 +580,20 @@ function renderNav() {
     .join("")
 }
 
-function articleCard(story) {
-  const heading = story.lead ? "h2" : "h3"
+function articleCard(story, options = {}) {
+  const isLead = Boolean(options.lead)
+  const heading = isLead ? "h2" : "h3"
+  const cardClasses = ["news-card", isLead ? "lead" : "", options.clickable ? "story-select" : "", "searchable"]
+    .filter(Boolean)
+    .join(" ")
+  const attrs = [
+    options.index !== undefined ? `data-hero-index="${options.index}"` : "",
+    options.clickable ? 'role="button" tabindex="0"' : "",
+  ]
+    .filter(Boolean)
+    .join(" ")
   return `
-    <article class="news-card ${story.lead ? "lead" : ""} searchable" data-search="${story.title} ${story.category} ${story.author}">
+    <article class="${cardClasses}" ${attrs} data-search="${story.title} ${story.category} ${story.author}">
       <div class="image-scene" style="${sceneStyle(story.scene)}" role="img" aria-label="${story.category} visual"></div>
       <div class="card-content">
         <span class="category-badge">${story.category}</span>
@@ -575,12 +610,45 @@ function articleCard(story) {
 
 function renderHero() {
   const stories = translations[activeLang].hero
+  if (activeHeroIndex >= stories.length) activeHeroIndex = 0
+  const leadStory = stories[activeHeroIndex]
+  const sideStories = stories.filter((_, index) => index !== activeHeroIndex)
   $("#heroGrid").innerHTML = `
-    ${articleCard(stories[0], 0)}
+    <div class="hero-stage">
+      ${articleCard(leadStory, { lead: true, index: activeHeroIndex })}
+      <div class="hero-controls" aria-label="Featured story controls">
+        <button type="button" class="hero-arrow" data-hero-prev aria-label="Previous featured story">‹</button>
+        <div class="hero-dots">
+          ${stories
+            .map(
+              (_, index) =>
+                `<button type="button" class="hero-dot ${index === activeHeroIndex ? "active" : ""}" data-hero-index="${index}" aria-label="Show story ${index + 1}"></button>`,
+            )
+            .join("")}
+        </div>
+        <button type="button" class="hero-arrow" data-hero-next aria-label="Next featured story">›</button>
+      </div>
+    </div>
     <div class="hero-side">
-      ${stories.slice(1).map(articleCard).join("")}
+      ${sideStories.map((story) => articleCard(story, { clickable: true, index: stories.indexOf(story) })).join("")}
     </div>
   `
+}
+
+function setHeroIndex(index, manual = false) {
+  const stories = translations[activeLang].hero
+  activeHeroIndex = (index + stories.length) % stories.length
+  renderHero()
+  applySearch()
+  if (manual) startHeroRotation()
+}
+
+function startHeroRotation() {
+  window.clearInterval(heroTimer)
+  if (prefersReducedMotion) return
+  heroTimer = window.setInterval(() => {
+    setHeroIndex(activeHeroIndex + 1)
+  }, 6500)
 }
 
 function renderCoverage() {
@@ -604,18 +672,11 @@ function renderCoverage() {
 }
 
 function renderNetwork() {
-  const tones = [
-    ["#c7d2e2", "#7b8798"],
-    ["#efe1ca", "#8d7051"],
-    ["#dce9f5", "#245179"],
-    ["#f0d9d9", "#8f3d45"],
-  ]
   $("#correspondents").innerHTML = translations[activeLang].correspondents
     .map(([name, province, role, link], index) => {
-      const [toneA, toneB] = tones[index]
       return `
         <article class="correspondent-card searchable" data-search="${name} ${province}">
-          <div class="profile-avatar" style="--tone-a:${toneA};--tone-b:${toneB}" aria-hidden="true"></div>
+          <img class="profile-avatar" src="${profileImages[index]}" alt="${name}" loading="lazy" />
           <h3>${name}</h3>
           <p>${province}</p>
           <p class="role">${role}</p>
@@ -696,18 +757,11 @@ function renderStandards() {
 }
 
 function renderTeam() {
-  const tones = [
-    ["#d8e3ef", "#7389a3"],
-    ["#e5d5bd", "#2f3b4d"],
-    ["#d9e6f6", "#365b82"],
-    ["#edf1f6", "#875c5c"],
-  ]
   $("#teamGrid").innerHTML = translations[activeLang].team
     .map(([name, role, bio], index) => {
-      const [toneA, toneB] = tones[index]
       return `
         <article class="team-card searchable" data-search="${name} ${role}">
-          <div class="profile-avatar" style="--tone-a:${toneA};--tone-b:${toneB}" aria-hidden="true"></div>
+          <img class="profile-avatar" src="${profileImages[index + 4]}" alt="${name}" loading="lazy" />
           <h3>${name}</h3>
           <p>${role}</p>
           <p class="team-bio">${bio}</p>
@@ -743,6 +797,7 @@ function renderAll() {
   renderTeam()
   renderFooter()
   applySearch()
+  startHeroRotation()
 }
 
 function updateDateTime() {
@@ -794,6 +849,58 @@ $("#mainNav").addEventListener("click", (event) => {
     $(".menu-toggle").setAttribute("aria-expanded", "false")
   }
 })
+
+$("#heroGrid").addEventListener("click", (event) => {
+  const prev = event.target.closest("[data-hero-prev]")
+  const next = event.target.closest("[data-hero-next]")
+  const selector = event.target.closest("[data-hero-index]")
+
+  if (prev) {
+    setHeroIndex(activeHeroIndex - 1, true)
+    return
+  }
+
+  if (next) {
+    setHeroIndex(activeHeroIndex + 1, true)
+    return
+  }
+
+  if (selector && !selector.classList.contains("lead")) {
+    setHeroIndex(Number(selector.dataset.heroIndex), true)
+  }
+})
+
+$("#heroGrid").addEventListener("keydown", (event) => {
+  if (!["Enter", " "].includes(event.key)) return
+  const selector = event.target.closest(".story-select[data-hero-index], .hero-dot[data-hero-index], [data-hero-prev], [data-hero-next]")
+  if (!selector) return
+  event.preventDefault()
+  selector.click()
+})
+
+$("#heroGrid").addEventListener(
+  "touchstart",
+  (event) => {
+    const touch = event.changedTouches[0]
+    heroTouchStartX = touch.clientX
+    heroTouchStartY = touch.clientY
+  },
+  { passive: true },
+)
+
+$("#heroGrid").addEventListener(
+  "touchend",
+  (event) => {
+    const touch = event.changedTouches[0]
+    const deltaX = touch.clientX - heroTouchStartX
+    const deltaY = touch.clientY - heroTouchStartY
+
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaY) > 60) return
+    const direction = document.documentElement.dir === "rtl" ? -1 : 1
+    setHeroIndex(activeHeroIndex + (deltaX < 0 ? direction : -direction), true)
+  },
+  { passive: true },
+)
 
 renderAll()
 updateDateTime()
