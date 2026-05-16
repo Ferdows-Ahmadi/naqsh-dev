@@ -1,30 +1,33 @@
 const scenes = {
-  classroom:
-    "linear-gradient(135deg, #d8e5ef 0%, #eef2f7 24%, #27394f 25%, #31465f 46%, #f3f5f9 47%, #d5dde8 100%)",
-  council:
-    "radial-gradient(circle at 50% 42%, #c5a76b 0 12%, transparent 13%), linear-gradient(135deg, #17263d, #324966 48%, #0f1d31)",
-  women:
-    "linear-gradient(135deg, #3d5f49, #1e2c43 58%, #dcc7a1), radial-gradient(circle at 30% 30%, #f2f5fa, transparent 16%)",
-  city:
-    "linear-gradient(135deg, #6e8795, #27384a 40%, #121b2a 100%)",
-  flags:
-    "linear-gradient(105deg, #c62828 0 17%, #fff 18% 28%, #174578 29% 48%, #d8aa45 49% 52%, #fff 53% 60%, #c62828 61% 100%)",
-  rights:
-    "radial-gradient(circle at 50% 48%, rgba(183,138,47,.95) 0 10%, transparent 11%), linear-gradient(135deg, #26374f, #eef2f7)",
-  economy:
-    "linear-gradient(135deg, #e1b75d, #f6efe2 44%, #163153)",
-  world:
-    "radial-gradient(circle at 55% 50%, #9dd8f4 0 22%, transparent 23%), linear-gradient(135deg, #06162c, #0f355e)",
-  investigation:
-    "radial-gradient(circle at 52% 44%, rgba(255,255,255,.32) 0 8%, transparent 9%), linear-gradient(135deg, #0e243c, #c9b78d)",
-  culture:
-    "linear-gradient(135deg, #111827, #b78a2f 55%, #f5efe4)",
-  mountain:
-    "linear-gradient(135deg, #d0d8df, #6d7f8f 42%, #3a2f25 43%, #8d7051)",
-  archive:
-    "linear-gradient(135deg, #eef2f7, #c5a76b 45%, #16243b)",
-  sports:
-    "linear-gradient(135deg, #102a49, #2f6b3b 55%, #d8af5a)",
+  classroom: 'url(./images/girls-classroom-2.jpg) center / cover no-repeat',
+  schoolgirl: 'url(./images/schoolgirl.jpg) center / cover no-repeat',
+  classroom2: 'url(./images/schoolgirl.jpg) center / cover no-repeat',
+  women: 'url(./images/women-protest.jpg) center / cover no-repeat',
+  rights: 'url(./images/woman-rights.jpg) center / cover no-repeat',
+  protest: 'url(./images/free-afghan-women.jpg) center / cover no-repeat',
+  economy: 'url(./images/road-workers.jpg) center / cover no-repeat',
+  development: 'url(./images/road-workers.jpg) center / cover no-repeat',
+  investigation: 'url(./images/road-workers.jpg) center / cover no-repeat',
+  culture: 'url(./images/afghan-culture.jpg) center / cover no-repeat',
+  world: 'url(./images/free-afghan-women.jpg) center / cover no-repeat',
+  society: 'url(./images/girls-classroom-2.jpg) center / cover no-repeat',
+  archive: 'url(./images/woman-rights.jpg) center / cover no-repeat',
+  sports: 'url(./images/afghan-culture.jpg) center / cover no-repeat',
+}
+
+const logoMap = {
+  fa: {
+    src: "./images/logo-fa.png",
+    alt: "روزنامه ژاندارک - زن، زندگی، آزادی",
+  },
+  en: {
+    src: "./images/logo-en.png",
+    alt: "Newspaper Zhandark - Woman, Life, Freedom",
+  },
+  fr: {
+    src: "./images/logo-fr.png",
+    alt: "Journal Zhandark - Femme, Vie, Liberté",
+  },
 }
 
 const translations = {
@@ -36,7 +39,6 @@ const translations = {
     slogan: "زن ، زندگی ، آزادی",
     newspaper: "روزنامه",
     brandName: "ژاندارک",
-    brandSubline: "خبر | تحلیل | واقعیت",
     searchLabel: "جستجوی خبر",
     searchPlaceholder: "جستجوی خبر، موضوع یا شخصیت...",
     menu: "منو",
@@ -75,7 +77,7 @@ const translations = {
     standardsTitle: "استاندارد تحریریه ما",
     teamEyebrow: "تیم تحریریه",
     teamTitle: "تیم کوچک، مسئولیت بزرگ",
-    footerTagline: "رسانه‌ای برای خبر، تحلیل و واقعیت",
+    footerTagline: "رسانه‌ای مستقل برای روایت‌های معتبر و مسئولانه",
     legalSafe: "اطلاعات حقوقی و مشخصات نشر پس از ثبت نهایی رسانه تکمیل می‌شود.",
     publisher: "مدیر مسئول / Directeur de la publication: در مرحله ثبت",
     quickLinks: "دسترسی سریع",
@@ -98,7 +100,7 @@ const translations = {
         category: "جهان",
         author: "کاظم یوسفی",
         time: "۳ ساعت پیش",
-        scene: "council",
+        scene: "world",
       },
       {
         title: "تجمع اعتراضی زنان در کابل؛ «صدای ما خاموش نمی‌ماند»",
@@ -112,34 +114,34 @@ const translations = {
         category: "اقتصاد",
         author: "عبدالواجد بینا",
         time: "۷ ساعت پیش",
-        scene: "city",
+        scene: "economy",
       },
       {
         title: "چین و امریکا گفت‌وگوهای تعرفه‌ای را به مدت ۹۰ روز تمدید کردند",
         category: "جهان",
         author: "فرهاد فقری",
         time: "امروز",
-        scene: "flags",
+        scene: "world",
       },
     ],
     coverage: [
       ["حقوق بشر", "گزارش‌ها و تحلیل‌های اختصاصی از وضعیت حقوق بشر در افغانستان و جهان.", "⚖", "rights"],
       ["زنان", "صدای زنان، روایت‌های واقعی و مبارزات برای برابری و آزادی.", "◐", "women"],
       ["گزارش‌های تحقیقی", "تحقیقات عمیق و مستند درباره فساد، قدرت و حقیقت.", "⌕", "investigation"],
-      ["اقتصاد و توسعه", "تحلیل اقتصاد، تجارت، اشتغال و چشم‌انداز توسعه منطقه.", "▥", "economy"],
+      ["اقتصاد و توسعه", "تحلیل اقتصاد، تجارت، اشتغال و چشم‌انداز توسعه منطقه.", "▥", "development"],
       ["جهان", "تحولات مهم منطقه‌ای و بین‌المللی با نگاهی دقیق و بی‌طرف.", "◎", "world"],
     ],
     correspondents: [
-      ["بلال احمدی", "هرات", "گزارش‌های بیشتر"],
-      ["نرگس صافی", "مزار شریف", "گزارش‌های بیشتر"],
-      ["عبدالله راغند", "کندهار", "گزارش‌های بیشتر"],
-      ["فرشته نوری", "غزنی", "گزارش‌های بیشتر"],
+      ["بلال احمدی", "هرات", "گزارشگر ولایتی", "گزارش‌های بیشتر"],
+      ["نرگس صافی", "مزار شریف", "خبرنگار جامعه و فرهنگ", "گزارش‌های بیشتر"],
+      ["عبدالله راغند", "کندهار", "گزارشگر میدانی", "گزارش‌های بیشتر"],
+      ["فرشته نوری", "غزنی", "خبرنگار حقوق بشر", "گزارش‌های بیشتر"],
     ],
     latest: [
-      ["تازه‌ترین آمار خشکسالی؛ نگرانی از کاهش ذخایر آب در غرب افغانستان", "۳۵ دقیقه پیش", "mountain"],
-      ["یونیسف: نیازمندی کودکان در افغانستان نگران‌کننده است", "یک ساعت پیش", "classroom"],
-      ["قیمت دالر در بازارهای افغانستان دوباره افزایش یافت", "۲ ساعت پیش", "economy"],
-      ["فدراسیون فوتبال افغانستان تعلیق شد", "۳ ساعت پیش", "sports"],
+      ["تازه‌ترین آمار خشکسالی؛ نگرانی از کاهش ذخایر آب در غرب افغانستان", "۳۵ دقیقه پیش", "جامعه", "development"],
+      ["یونیسف: نیازمندی کودکان در افغانستان نگران‌کننده است", "یک ساعت پیش", "حقوق بشر", "classroom"],
+      ["قیمت دالر در بازارهای افغانستان دوباره افزایش یافت", "۲ ساعت پیش", "اقتصاد", "economy"],
+      ["فدراسیون فوتبال افغانستان تعلیق شد", "۳ ساعت پیش", "ورزش", "sports"],
     ],
     mostRead: [
       ["طالبان دستور منع کار زنان در رسانه‌ها را صادر کردند", "۹۸٬۴۵۰ بازدید", "women"],
@@ -151,7 +153,7 @@ const translations = {
       title: "معادن خونین؛ پشت پرده تجارت میلیون‌ها دالر در افغانستان",
       copy: "شبکه‌های فساد در گمرکات و قراردادها چگونه میلیاردها افغانی را به چرخه غیرشفاف وارد می‌کنند؟",
       bullets: [
-        ["رد پول در قراردادهای استخراج محلی", "mountain"],
+        ["رد پول در قراردادهای استخراج محلی", "investigation"],
         ["اسناد تازه از روندهای غیرشفاف", "archive"],
       ],
     },
@@ -171,10 +173,10 @@ const translations = {
       ["مسئولیت‌پذیری", "پذیرش مسئولیت و اصلاح در صورت خطا", "◇"],
     ],
     team: [
-      ["سارا ایوبی", "سردبیر"],
-      ["کاظم یوسفی", "معاون سردبیر"],
-      ["مریم شریفی", "مدیر بخش زنان و جامعه"],
-      ["فرهاد فقری", "دبیر بخش بین‌الملل"],
+      ["سارا ایوبی", "سردبیر", "مسئول هماهنگی نشر، صحت‌سنجی و اولویت‌های خبری روزانه."],
+      ["کاظم یوسفی", "معاون سردبیر", "تمرکز بر تحلیل سیاسی، گزارش‌های تحقیقی و استانداردهای تحریریه."],
+      ["مریم شریفی", "مدیر بخش زنان و جامعه", "پیگیری روایت‌های زنان، جامعه مدنی و حقوق بشر."],
+      ["فرهاد فقری", "دبیر بخش بین‌الملل", "پوشش تحولات منطقه‌ای، روابط خارجی و سیاست جهان."],
     ],
     footerQuick: ["خبرها", "گزارش‌های تحقیقی", "زنان", "حقوق بشر"],
     footerLegal: [
@@ -194,7 +196,6 @@ const translations = {
     slogan: "Woman, Life, Freedom",
     newspaper: "Daily newspaper",
     brandName: "Zhandark",
-    brandSubline: "News | Analysis | Reality",
     searchLabel: "Search news",
     searchPlaceholder: "Search news, topics, or people...",
     menu: "Menu",
@@ -233,7 +234,7 @@ const translations = {
     standardsTitle: "Our Editorial Standards",
     teamEyebrow: "Editorial team",
     teamTitle: "A small team with serious responsibility",
-    footerTagline: "A media platform for news, analysis, and reality",
+    footerTagline: "Independent media for verified, responsible reporting",
     legalSafe: "Legal and publication details will be completed after final registration.",
     publisher: "Director of publication: registration pending",
     quickLinks: "Quick links",
@@ -256,7 +257,7 @@ const translations = {
         category: "World",
         author: "Kazem Yousufi",
         time: "3 hours ago",
-        scene: "council",
+        scene: "world",
       },
       {
         title: "Women gather in Kabul: ‘Our voices will not be silenced’",
@@ -270,34 +271,34 @@ const translations = {
         category: "Economy",
         author: "Abdul Wajid Bina",
         time: "7 hours ago",
-        scene: "city",
+        scene: "economy",
       },
       {
         title: "China and the United States extend tariff talks for 90 days",
         category: "World",
         author: "Farhad Faqiri",
         time: "Today",
-        scene: "flags",
+        scene: "world",
       },
     ],
     coverage: [
       ["Human Rights", "Dedicated reporting and analysis on rights conditions in Afghanistan and beyond.", "⚖", "rights"],
       ["Women", "Women’s voices, lived stories, and the long struggle for equality and freedom.", "◐", "women"],
       ["Investigations", "Deep documented reporting on corruption, power, and public accountability.", "⌕", "investigation"],
-      ["Economy & Development", "Analysis of jobs, trade, markets, and regional development.", "▥", "economy"],
+      ["Economy & Development", "Analysis of jobs, trade, markets, and regional development.", "▥", "development"],
       ["World", "Major regional and international developments with careful context.", "◎", "world"],
     ],
     correspondents: [
-      ["Bilal Ahmadi", "Herat", "More reports"],
-      ["Nargis Safi", "Mazar-i-Sharif", "More reports"],
-      ["Abdullah Raghand", "Kandahar", "More reports"],
-      ["Freshta Nouri", "Ghazni", "More reports"],
+      ["Bilal Ahmadi", "Herat", "Provincial correspondent", "More reports"],
+      ["Nargis Safi", "Mazar-i-Sharif", "Society and culture reporter", "More reports"],
+      ["Abdullah Raghand", "Kandahar", "Field reporter", "More reports"],
+      ["Freshta Nouri", "Ghazni", "Human rights reporter", "More reports"],
     ],
     latest: [
-      ["New drought data raises concern over water reserves in western Afghanistan", "35 minutes ago", "mountain"],
-      ["UNICEF: Children’s needs in Afghanistan remain deeply concerning", "1 hour ago", "classroom"],
-      ["Dollar prices rise again in Afghan markets", "2 hours ago", "economy"],
-      ["Afghanistan football federation faces suspension", "3 hours ago", "sports"],
+      ["New drought data raises concern over water reserves in western Afghanistan", "35 minutes ago", "Society", "development"],
+      ["UNICEF: Children’s needs in Afghanistan remain deeply concerning", "1 hour ago", "Human Rights", "classroom"],
+      ["Dollar prices rise again in Afghan markets", "2 hours ago", "Economy", "economy"],
+      ["Afghanistan football federation faces suspension", "3 hours ago", "Sports", "sports"],
     ],
     mostRead: [
       ["Taliban order new restrictions on women working in media", "98,450 views", "women"],
@@ -309,7 +310,7 @@ const translations = {
       title: "Blood minerals: inside a multi-million-dollar trade in Afghanistan",
       copy: "How opaque customs channels and contracts move public wealth into networks of unaccountable influence.",
       bullets: [
-        ["Following the money in local extraction contracts", "mountain"],
+        ["Following the money in local extraction contracts", "investigation"],
         ["New documents reveal opaque procurement patterns", "archive"],
       ],
     },
@@ -329,10 +330,10 @@ const translations = {
       ["Accountability", "Mistakes are corrected transparently", "◇"],
     ],
     team: [
-      ["Sara Ayoubi", "Editor-in-Chief"],
-      ["Kazem Yousufi", "Deputy Editor"],
-      ["Maryam Sharifi", "Women & Society Editor"],
-      ["Farhad Faqiri", "International Desk Editor"],
+      ["Sara Ayoubi", "Editor-in-Chief", "Leads daily publishing, verification, and editorial priorities."],
+      ["Kazem Yousufi", "Deputy Editor", "Focuses on political analysis, investigations, and editorial standards."],
+      ["Maryam Sharifi", "Women & Society Editor", "Covers women’s stories, civil society, and human rights."],
+      ["Farhad Faqiri", "International Desk Editor", "Tracks regional developments, foreign affairs, and world politics."],
     ],
     footerQuick: ["News", "Investigations", "Women", "Human Rights"],
     footerLegal: [
@@ -352,7 +353,6 @@ const translations = {
     slogan: "Femme, Vie, Liberté",
     newspaper: "Journal",
     brandName: "Zhandark",
-    brandSubline: "Actualité | Analyse | Réalité",
     searchLabel: "Recherche",
     searchPlaceholder: "Rechercher une actualité, un sujet ou une personne...",
     menu: "Menu",
@@ -391,7 +391,7 @@ const translations = {
     standardsTitle: "Nos standards éditoriaux",
     teamEyebrow: "Rédaction",
     teamTitle: "Une petite équipe, une grande responsabilité",
-    footerTagline: "Un média pour l’actualité, l’analyse et la réalité",
+    footerTagline: "Un média indépendant pour une information vérifiée et responsable",
     legalSafe: "Les informations légales et éditoriales seront complétées après l’enregistrement final.",
     publisher: "Directeur de la publication : en cours d’enregistrement",
     quickLinks: "Accès rapide",
@@ -414,7 +414,7 @@ const translations = {
         category: "Monde",
         author: "Kazem Yousufi",
         time: "Il y a 3 heures",
-        scene: "council",
+        scene: "world",
       },
       {
         title: "Rassemblement de femmes à Kaboul : « Nos voix ne seront pas réduites au silence »",
@@ -428,34 +428,34 @@ const translations = {
         category: "Économie",
         author: "Abdul Wajid Bina",
         time: "Il y a 7 heures",
-        scene: "city",
+        scene: "economy",
       },
       {
         title: "La Chine et les États-Unis prolongent les discussions tarifaires de 90 jours",
         category: "Monde",
         author: "Farhad Faqiri",
         time: "Aujourd’hui",
-        scene: "flags",
+        scene: "world",
       },
     ],
     coverage: [
       ["Droits humains", "Reportages et analyses sur les droits en Afghanistan et dans le monde.", "⚖", "rights"],
       ["Femmes", "Voix de femmes, récits vécus et lutte pour l’égalité et la liberté.", "◐", "women"],
       ["Enquêtes", "Reportages documentés sur la corruption, le pouvoir et la responsabilité publique.", "⌕", "investigation"],
-      ["Économie et développement", "Analyse de l’emploi, du commerce, des marchés et du développement régional.", "▥", "economy"],
+      ["Économie et développement", "Analyse de l’emploi, du commerce, des marchés et du développement régional.", "▥", "development"],
       ["Monde", "Évolutions régionales et internationales avec un contexte solide.", "◎", "world"],
     ],
     correspondents: [
-      ["Bilal Ahmadi", "Hérat", "Plus de reportages"],
-      ["Nargis Safi", "Mazar-e-Charif", "Plus de reportages"],
-      ["Abdullah Raghand", "Kandahar", "Plus de reportages"],
-      ["Freshta Nouri", "Ghazni", "Plus de reportages"],
+      ["Bilal Ahmadi", "Hérat", "Correspondant provincial", "Plus de reportages"],
+      ["Nargis Safi", "Mazar-e-Charif", "Reporter société et culture", "Plus de reportages"],
+      ["Abdullah Raghand", "Kandahar", "Reporter de terrain", "Plus de reportages"],
+      ["Freshta Nouri", "Ghazni", "Reporter droits humains", "Plus de reportages"],
     ],
     latest: [
-      ["Sécheresse : inquiétudes autour des réserves d’eau dans l’ouest afghan", "Il y a 35 min", "mountain"],
-      ["UNICEF : les besoins des enfants en Afghanistan restent alarmants", "Il y a 1 h", "classroom"],
-      ["Le prix du dollar augmente de nouveau sur les marchés afghans", "Il y a 2 h", "economy"],
-      ["La fédération afghane de football fait face à une suspension", "Il y a 3 h", "sports"],
+      ["Sécheresse : inquiétudes autour des réserves d’eau dans l’ouest afghan", "Il y a 35 min", "Société", "development"],
+      ["UNICEF : les besoins des enfants en Afghanistan restent alarmants", "Il y a 1 h", "Droits humains", "classroom"],
+      ["Le prix du dollar augmente de nouveau sur les marchés afghans", "Il y a 2 h", "Économie", "economy"],
+      ["La fédération afghane de football fait face à une suspension", "Il y a 3 h", "Sport", "sports"],
     ],
     mostRead: [
       ["Les Taliban imposent de nouvelles restrictions aux femmes dans les médias", "98 450 vues", "women"],
@@ -467,7 +467,7 @@ const translations = {
       title: "Minerais de sang : les coulisses d’un commerce de plusieurs millions de dollars",
       copy: "Comment des circuits opaques de douane et de contrats déplacent la richesse publique vers des réseaux d’influence.",
       bullets: [
-        ["Suivre l’argent dans les contrats d’extraction locaux", "mountain"],
+        ["Suivre l’argent dans les contrats d’extraction locaux", "investigation"],
         ["De nouveaux documents révèlent des procédures opaques", "archive"],
       ],
     },
@@ -487,10 +487,10 @@ const translations = {
       ["Responsabilité", "Les erreurs sont corrigées de manière transparente", "◇"],
     ],
     team: [
-      ["Sara Ayoubi", "Rédactrice en chef"],
-      ["Kazem Yousufi", "Rédacteur adjoint"],
-      ["Maryam Sharifi", "Responsable femmes et société"],
-      ["Farhad Faqiri", "Responsable international"],
+      ["Sara Ayoubi", "Rédactrice en chef", "Coordonne la publication, la vérification et les priorités éditoriales."],
+      ["Kazem Yousufi", "Rédacteur adjoint", "Suit l’analyse politique, les enquêtes et les standards de rédaction."],
+      ["Maryam Sharifi", "Responsable femmes et société", "Couvre les récits de femmes, la société civile et les droits humains."],
+      ["Farhad Faqiri", "Responsable international", "Suit les dynamiques régionales, diplomatiques et mondiales."],
     ],
     footerQuick: ["Actualités", "Enquêtes", "Femmes", "Droits humains"],
     footerLegal: [
@@ -525,6 +525,15 @@ function renderText() {
   const t = translations[activeLang]
   document.documentElement.lang = t.lang
   document.documentElement.dir = t.dir
+
+  const selectedLogo = logoMap[activeLang]
+  ;["brandLogo", "footerLogo"].forEach((id) => {
+    const logo = document.getElementById(id)
+    if (logo) {
+      logo.src = selectedLogo.src
+      logo.alt = selectedLogo.alt
+    }
+  })
 
   $$("[data-i18n]").forEach((node) => {
     const key = node.dataset.i18n
@@ -602,13 +611,14 @@ function renderNetwork() {
     ["#f0d9d9", "#8f3d45"],
   ]
   $("#correspondents").innerHTML = translations[activeLang].correspondents
-    .map(([name, province, link], index) => {
+    .map(([name, province, role, link], index) => {
       const [toneA, toneB] = tones[index]
       return `
         <article class="correspondent-card searchable" data-search="${name} ${province}">
           <div class="profile-avatar" style="--tone-a:${toneA};--tone-b:${toneB}" aria-hidden="true"></div>
           <h3>${name}</h3>
           <p>${province}</p>
+          <p class="role">${role}</p>
           <p>${link}</p>
         </article>
       `
@@ -620,10 +630,11 @@ function renderLists() {
   const t = translations[activeLang]
   $("#latestList").innerHTML = t.latest
     .map(
-      ([title, time, scene]) => `
+      ([title, time, category, scene]) => `
       <article class="compact-news searchable" data-search="${title}">
         <div class="thumb" style="${sceneStyle(scene)}" role="img" aria-label=""></div>
         <div>
+          <span class="compact-category">${category}</span>
           <h3>${title}</h3>
           <span>${time}</span>
         </div>
@@ -692,13 +703,14 @@ function renderTeam() {
     ["#edf1f6", "#875c5c"],
   ]
   $("#teamGrid").innerHTML = translations[activeLang].team
-    .map(([name, role], index) => {
+    .map(([name, role, bio], index) => {
       const [toneA, toneB] = tones[index]
       return `
         <article class="team-card searchable" data-search="${name} ${role}">
           <div class="profile-avatar" style="--tone-a:${toneA};--tone-b:${toneB}" aria-hidden="true"></div>
           <h3>${name}</h3>
           <p>${role}</p>
+          <p class="team-bio">${bio}</p>
         </article>
       `
     })

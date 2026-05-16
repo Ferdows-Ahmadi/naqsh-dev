@@ -1,0 +1,11 @@
+Logo files:
+- logo-fa.png, logo-en.png, logo-fr.png: client-provided Zhandark logo assets.
+
+Editorial demo images:
+- girls-classroom-2.jpg: Wikimedia Commons, "Young Afghan girls inside the classroom of Aliabad School-2012.jpg".
+- schoolgirl.jpg: Wikimedia Commons, "A shy Afghan school girl waits behind a door (5063731379).jpg".
+- women-protest.jpg: Wikimedia Commons, "Hazara women protest terrorist attack on students after Kabul bombing.jpg".
+- woman-rights.jpg: Wikimedia Commons, "Afghan Woman at Polling Station MOD 45156207.jpg".
+- free-afghan-women.jpg: Wikimedia Commons, "Free Afghan Women demo Highbury & Islington.jpg".
+- road-workers.jpg: Wikimedia Commons, "Afghan workers wait for the start of construction on Mostoufiat road in Herat.jpg".
+- afghan-culture.jpg: Wikimedia Commons, "Afghan Classical Folk Music Group.jpg".
