@@ -1,5 +1,9 @@
 Logo files:
 - logo-fa.png, logo-en.png, logo-fr.png: client-provided Zhandark logo assets.
+- zhandark-emblem.png: client-provided transparent Zhandark emblem, used with live HTML/CSS typography.
+
+Profile demo images:
+- profile-1.jpg through profile-8.jpg: demo editorial portrait placeholders from randomuser.me, stored locally so the demo does not depend on remote profile image loading.
 
 Editorial demo images:
 - girls-classroom-2.jpg: Wikimedia Commons, "Young Afghan girls inside the classroom of Aliabad School-2012.jpg".
