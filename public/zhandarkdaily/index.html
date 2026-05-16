@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zhandark Daily | روزنامه ژاندارک</title>
+    <meta
+      name="description"
+      content="Demo homepage for Zhandark Daily, a multilingual digital news platform covering Afghanistan, human rights, women, investigations, and world affairs."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Zhandark Daily | روزنامه ژاندارک" />
+    <meta
+      property="og:description"
+      content="A polished multilingual digital news platform demo for Afghanistan and global audiences."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://naqsh.dev/zhandarkdaily/" />
+    <meta name="theme-color" content="#06162c" />
+    <link rel="canonical" href="https://naqsh.dev/zhandarkdaily/" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <section class="utility-bar" aria-label="Utility information">
+        <div class="container utility-grid">
+          <div class="utility-meta">
+            <span class="meta-item" id="dateTime">10:45</span>
+            <span class="meta-item" data-i18n="edition">Digital edition</span>
+          </div>
+          <div class="social-row" aria-label="Social channels">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="X">X</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="YouTube">▶</a>
+            <a href="#" aria-label="Telegram">✈</a>
+            <a href="#" aria-label="WhatsApp">◌</a>
+          </div>
+          <div class="language-switcher" aria-label="Language selector">
+            <button class="lang-button active" type="button" data-lang="fa">فارسی</button>
+            <button class="lang-button" type="button" data-lang="en">English</button>
+            <button class="lang-button" type="button" data-lang="fr">Français</button>
+            <button class="lang-button disabled" type="button" aria-disabled="true">پښتو</button>
+            <button class="lang-button disabled" type="button" aria-disabled="true">ازبیکی</button>
+          </div>
+          <a class="contact-shortcut" href="#contact" data-i18n="contact">تماس با ما</a>
+        </div>
+      </section>
+
+      <section class="breaking-strip" aria-label="Breaking news">
+        <div class="container breaking-inner">
+          <strong id="breakingLabel">خبر فوری</strong>
+          <div class="ticker" aria-live="polite">
+            <span id="tickerText">
+              گزارش تازه از افزایش بازداشت‌های خودسرانه خبرنگاران و فعالان مدنی در افغانستان منتشر شد.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="brand-band">
+        <div class="container brand-layout">
+          <p class="slogan" data-i18n="slogan">زن ، زندگی ، آزادی</p>
+          <a class="brand-lockup" href="#main" aria-label="Zhandark homepage">
+            <span class="brand-mark" aria-hidden="true">
+              <span class="flag">⚜</span>
+              <span class="rider"></span>
+            </span>
+            <span class="brand-text">
+              <span class="brand-kicker" data-i18n="newspaper">روزنامه</span>
+              <span class="brand-name" data-i18n="brandName">ژاندارک</span>
+              <span class="brand-subline" data-i18n="brandSubline">خبر | تحلیل | واقعیت</span>
+            </span>
+          </a>
+          <form class="search-form" role="search">
+            <label class="sr-only" for="siteSearch" data-i18n="searchLabel">Search news</label>
+            <input id="siteSearch" type="search" autocomplete="off" data-i18n-placeholder="searchPlaceholder" />
+            <button type="submit" aria-label="Search">⌕</button>
+          </form>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainNav" data-i18n="menu">
+            منو
+          </button>
+        </div>
+      </section>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <div class="container nav-scroll" id="navList"></div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero-section section-pad">
+        <div class="container">
+          <div class="hero-grid" id="heroGrid" aria-label="Top stories"></div>
+        </div>
+      </section>
+
+      <section class="coverage-section section-pad" aria-labelledby="coverageTitle">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow" data-i18n="coverageEyebrow">پوشش‌های ویژه</span>
+            <h2 id="coverageTitle" data-i18n="coverageTitle">پرونده‌های کلیدی ژاندارک</h2>
+          </div>
+          <div class="coverage-grid" id="coverageGrid"></div>
+        </div>
+      </section>
+
+      <section class="network-section section-pad" aria-labelledby="networkTitle">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow" data-i18n="networkEyebrow">شبکه گزارشگران</span>
+            <h2 id="networkTitle" data-i18n="networkTitle">شبکه گزارشگران ما در سراسر افغانستان</h2>
+          </div>
+          <div class="network-layout">
+            <article class="map-panel" aria-label="Afghanistan correspondent network">
+              <div class="af-map" aria-hidden="true">
+                <span class="pin p1"></span>
+                <span class="pin p2"></span>
+                <span class="pin p3"></span>
+                <span class="pin p4"></span>
+                <span class="pin p5"></span>
+              </div>
+              <div class="map-caption">
+                <strong data-i18n="activeNetwork">شبکه فعال</strong>
+                <span data-i18n="networkCaption">پوشش محلی با تمرکز بر دقت و امنیت خبرنگاران.</span>
+              </div>
+            </article>
+            <div class="correspondent-grid" id="correspondents"></div>
+            <article class="join-card">
+              <div class="join-icon" aria-hidden="true">✦</div>
+              <h3 data-i18n="joinTitle">به شبکه ما بپیوندید</h3>
+              <p data-i18n="joinCopy">گزارشگر محلی هستید؟ با ما تماس بگیرید.</p>
+              <a href="#contact" class="gold-button" data-i18n="joinButton">تماس با ما</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-lists section-pad" aria-labelledby="latestTitle">
+        <div class="container">
+          <div class="news-columns">
+            <section class="list-card" aria-labelledby="latestTitle">
+              <h2 id="latestTitle" data-i18n="latestTitle">آخرین خبرها</h2>
+              <div id="latestList"></div>
+            </section>
+            <section class="list-card" aria-labelledby="mostReadTitle">
+              <h2 id="mostReadTitle" data-i18n="mostReadTitle">پرخوانده‌ترین‌ها</h2>
+              <div id="mostReadList"></div>
+            </section>
+            <section class="investigative-card" aria-labelledby="investigativeTitle">
+              <span class="eyebrow" data-i18n="investigativeEyebrow">گزارش تحقیقی</span>
+              <h2 id="investigativeTitle"></h2>
+              <p id="investigativeCopy"></p>
+              <div class="mini-stack" id="investigativeBullets"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="rights-section section-pad" aria-labelledby="rightsTitle">
+        <div class="container rights-layout">
+          <article class="rights-feature">
+            <div class="portrait-card" aria-hidden="true"></div>
+            <div>
+              <span class="eyebrow" data-i18n="rightsEyebrow">زنان و حقوق بشر</span>
+              <h2 id="rightsTitle"></h2>
+              <p id="rightsCopy"></p>
+            </div>
+          </article>
+          <div class="rights-list" id="rightsList"></div>
+        </div>
+      </section>
+
+      <section class="standards-section section-pad" aria-labelledby="standardsTitle">
+        <div class="container">
+          <div class="section-heading center">
+            <span class="eyebrow" data-i18n="standardsEyebrow">اعتماد رسانه‌ای</span>
+            <h2 id="standardsTitle" data-i18n="standardsTitle">استاندارد تحریریه ما</h2>
+          </div>
+          <div class="standards-grid" id="standardsGrid"></div>
+        </div>
+      </section>
+
+      <section class="team-section section-pad" aria-labelledby="teamTitle">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow" data-i18n="teamEyebrow">تیم تحریریه</span>
+            <h2 id="teamTitle" data-i18n="teamTitle">تیم کوچک، مسئولیت بزرگ</h2>
+          </div>
+          <div class="team-grid" id="teamGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container footer-layout">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="brand-mark compact" aria-hidden="true"><span class="flag">⚜</span></span>
+            <div>
+              <strong data-i18n="brandName">ژاندارک</strong>
+              <span data-i18n="footerTagline">رسانه‌ای برای خبر، تحلیل و واقعیت</span>
+            </div>
+          </div>
+          <p data-i18n="legalSafe">
+            اطلاعات حقوقی و مشخصات نشر پس از ثبت نهایی رسانه تکمیل می‌شود.
+          </p>
+          <p class="legal-note" data-i18n="publisher">مدیر مسئول / Directeur de la publication: در مرحله ثبت</p>
+        </div>
+        <div class="footer-columns">
+          <div>
+            <h3 data-i18n="quickLinks">دسترسی سریع</h3>
+            <ul id="footerQuick"></ul>
+          </div>
+          <div>
+            <h3 data-i18n="legalTitle">اطلاعات</h3>
+            <ul id="footerLegal"></ul>
+          </div>
+          <div>
+            <h3 data-i18n="contact">تماس با ما</h3>
+            <p>info@zhandark.example</p>
+            <p>+93 700 123 456</p>
+            <p data-i18n="provider">میزبانی و ارائه‌دهنده خدمات: در مرحله انتخاب</p>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <span>© 2026 Zhandark News.</span>
+        <span data-i18n="demoNotice">این صفحه یک نمونه نمایشی برای بررسی طراحی و ساختار رسانه است.</span>
+      </div>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
