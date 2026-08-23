@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmad Ferdows Ahmadi | Software Engineer & AI Researcher</title>
+  <meta name="description" content="Ahmad Ferdows Ahmadi is a software engineering student, AI researcher, and co-founder of Naqsh Digital Studio in Kabul, Afghanistan." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://naqsh.dev/Ferdows-Ahmadi/" />
+  <meta property="og:title" content="Ahmad Ferdows Ahmadi | Software Engineer & AI Researcher" />
+  <meta property="og:description" content="Computer Science, software engineering, AI research, and digital product development." />
+  <meta property="og:url" content="https://naqsh.dev/Ferdows-Ahmadi/" />
+  <meta property="og:type" content="profile" />
+  <style>
+    :root {
+      --bg: #f7f1e7;
+      --paper: rgba(255,255,255,.64);
+      --text: #1c1b18;
+      --muted: #6c675e;
+      --line: rgba(28,27,24,.12);
+      --accent: #1f5a49;
+      --accent-soft: #dbe9e3;
+      --shadow: 0 24px 70px rgba(48,42,32,.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,255,255,.95), transparent 32%),
+        radial-gradient(circle at 90% 18%, rgba(219,233,227,.72), transparent 25%),
+        var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .page { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 26px 0; gap: 18px;
+    }
+    .brand { font-weight: 800; letter-spacing: -.03em; text-decoration: none; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 42px;
+      align-items: center;
+      padding: 56px 0 84px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px;
+      font-size: 13px; color: var(--muted); background: rgba(255,255,255,.4);
+    }
+    .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+    h1 {
+      font-size: clamp(48px, 7.2vw, 92px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      margin: 24px 0 24px;
+      max-width: 850px;
+    }
+    .lead {
+      max-width: 720px; font-size: clamp(18px, 2.1vw, 23px);
+      color: var(--muted); margin: 0 0 32px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 17px; border-radius: 12px; text-decoration: none;
+      border: 1px solid var(--line); font-weight: 700; font-size: 14px;
+      background: rgba(255,255,255,.6);
+    }
+    .btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      padding: 30px;
+      backdrop-filter: blur(14px);
+    }
+    .portrait {
+      width: 92px; height: 92px; border-radius: 24px; object-fit: cover;
+      margin-bottom: 22px; border: 1px solid var(--line);
+    }
+    .card h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: -.03em; }
+    .role { color: var(--accent); font-weight: 750; margin-bottom: 18px; }
+    .facts { display: grid; gap: 13px; margin-top: 24px; }
+    .fact { padding-top: 13px; border-top: 1px solid var(--line); }
+    .fact small { display: block; color: var(--muted); margin-bottom: 2px; }
+    section { padding: 72px 0; border-top: 1px solid var(--line); }
+    .section-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 64px; }
+    .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: .15em; color: var(--muted); font-weight: 800; }
+    .section-copy { font-size: clamp(23px, 3vw, 36px); line-height: 1.25; letter-spacing: -.035em; margin: 0; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+    .work {
+      border: 1px solid var(--line); border-radius: 20px; padding: 23px;
+      background: rgba(255,255,255,.37);
+    }
+    .work h3 { margin: 0 0 9px; font-size: 18px; }
+    .work p { margin: 0; color: var(--muted); font-size: 14px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .tag { padding: 7px 10px; border-radius: 999px; background: var(--accent-soft); color: #254d40; font-size: 13px; font-weight: 650; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 34px 0 46px; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--text); text-decoration: none; }
+    @media (max-width: 760px) {
+      .nav-links a:not(:last-child) { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 34px 0 64px; }
+      .hero .card { max-width: 520px; }
+      .section-grid { grid-template-columns: 1fr; gap: 24px; }
+      .work-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav>
+      <a class="brand" href="https://naqsh.dev/">Naqsh<span>.</span></a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#research">Research</a>
+        <a href="https://github.com/Ferdows-Ahmadi" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" style="border-top:0">
+        <div>
+          <div class="eyebrow"><span class="dot"></span>Kabul, Afghanistan</div>
+          <h1>Ahmad Ferdows Ahmadi</h1>
+          <p class="lead">Software engineering student, AI researcher, and digital product builder working at the intersection of machine learning, practical software, and technology for real-world problems.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/Ferdows-Ahmadi" target="_blank" rel="noreferrer">View GitHub</a>
+            <a class="btn" href="https://naqsh.dev/">Naqsh Digital Studio</a>
+          </div>
+        </div>
+
+        <aside class="card">
+          <img class="portrait" src="https://avatars.githubusercontent.com/u/98280237?v=4" alt="Ahmad Ferdows Ahmadi" />
+          <h2>Software Engineer & AI Researcher</h2>
+          <div class="role">Co-founder, Naqsh Digital Studio</div>
+          <p>I build software products, experiment with applied AI, and turn technical ideas into systems people can actually use.</p>
+          <div class="facts">
+            <div class="fact"><small>Education</small>BSc Computer Science, Software Engineering · Kateb University</div>
+            <div class="fact"><small>Current research</small>Machine learning for tuberculosis detection from chest X-rays</div>
+            <div class="fact"><small>Focus</small>AI · Software Engineering · Cloud · Digital Products</div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="research">
+        <div class="section-grid">
+          <div class="section-title">Research</div>
+          <div>
+            <p class="section-copy">My undergraduate research explores computer-aided tuberculosis detection from chest X-ray images using machine learning techniques.</p>
+            <div class="tags">
+              <span class="tag">Deep Learning</span>
+              <span class="tag">Medical Imaging</span>
+              <span class="tag">Explainable AI</span>
+              <span class="tag">Computer Vision</span>
+              <span class="tag">TensorFlow</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="section-grid">
+          <div class="section-title">What I do</div>
+          <div>
+            <p class="section-copy">I like projects where engineering has to survive contact with the real world.</p>
+            <div class="work-grid">
+              <article class="work">
+                <h3>AI & ML</h3>
+                <p>Deep-learning pipelines, model evaluation, computer vision, explainability, and applied AI experimentation.</p>
+              </article>
+              <article class="work">
+                <h3>Software Products</h3>
+                <p>Web and mobile systems using modern frontend, backend, database, API, and deployment workflows.</p>
+              </article>
+              <article class="work">
+                <h3>Digital Studio</h3>
+                <p>Co-founding Naqsh Digital Studio and building digital products, websites, and technology solutions.</p>
+              </article>
+            </div>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">Django</span><span class="tag">Flutter</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Azure</span><span class="tag">GitHub</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Ahmad Ferdows Ahmadi</span>
+      <span>Part of <a href="https://naqsh.dev/">Naqsh Digital Studio</a></span>
+    </footer>
+  </div>
+</body>
+</html>
